@@ -3,12 +3,10 @@ import { Alert, Text, StyleSheet, View, Image, TextInput, TouchableOpacity } fro
 
 export default class App extends Component {
 
-  clicou = () => {
-
-    Alert.alert("Testando", "testando alert");
-
+  state = {
+    nome : ""
   }
-
+ 
   render() {
     return (
       <View style={styles.container}>
@@ -23,6 +21,7 @@ export default class App extends Component {
           style={styles.barra}
           placeholder="Digite seu e-mail de acesso"
           keyboardType="email-address"
+          onChangeText={ text => this.state.nome = text}
         />
 
         <TextInput
@@ -33,7 +32,7 @@ export default class App extends Component {
 
        <TouchableOpacity
        style={styles.botao}
-       onPress={() => {this.clicou()}}
+       onPress={() => {this.props.navigation.navigate('Home', {'nome': this.state.nome})}}
        >
             <Text style={styles.botaoText}>Login</Text>
 
