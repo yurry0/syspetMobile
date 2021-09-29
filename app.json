@@ -1,4 +1,9 @@
 {
   "name": "syspetApp",
-  "displayName": "syspetApp"
+  "displayName": "syspetApp",
+  "icon" : "src/assets/img/icon.png",
+  "splash": {
+    "image": "src/assets/img/splash.png"
+
+  }
 }
