@@ -34,6 +34,18 @@ const styles = StyleSheet.create({
       backgroundColor: '#C83E4D',
   
     },
+
+
+    botaoCad: {
+      marginTop: 50,
+      width: 222,
+      height: 42, 
+      backgroundColor: '#3C896D',
+  
+    },
+
+
+    
   
     botaoText: {
       color: '#fff',
