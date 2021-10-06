@@ -8,14 +8,14 @@ export default class Home extends Component {
     render() {
 
         const {navigation} = this.props;
-        const nomeUsuario = navigation.getParam('nome');
+        const nomeUsuario = navigation.getParam('login');
 
 
         return (
 
             <View style={styles.container}>
 
-                    <Text style={styles.texto}> Olá, {nomeUsuario}  !!!</Text>
+                    <Text style={styles.texto}> Olá, {nomeUsuario}!!!</Text>
                     <Text style={styles.texto}> Bem vindo</Text>
 
             </View>
