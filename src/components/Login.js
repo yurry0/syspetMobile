@@ -8,9 +8,17 @@ import SQLite from 'react-native-sqlite-storage';
 export default class App extends Component {
 
 
+  state = {
+
+    login: 'test'
+
+  }
+ 
+
   render() {
 
     return (
+      
     <View style={styles.container}>
 
       <Image
