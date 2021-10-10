@@ -3,7 +3,7 @@ import {createAppContainer} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import Home from './Home';
 import Login from './Login';
-import CadastrarUsuario from "./usuario/CadastrarUsuario"
+import CadastrarUsuario from "./CadastrarUsuario"
 
 const MainNav = createStackNavigator (
     {
@@ -26,7 +26,7 @@ const MainNav = createStackNavigator (
         screen: CadastrarUsuario,
         navigationOptions: {
 
-            headerTitle: 'Cadastrar novo usuário.'
+            headerTitle: 'Cadastrar novo usuário'
 
         }
     }
