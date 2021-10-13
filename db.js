@@ -51,7 +51,7 @@ export default class Db {
                         function (tx, result) {
                             console.log('item:', result.rows.length);
                             if (result.rows.length == 0) {
-                                tx.executeSql('DROP TABLE IF EXISTS cliente', []);
+                                tx.executeSql('DROP TABLE IF EXISTS usuario', []);
                                 tx.executeSql(
                                     'CREATE TABLE IF NOT EXISTS usuario(' +
                                     'id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50), login VARCHAR(50), senha VARCHAR(50))',
@@ -64,6 +64,7 @@ export default class Db {
             })
 
     }//fim do método initDb
+    
 
     //Insere um novo registro na tabela
     addUsuario(usuario) {
@@ -77,7 +78,7 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('INSERT INTO usuario (nome, login, senha) VALUES (?,?)',
+                    tx.executeSql('INSERT INTO usuario (nome, login, senha) VALUES (?,?,?)',
                         [usuario.nome, usuario.login, usuario.senha], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
@@ -161,6 +162,35 @@ export default class Db {
                                 Alert.alert('Exclusão', 'Usuario excluído com Sucesso');
                             } else {
                                 Alert.alert('Exclusão', 'Erro na exclusão');
+                            }
+                        });
+                })
+            })
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------------------------------------- //
+    // -------------------------------------------------- LOGIN -------------------------------------------------------------------------------------- // 
+
+    selectUser(usuario) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT * FROM usuario WHERE login = AND senha = ?',
+                        [
+                            usuario.login,
+                            usuario.senha
+                        ], (tx, results) => {
+                            if (results.rowsAffected > 0) {
+                                this.props.navigation.navigate('Home')
+                            } else {
+                                Alert.alert('Erro', 'O login / senha informados não correspondem a nenhum usuario');
                             }
                         });
                 })

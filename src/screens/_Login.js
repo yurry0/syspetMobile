@@ -1,24 +1,35 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { Alert, Text, StyleSheet, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import styles from '../styles/Login';
-import SQLite from 'react-native-sqlite-storage';
+
+import Db from '../../db';
+import { set } from 'react-native-reanimated';
+
+var db = new Db();
 
 
-
-export default class App extends Component {
-
-
-  state = {
-
-    login: 'test'
-
+const selectUsuario = (login, senha) => {
+  db.initDb();
+  let usuario = {
+    login: login,
+    senha: senha
   }
- 
+  db.selectUser(usuario);
+}
 
-  render() {
 
-    return (
-      
+export default class Login extends Component{
+
+
+// const Login = ({ navigation }, props) => {
+
+
+
+  render () {
+
+
+  return (
+
     <View style={styles.container}>
 
       <Image
@@ -26,24 +37,26 @@ export default class App extends Component {
         style={styles.logo}
       />
 
-      
+
       <TextInput
         style={styles.barra}
         placeholder="Digite seu e-mail de acesso"
         keyboardType="email-address"
-        onChangeText={text => this.state.login = text}
+        autoCapitalize='none'
+        onChangeText={login => setLogin}
       />
 
       <TextInput
         style={styles.barra}
         secureTextEntry={true}
         placeholder="Digite sua senha de acesso"
-        onChangeText={text => this.state.senha = text}
+        autoCapitalize='none'
+        onChangeText={senha => setSenha}
       />
 
       <TouchableOpacity
         style={styles.botao}
-        onPress={() => { this.props.navigation.navigate('Home', {'login': this.state.login }, {'senha': this.state.senha}) }}
+        onPress={() => { selectUsuario(usuario)}}
       >
         <Text style={styles.botaoText}>Login</Text>
 
@@ -61,6 +74,8 @@ export default class App extends Component {
     </View>
 
   )
-  }
 
+
+};
 }
+

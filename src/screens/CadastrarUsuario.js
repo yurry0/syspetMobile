@@ -1,10 +1,11 @@
-import React, { useState, Component } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import {
   View,
   ScrollView,
   KeyboardAvoidingView,
   Alert,
   SafeAreaView,
+  TouchableOpacity,
   Text,
   TextInput
 } from 'react-native';
@@ -27,7 +28,7 @@ const insereDado = (nome, login, senha) => {
 
 //const CadastrarUsuario = ({ navigation }) => 
 
-const CadastrarUsuario = (props) => {
+const CadastrarUsuario = ({ navigation }, props) => {
 
   const [id, setId] = useState('');
   const [user, setUser] = useState('');
@@ -47,8 +48,6 @@ const CadastrarUsuario = (props) => {
   const salvar = (estado) => {
     if (estado == 'cadastro') {
       insereDado(user, login, senha);
-    } else {
-      alteraDado(id, user,login, senha);
     }
     setEstado('cadastro');
   }
@@ -81,6 +80,7 @@ const CadastrarUsuario = (props) => {
             style={styles.barra}
             placeholder="Digite seu e-mail de acesso"
             keyboardType="email-address"
+            autoCapitalize='none'
             onChangeText={
               login => setLogin(login)}
           />
@@ -89,14 +89,28 @@ const CadastrarUsuario = (props) => {
             style={styles.barra}
             secureTextEntry={true}
             placeholder="Digite a senha do usuário"
+            autoCapitalize='none'
             onChangeText={
               senha => setSenha(senha)
             }
 
           />
 
-          <Mybutton title={"Cadastrar"}
-            customClick={salvar(estado)} />
+          <Text> Repetir Senha </Text>
+          <TextInput
+            style={styles.barra}
+            secureTextEntry={true}
+            placeholder="Confirme a senha"
+            autoCapitalize='none'
+            onChangeText={
+              repetirSenha => setRepetirSenha(repetirSenha)
+            }
+          />
+
+
+          <TouchableOpacity style={styles.botao} onPress={() => { salvar(estado) }} >
+            <Text style={styles.botaoText}>Salvar Cadastro</Text>
+          </TouchableOpacity>
 
 
         </KeyboardAvoidingView>
@@ -106,3 +120,5 @@ const CadastrarUsuario = (props) => {
   )
 
 };
+
+export default CadastrarUsuario;

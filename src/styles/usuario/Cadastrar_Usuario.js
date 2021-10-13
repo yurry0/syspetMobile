@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         width: 300,
         height: 42,
         backgroundColor: '#C83E4D',
+        marginBottom: 80
 
     },
 
