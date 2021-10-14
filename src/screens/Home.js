@@ -26,7 +26,7 @@ const db = SQLite.openDatabase(
                     [],        
                 (tx, results) => {
 
-                    var len = results.row.length;  
+                    var len = results.rows.length;  
                     if(len > 0){
                         var loginName = results.rows.item(0)
                         setLogin(loginName);

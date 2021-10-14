@@ -171,7 +171,7 @@ export default class Db {
     // ----------------------------------------------------------------------------------------------------------------------------------------------- //
     // -------------------------------------------------- LOGIN -------------------------------------------------------------------------------------- // 
 
-    selectUser(usuario) {
+    userLogin(usuario) {
         let db;
         SQLite.openDatabase(
             database_name,
@@ -182,13 +182,15 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('SELECT * FROM usuario WHERE login = AND senha = ?',
+                    tx.executeSql('SELECT login, senha FROM usuario WHERE (login = ? AND senha = ?)',
                         [
                             usuario.login,
                             usuario.senha
                         ], (tx, results) => {
-                            if (results.rowsAffected > 0) {
-                                this.props.navigation.navigate('Home')
+                            console.log(results);
+                            var len = results.rows.length;
+                            if (len > 0) {
+                                navigation.navigate('Home');
                             } else {
                                 Alert.alert('Erro', 'O login / senha informados não correspondem a nenhum usuario');
                             }

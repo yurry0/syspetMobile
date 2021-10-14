@@ -16,6 +16,7 @@ import Db from '../../db';
 
 var db = new Db();
 
+
 const insereDado = (nome, login, senha) => {
   db.initDb();
   let usuario = {

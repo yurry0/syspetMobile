@@ -1,9 +1,7 @@
 import React, { Component, useState, useEffect } from 'react'
 import { Alert, Text, StyleSheet, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import styles from '../styles/Login';
-
 import Db from '../../db';
-import { set } from 'react-native-reanimated';
 
 var db = new Db();
 

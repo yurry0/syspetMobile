@@ -1,75 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView, Image, TouchableOpacity, Text, TextInput, KeyboardAvoidingView, Alert } from 'react-native';
-import Mybutton from "../elements/MyButton";
 import Db from '../../db';
-import SQLite from 'react-native-sqlite-storage'
+var db = new Db();
 
-export default function Login({navigation}) {
+const buscarUser = (login, senha) => {
+    db.initDb();
+    let usuario = {
+        login: login,
+        senha: senha
+    }
+    db.userLogin(usuario);
+}
 
-    const db = SQLite.openDatabase(
-        {
-            name:'syspet_mob',
-            location: 'default',
-        },
-        () => {},
-        error=>{ console.log(error) }
-    );
-
-
+export default function Login({ navigation }, props) {
     const [login, setLogin] = useState('');
     const [senha, setSenha] = useState('');
+    const [estado, setEstado] = useState('logar');
 
     useEffect(() => {
-        createTable();
-    })
+        setLogin(props.login);
+        setSenha(props.senha);
+        setEstado(props.estado);
+    }, []);
 
-
-    const createTable = () => {
-        db.transaction((tx) => {
-            tx.executeSql(
-                "CREATE TABLE IF NOT EXISTS"
-                + "Usuarios"
-                + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, Nome TEXT, Usuario TEXT, Senha TEXT);"
-            )
-        })
-    }
-
-    const getData = () =>{
-        try{
-            db.transaction((tx)=>{
-            tx.executeSql(
-                "SELECT Usuario from Usuarios",
-                [],        
-            (tx, results) => {
-
-                var len = results.row.length;  
-                if(len > 0){
-                    navigation.navigate('Home');
-                }
-            })
-        })}
-        catch{}
-    }
-    const setData = async () => {
-        if (login.length && senha.length == 0) {
-            Alert.alert('ERRO', 'Login e/ou senha em branco.')
+    const entrar = (estado) => {
+        if (estado == 'logar') {
+          buscarUser(login, senha);
         }
-        else {
-            try {
-              await db.transaction(async (tx) => {
-                    tx.executeSql(
-                        "INSERT INTO Usuarios(Usuario, Senha)VALUES(?,?)"
-                        [login, senha]
-                    );
-                })
-                navigation.navigate('Home')
-            }
-            catch {
+        setEstado('logar');
+      }
 
-            }
-
-        }
-    }
 
     return (
         <ScrollView keyboardShouldPersistTaps="handled">
@@ -83,11 +43,20 @@ export default function Login({navigation}) {
                         source={require('../assets/logo.png')} />
                     <Text style={styles.text}>Bem vindo ao SysPet! </Text>
                     <Text style={styles.label}>Usuario / Email </Text>
-                    <TextInput onChangeText={(value) => setLogin(value)} autoCapitalize="none" placeholder="Digite seu email de acesso" style={styles.input}></TextInput>
+                    <TextInput onChangeText={(value) => setLogin(value)} keyboardType="email-address" autoCapitalize="none" placeholder="Digite seu email de acesso" style={styles.input}></TextInput>
                     <Text style={styles.label}>Senha</Text>
-                    <TextInput onChangeText={(value) => setSenha(value)} autoCapitalize="none" placeholder="Digite sua senha de acesso" style={styles.input}></TextInput>
-                    <TouchableOpacity style={styles.botao} onPress={setData} >
+                    <TextInput onChangeText={(value) => setSenha(value)} autoCapitalize="none" secureTextEntry={true} placeholder="Digite sua senha de acesso" style={styles.input}></TextInput>
+                  
+                  
+                    {/* Comentário: A função de login será acionada aqui, através do intermédio da Const entrar(estado) */}
+                    <TouchableOpacity style={styles.botao} onPress={() => {entrar(estado)}} >
                         <Text style={styles.botaoText}>Entrar</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.botaoCad}
+                        onPress={() => { navigation.navigate('CadastrarUsuario') }}
+                    >
+                        <Text style={styles.botaoText}>Cadastrar Usuário</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -142,16 +111,24 @@ const styles = StyleSheet.create({
         width: 150,
         height: 42,
         backgroundColor: '#53DD6C',
-        marginBottom: 80,
+        marginBottom: 22,
 
 
     },
 
+    botaoCad: {
+        marginTop: 5,
+        width: 150,
+        height: 42,
+        backgroundColor: '#53DD6C',
+        marginBottom: 80,
+
+
+    },
     botaoText: {
         color: '#fff',
         alignSelf: 'center',
         marginTop: 10,
         fontSize: 16
     }
-
 })
