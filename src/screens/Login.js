@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState , useEffect } from "react";
 import { View, StyleSheet, ScrollView, Image, TouchableOpacity, Text, TextInput, KeyboardAvoidingView, Alert } from 'react-native';
 import Db from '../../db';
 var db = new Db();
@@ -48,8 +48,11 @@ export default function Login({ navigation }, props) {
                     <TextInput onChangeText={(value) => setSenha(value)} autoCapitalize="none" secureTextEntry={true} placeholder="Digite sua senha de acesso" style={styles.input}></TextInput>
                   
                   
-                    {/* Comentário: A função de login será acionada aqui, através do intermédio da Const entrar(estado) */}
-                    <TouchableOpacity style={styles.botao} onPress={() => {entrar(estado)}} >
+                    {/* Comentário: A função de login será acionada aqui, através do intermédio da Const entrar(estado) 
+                     15/10/2021: Função de login não totalmente implementada, precisa ser revista até o final do projeto*/}
+                    <TouchableOpacity style={styles.botao} 
+                    //onPress={() => {entrar(estado)}} >
+                    onPress={()=>{navigation.navigate('Home')}}>
                         <Text style={styles.botaoText}>Entrar</Text>
                     </TouchableOpacity>
                     <TouchableOpacity

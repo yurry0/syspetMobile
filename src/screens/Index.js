@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import Home from './Home';
 import Login from './Login';
+import Home from './Home';
 import CadastrarUsuario from "./CadastrarUsuario"
 
 const MainNav = createStackNavigator(
