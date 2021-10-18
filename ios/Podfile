@@ -12,6 +12,8 @@ target 'syspetApp' do
     :hermes_enabled => false
   )
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'syspetAppTests' do
     inherit! :complete
     # Pods for testing

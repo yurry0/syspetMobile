@@ -1,39 +1,18 @@
 import React, { Component } from 'react'
-import { createAppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './Login';
 import Home from './Home';
 import CadastrarUsuario from "./CadastrarUsuario"
 
-const MainNav = createStackNavigator(
-    {
-        Login: {
-            screen: Login,
-            navigationOptions: {
-                headerShown: false
-
-            }
-        },
-        Home: {
-
-            screen: Home,
-            navigationOptions: {
-                headerTitle: 'Home'
-            }
-
-        },
-
-        CadastrarUsuario: {
-            screen: CadastrarUsuario,
-            navigationOptions: {
-
-                headerTitle: 'Cadastrar novo usuário'
-
-            }
-        }
-
-
-    }
-)
-
-export default createAppContainer(MainNav);
+const Stack = createNativeStackNavigator();
+export default function App() {
+    return (
+      <NavigationContainer>
+          <Stack.Navigator>
+              <Stack.Screen name="Login"component={Login}></Stack.Screen>
+              <Stack.Screen name="Home" component={Home}></Stack.Screen>      
+          </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }

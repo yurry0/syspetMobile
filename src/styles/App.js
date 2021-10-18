@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     tapWrapper:{
       flex: 1,
       padding: 50,
-      flexDirection: 'column',
+      flexDirection: 'row',
       flexWrap:'wrap',
       alignContent:'center'
     },
