@@ -2,7 +2,7 @@ import React, { useState , useEffect } from "react";
 import { View, StyleSheet, ScrollView, Image, TouchableOpacity, Text, TextInput, KeyboardAvoidingView, Alert } from 'react-native';
 import Db from '../../db';
 var db = new Db();
-
+    {/* Essa parte é ligada as funções de checagem no BD que ainda não foram finalizadas. */}
 const buscarUser = (login, senha) => {
     db.initDb();
     let usuario = {
@@ -52,7 +52,9 @@ export default function Login({ navigation }, props) {
                      15/10/2021: Função de login não totalmente implementada, precisa ser revista até o final do projeto*/}
                     <TouchableOpacity style={styles.botao} 
                     //onPress={() => {entrar(estado)}} >
-                    onPress={()=>{navigation.navigate('Home')}}>
+                    onPress={()=>{navigation.navigate('Home'),{
+                        param1: 80, 
+                        param2: 'buuh',}}}>
                         <Text style={styles.botaoText}>Entrar</Text>
                     </TouchableOpacity>
                     <TouchableOpacity

@@ -1,28 +1,27 @@
 import React, { Component, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import styles from '../styles/App';
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/AntDesign'
-
 import SQLite from 'react-native-sqlite-storage';
 
-const Home = ({ navigation }, props) => {
+import AdocoesIndex from './AdocoesIndex';
+import PetsIndex from './PetsIndex';
+import ClientesIndex from './ClientesIndex';
 
-    const [login, setLogin] = useState('');
 
+const Tab = createBottomTabNavigator();
+
+const Home = ({ navigation }) => {
+
+    // const [login, setLogin] = useState('');
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}> Bem vindo ao Syspet! </Text>
-            <View style={styles.tapWrapper}>
-                <Text style={styles.tap} >
-                    <Icon name="github" size={40} color='#000'></Icon>Clientes</Text>
-                <Text style={styles.tap} >Pets</Text>
-                <Text style={styles.tap}>Adoções</Text>
-                <Text style={styles.tap}>Logout</Text>
-            </View>
-
-        </View>
-
+        <Tab.Navigator>
+        <Tab.Screen name="Clientes" component={ClientesIndex} />
+        <Tab.Screen name="Pets" component={PetsIndex} />
+        <Tab.Screen name="Adoções" component={AdocoesIndex} />
+        
+      </Tab.Navigator>
     )
 }
 
