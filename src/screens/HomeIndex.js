@@ -7,7 +7,7 @@ const AdocoesIndex = ({Navigation}) =>{
 
         <View style={{flex: 1,
         alignContent: 'center'}}>
-            <Text>Pagina 3</Text>
+            <Text>HOME</Text>
         </View>
     )
 }

@@ -10,6 +10,12 @@ const buscarUser = (login, senha) => {
         senha: senha
     }
     db.userLogin(usuario);
+
+    if(db.userLogin(usuario) == true){
+
+        navigation.navigate('Home');    
+
+    }
 }
 
 export default function Login({ navigation }, props) {
@@ -52,9 +58,7 @@ export default function Login({ navigation }, props) {
                      15/10/2021: Função de login não totalmente implementada, precisa ser revista até o final do projeto*/}
                     <TouchableOpacity style={styles.botao} 
                     //onPress={() => {entrar(estado)}} >
-                    onPress={()=>{navigation.navigate('Home'),{
-                        param1: 80, 
-                        param2: 'buuh',}}}>
+                    onPress={()=>{navigation.navigate('Home')}}>
                         <Text style={styles.botaoText}>Entrar</Text>
                     </TouchableOpacity>
                     <TouchableOpacity

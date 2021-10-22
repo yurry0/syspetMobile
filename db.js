@@ -186,11 +186,10 @@ export default class Db {
                         [
                             usuario.login,
                             usuario.senha
-                        ], (tx, results) => {
-                            console.log(results);
-                            var len = results.rows.length;
-                            if (len > 0) {
-                                navigation.navigate('Home');
+                        ], (tx, result) => {
+                            console.log(result);
+                            if (result.rows.length > 0) {
+                            return true;
                             } else {
                                 Alert.alert('Erro', 'O login / senha informados não correspondem a nenhum usuario');
                             }

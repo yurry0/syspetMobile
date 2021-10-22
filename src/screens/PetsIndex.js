@@ -5,9 +5,10 @@ const PetsIndex = ({Navigation}) =>{
 
     return(
 
-        <View>
-            <Text> PAIN</Text>
-        </View>
+         <View style={{flex: 1,
+            alignContent: 'center'}}>
+                <Text>Pagina 2</Text>
+            </View>
     )
     
 }

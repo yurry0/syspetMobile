@@ -7,9 +7,10 @@ const ClientesIndex = ({Navigation}) =>{
 
     return(
 
-        <View>
-            <Text> PAIN</Text>
-        </View>
+        <View style={{flex: 1,
+            alignContent: 'center'}}>
+                <Text>Pagina 1</Text>
+            </View>
     )
     
 }

@@ -13,9 +13,11 @@ export default function App() {
       <Stack.Navigator>
         {/* Screen de Login */}
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}></Stack.Screen>
+             {/* Screen de CadastrarUsuario */}
+             <Stack.Screen name="CadastrarUsuario" component={CadastrarUsuario} options={{ headerShown: false }}></Stack.Screen>
         {/* Screen de Home */}
         <Stack.Screen name="Home" component={Home} options={{
-          title: 'Pagina Inicial', headerTintColor: '#fff', headerStyle: { backgroundColor: '#f4511e' }, headerTitleStyle: { fontWeight: 'bold' },
+          headerShown: false, title: 'Pagina Inicial', headerTintColor: '#fff', headerStyle: { backgroundColor: '#f4511e' }, headerTitleStyle: { fontWeight: 'bold' },
           headerRight: () => (<Button onPress={() => alert('Bom dia!')}
             title="Saudacao"
             color='#D7263D'></Button>)
