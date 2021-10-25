@@ -47,8 +47,19 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
 
   const salvar = (estado) => {
-    if (estado == 'cadastro') {
+    if(login.length == 0 || senha.length == 0 || repetirSenha.length == 0 ){
+      Alert.alert('Erro', 'Um ou mais campos estão em branco!');
+
+    }
+
+    else if (senha != repetirSenha ){
+      Alert.alert('Erro', 'senhas não conferem');
+    }
+    
+   if(estado == 'cadastro'){
       insereDado(user, login, senha);
+
+      navigation.navigate('Login');
     }
     setEstado('cadastro');
   }
@@ -64,7 +75,7 @@ const CadastrarUsuario = ({ navigation }, props) => {
           <Text style={styles.header}>Preencha os campos para cadastrar um novo usuário</Text>
 
 
-          <Text> Nome de usuário </Text>
+          <Text style={styles.textoInput}> Nome de usuário </Text>
 
           <TextInput
             style={styles.barra}
@@ -76,7 +87,7 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
           />
 
-          <Text> Email </Text>
+          <Text style={styles.textoInput}> Email </Text>
           <TextInput
             style={styles.barra}
             placeholder="Digite seu e-mail de acesso"
@@ -85,7 +96,7 @@ const CadastrarUsuario = ({ navigation }, props) => {
             onChangeText={
               login => setLogin(login)}
           />
-          <Text> Senha </Text>
+          <Text style={styles.textoInput}> Senha </Text>
           <TextInput
             style={styles.barra}
             secureTextEntry={true}
@@ -97,7 +108,7 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
           />
 
-          <Text> Repetir Senha </Text>
+          <Text style={styles.textoInput}> Repetir Senha </Text>
           <TextInput
             style={styles.barra}
             secureTextEntry={true}

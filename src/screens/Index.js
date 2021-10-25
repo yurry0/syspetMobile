@@ -5,23 +5,39 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './Login';
 import Home from './Home';
 import CadastrarUsuario from "./CadastrarUsuario"
+import PetsCadastrar from './PetsCadastrar'
+import ClientesCadastrar from './ClientesCadastrar'
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
         {/* Screen de Login */}
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}></Stack.Screen>
-             {/* Screen de CadastrarUsuario */}
-             <Stack.Screen name="CadastrarUsuario" component={CadastrarUsuario} options={{ headerShown: false }}></Stack.Screen>
-        {/* Screen de Home */}
+
+        {/* Screen de CadastrarUsuario */}
+        <Stack.Screen name="CadastrarUsuario" component={CadastrarUsuario} options={{ headerTintColor: '#333533', headerTitle: 'Cadastre um novo usuário' }}></Stack.Screen>
+
+        {/* Screen de Home - Nessa screen acontece o nesting com o TabNavigator (modificações do tab devem ser feitas em Home.js) */}
         <Stack.Screen name="Home" component={Home} options={{
           headerShown: false, title: 'Pagina Inicial', headerTintColor: '#fff', headerStyle: { backgroundColor: '#f4511e' }, headerTitleStyle: { fontWeight: 'bold' },
           headerRight: () => (<Button onPress={() => alert('Bom dia!')}
             title="Saudacao"
             color='#D7263D'></Button>)
         }}></Stack.Screen>
+
+        {/* Screen de Cadastrar Pets*/}
+
+        <Stack.Screen name="PetsCadastrar" component={PetsCadastrar} options={{ headerTintColor: '#333533', headerTitle: 'Cadastre um novo pet' }}></Stack.Screen>
+
+        {/* Screen de Cadastrar Clientes*/}
+
+        <Stack.Screen name="ClientesCadastrar" component={ClientesCadastrar} options={{ headerTintColor: '#333533', headerTitle: 'Cadastre um novo cliente' }}></Stack.Screen>
+
+        
+
       </Stack.Navigator>
     </NavigationContainer>
   );

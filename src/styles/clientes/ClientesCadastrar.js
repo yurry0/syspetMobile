@@ -49,6 +49,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         letterSpacing: 1,
         fontSize: 15
+    },
+    barraVacina: {
+        height: 100,
+        backgroundColor: '#fff',
+        marginTop: 3,
+        borderBottomColor: '#fc9d03',
+        borderBottomWidth: 4,
+        justifyContent: 'flex-start'
     }
 
 })
