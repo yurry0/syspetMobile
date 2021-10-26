@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-const AdocoesIndex = ({Navigation}) =>{
+const HomeIndex = ({Navigation}) =>{
 
     return(
 
@@ -13,4 +13,4 @@ const AdocoesIndex = ({Navigation}) =>{
 }
 
 
-export default AdocoesIndex;
+export default HomeIndex;

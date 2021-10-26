@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { Button, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import Login from './Login';
 import Home from './Home';
 import CadastrarUsuario from "./CadastrarUsuario"
 import PetsCadastrar from './PetsCadastrar'
 import ClientesCadastrar from './ClientesCadastrar'
+import AdocoesCadastrar from './AdocoesCadastrar';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -36,7 +38,12 @@ export default function App() {
 
         <Stack.Screen name="ClientesCadastrar" component={ClientesCadastrar} options={{ headerTintColor: '#333533', headerTitle: 'Cadastre um novo cliente' }}></Stack.Screen>
 
-        
+
+        {/* Screen de Cadastrar Adocoes*/}
+
+        <Stack.Screen name="AdocoesCadastrar" component={AdocoesCadastrar} options={{ headerTintColor: '#333533', headerTitle: 'Adicionar nova adoção' }}></Stack.Screen>
+
+
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -28,7 +28,7 @@ const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco,
     cli_endereco: cli_endereco,
     cli_email: cli_email
   }
-  db.addUsuario(usuario);
+  db.addCliente(cliente);
 }
 
 //const CadastrarUsuario = ({ navigation }) => 
@@ -71,9 +71,9 @@ const ClientesCadastrar = ({ navigation }, props) => {
     }
 
     if (estado == 'cadastro') {
-      insereDado(user, login, senha);
+      insereDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email);
 
-      navigation.navigate('Login');
+      navigation.navigate('ClientesIndex');
     }
     setEstado('cadastro');
   }

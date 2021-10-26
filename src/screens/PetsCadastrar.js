@@ -17,7 +17,7 @@ import Db from '../../db';
 var db = new Db();
 
 
-const insereDado = (nome, login, senha) => {
+const insereDado = (nome, raca, sexo, idade, vacinas, peso, tipo, especie, pelagem, adotado) => {
   db.initDb();
   let pet = {
     nome: nome,
@@ -81,9 +81,9 @@ const PetsCadastrar = ({ navigation }, props) => {
     }
 
     if (estado == 'cadastro') {
-      insereDado(user, login, senha);
+      insereDado(nome, raca, sexo, idade, porte, vacinas, peso, tipo, especie, pelagem, adotado);
 
-      navigation.navigate('Login');
+      navigation.navigate('PetsIndex');
     }
     setEstado('cadastro');
   }

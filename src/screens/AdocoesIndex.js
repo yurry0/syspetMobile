@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-
-const AdocoesIndex = ({Navigation}) =>{
+import styles from '../styles/adocoes/AdocoesIndex'
+const AdocoesIndex = ({navigation}) =>{
 
     return(
 
-        <View style={{flex: 1,
-        alignContent: 'center'}}>
-            <Text>Pagina 3</Text>
-        </View>
+        <View style={styles.container}>
+        <Text style={styles.texto}>Bem vindo a seção de adoções do Syspet!</Text>
+        <Text style={styles.texto}>Olha o botão de ADD adoções:</Text>
+        <TouchableOpacity style={styles.botao} onPress={() => { navigation.navigate('AdocoesCadastrar') }} >
+            <Text style={styles.botaoText}>Cadastrar novo cliente</Text>
+        </TouchableOpacity>
+    </View>
     )
 }
 
