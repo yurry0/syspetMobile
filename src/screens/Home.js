@@ -9,11 +9,15 @@ import AdocoesIndex from './AdocoesIndex';
 import PetsIndex from './PetsIndex';
 import ClientesIndex from './ClientesIndex';
 import HomeIndex from './HomeIndex';
+import Db from '../../db';
 
+var db = new Db();
 
 const Tab = createBottomTabNavigator();
 
 const Home = ({ navigation }) => {
+
+  db.initDb();
 
     // const [login, setLogin] = useState('');
     return (

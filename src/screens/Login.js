@@ -32,6 +32,11 @@ export default function Login({ navigation }, props) {
     const entrar = (estado) => {
         if (estado == 'logar') {
           buscarUser(login, senha);
+
+          if(buscaUser(login, senha) == true){
+            navigation.navigate('Home');
+            
+          }
         }
         setEstado('logar');
       }
@@ -64,6 +69,13 @@ export default function Login({ navigation }, props) {
                     <TouchableOpacity
                         style={styles.botaoCad}
                         onPress={() => { navigation.navigate('CadastrarUsuario') }}
+                    >
+                        <Text style={styles.botaoText}>Cadastrar Usuário</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.botaoCad}
+                        onPress={() => { navigation.navigate('drop') }}
                     >
                         <Text style={styles.botaoText}>Cadastrar Usuário</Text>
                     </TouchableOpacity>

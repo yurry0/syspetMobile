@@ -21,7 +21,7 @@ const insereDado = (nome, login, senha) => {
   db.initDb();
   let usuario = {
     nome: nome,
-    login: login,
+    usuario: login,
     senha: senha
   }
   db.addUsuario(usuario);
@@ -32,7 +32,7 @@ const insereDado = (nome, login, senha) => {
 const CadastrarUsuario = ({ navigation }, props) => {
 
   const [id, setId] = useState('');
-  const [user, setUser] = useState('');
+  const [nome, setNome] = useState('');
   const [login, setLogin] = useState('');
   const [senha, setSenha] = useState('');
   const [repetirSenha, setRepetirSenha] = useState('');
@@ -40,14 +40,14 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
   useEffect(() => {
     setId(props.id);
-    setUser(props.nome);
+    setNome(props.nome);
     setSenha(props.senha);
     setEstado(props.estado);
   }, []);
 
 
   const salvar = (estado) => {
-    if(login.length == 0 || senha.length == 0 || repetirSenha.length == 0 ){
+    if(login.length == 0 || nome.length == 0 || senha.length == 0 || repetirSenha.length == 0 ){
       Alert.alert('Erro', 'Um ou mais campos estão em branco!');
 
     }
@@ -57,7 +57,7 @@ const CadastrarUsuario = ({ navigation }, props) => {
     }
     
    if(estado == 'cadastro'){
-      insereDado(user, login, senha);
+      insereDado(nome, usuario, senha);
 
       navigation.navigate('Login');
     }
@@ -82,7 +82,7 @@ const CadastrarUsuario = ({ navigation }, props) => {
             placeholder="Digite o nome do usuário"
             keyboardType="default"
             onChangeText={
-              user => setUser(user)
+              nome => setNome(nome)
             }
 
           />

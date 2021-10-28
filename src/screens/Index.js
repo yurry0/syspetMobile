@@ -9,6 +9,7 @@ import CadastrarUsuario from "./CadastrarUsuario"
 import PetsCadastrar from './PetsCadastrar'
 import ClientesCadastrar from './ClientesCadastrar'
 import AdocoesCadastrar from './AdocoesCadastrar';
+import drop from './debug_drop';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -21,6 +22,9 @@ export default function App() {
 
         {/* Screen de CadastrarUsuario */}
         <Stack.Screen name="CadastrarUsuario" component={CadastrarUsuario} options={{ headerTintColor: '#333533', headerTitle: 'Cadastre um novo usuário' }}></Stack.Screen>
+
+          {/* Screen de Drop */}
+          <Stack.Screen name="drop" component={drop} options={{ headerTintColor: '#333533', headerTitle: 'Cadastre um novo usuário' }}></Stack.Screen>
 
         {/* Screen de Home - Nessa screen acontece o nesting com o TabNavigator (modificações do tab devem ser feitas em Home.js) */}
         <Stack.Screen name="Home" component={Home} options={{

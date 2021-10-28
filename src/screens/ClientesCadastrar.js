@@ -17,7 +17,7 @@ import Db from '../../db';
 var db = new Db();
 
 
-const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email) => {
+const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_email) => {
   db.initDb();
   let cliente = {
     cli_nome: cli_nome,
@@ -26,6 +26,7 @@ const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco,
     cli_estado: cli_estado,
     cli_cep: cli_cep,
     cli_endereco: cli_endereco,
+    cli_bairro: cli_bairro,
     cli_email: cli_email
   }
   db.addCliente(cliente);
@@ -42,6 +43,7 @@ const ClientesCadastrar = ({ navigation }, props) => {
   const [cli_estado, setCliEstado] = useState('');
   const [cli_cep, setCliCep] = useState('');
   const [cli_endereco, setCliEndereco] = useState('');
+  const [cli_bairro, setCliBairro] = useState('');
   const [cli_email, setCliEmail] = useState('');
 
 
@@ -54,20 +56,22 @@ const ClientesCadastrar = ({ navigation }, props) => {
     setCliRG(props.cli_rg);
     setCliEstado(props.cli_estado);
     setCliCep(props.cli_Cep);
+    setCliBairro(props.cli_bairro);
     setCliEndereco(props.cli_Endereco);
+
     setCliEmail (props.cli_email)
 
   }, []);
 
 
   const salvar = (estado) => {
-    if (login.length == 0 || senha.length == 0 || repetirSenha.length == 0) {
+    if (cli_nome.length == 0 || cidade.length == 0 || cli_rg.length == 0 || cli_estado.length == 0 || cli_cep == 0 || cli_endereco == 0 || cli_bairro == 0 || cli_email == 0) {
       Alert.alert('Erro', 'Um ou mais campos estão em branco!');
 
     }
 
-    else if (senha != repetirSenha) {
-      Alert.alert('Erro', 'senhas não conferem');
+    else if (cli_nome.length < 5) {
+      Alert.alert('Erro', 'Nome muito curto!');
     }
 
     if (estado == 'cadastro') {
@@ -129,7 +133,7 @@ const ClientesCadastrar = ({ navigation }, props) => {
             placeholder="Digite o CEP do usuário"
             autoCapitalize='none'
             onChangeText={
-              senha => setSenha(senha)
+              cli_bairro => setCliBairro(cli_bairro)
             }
           />
 
