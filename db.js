@@ -50,7 +50,7 @@ export default class Db {
                                               'DROP TABLE IF EXISTS adocao',[]);
                                 tx.executeSql(
                                     'CREATE TABLE IF NOT EXISTS usuario(' +
-                                    'usuario_id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50), usuario VARCHAR(50), senha VARCHAR(50))',
+                                    'usuario_id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50), email VARCHAR(50), senha VARCHAR(50))',
                                     'CREATE TABLE IF NOT EXISTS cliente(' +
                                     'pk_id_cliente INTEGER PRIMARY KEY AUTOINCREMENT, cli_nome VARCHAR(50), cidade VARCHAR(50), cli_rg VARCHAR(50), cli_estado VARCHAR(100), cli_cep VARCHAR(100), cli_endereco VARCHAR(100), cli_bairro VARCHAR(100) cli_email VARCHAR(100))',
                                     'CREATE TABLE IF NOT EXISTS pet(' +
@@ -86,8 +86,8 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('INSERT INTO usuario (nome, login, senha) VALUES (?,?,?)',
-                        [usuario.nome, usuario.login, usuario.senha], (tx, results) => {
+                    tx.executeSql('INSERT INTO usuario (nome, email, senha) VALUES (?,?,?)',
+                        [usuario.nome, usuario.email, usuario.senha], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
                             } else {
@@ -136,12 +136,12 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE usuario SET nome = ?, login = ?, senha = ? WHERE id = ?',
+                    tx.executeSql('UPDATE usuario SET nome = ?, email = ?, senha = ? WHERE id = ?',
                         [
                             usuario.nome,
-                            usuario.login,
+                            usuario.email,
                             usuario.senha,
-                            usuario.id_usuario
+                            usuario.usuario_id
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Alteração', 'Dados alterado com Sucesso');
@@ -168,7 +168,8 @@ export default class Db {
                         var len = results.rows.length;
                         for (let i = 0; i < len; i++) {
                             let row = results.rows.item(i);
-                            console.log(`ID: ${row.id}, Nome: ${row.nome}`);
+                            console.log('==================================================================================')
+                            console.log(`ID: ${row.usuario_id}, Nome: ${row.nome}, Email: ${row.email},  Senha: ${row.senha} `, );
                             console.log('success');
                         }
                         closeDatabase(db);
@@ -218,13 +219,13 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('SELECT login, senha FROM usuario WHERE (login = ? AND senha = ?)',
+                    tx.executeSql('SELECT * FROM usuario WHERE email = ? AND senha = ?',
                         [
-                            usuario.login,
+                            usuario.email,
                             usuario.senha
                         ], (tx, result) => {
-                            console.log(result);
                             if (result.rows.length > 0) {
+                            console.log('Retornou verdade');
                             return true;
                             } else {
                                 Alert.alert('Erro', 'O login / senha informados não correspondem a nenhum usuario');

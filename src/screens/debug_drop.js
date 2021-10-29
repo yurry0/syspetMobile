@@ -10,8 +10,9 @@ const drop = ({navigation}) => {
         <View style={{flex: 1,
         alignSelf: 'center',
         justifyContent: 'center'}}>
-            <TouchableOpacity onPress={db.initDb()} style={{marginBottom: 65}}><Text>DROP THE BOMB</Text></TouchableOpacity>
-            <TouchableOpacity onPress={db.listarUsuario()}><Text>LIST THE BOMB</Text></TouchableOpacity>
+            <TouchableOpacity onPress={ db.initDb()} style={{marginBottom: 25}}><Text>MYSQL DROP</Text></TouchableOpacity>
+            <Text> -------------------------------------- </Text>
+            <TouchableOpacity onPress={ async () => { db.listarUsuario()}} style={{marginTop: 20}}><Text>MYSQL SELECT USUARIOS (CONSOLE LOG)</Text></TouchableOpacity>
             
         </View>
     )

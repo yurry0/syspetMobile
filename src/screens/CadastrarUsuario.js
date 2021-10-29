@@ -10,18 +10,17 @@ import {
   TextInput
 } from 'react-native';
 import styles from '../styles/usuario/Cadastrar_Usuario'
-import Mybutton from '../elements/MyButton'
 
 import Db from '../../db';
 
 var db = new Db();
 
 
-const insereDado = (nome, login, senha) => {
+const insereDado = (nome, email, senha) => {
   db.initDb();
   let usuario = {
     nome: nome,
-    usuario: login,
+    email: email,
     senha: senha
   }
   db.addUsuario(usuario);
@@ -33,7 +32,7 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [repetirSenha, setRepetirSenha] = useState('');
   const [estado, setEstado] = useState('cadastro');
@@ -41,23 +40,25 @@ const CadastrarUsuario = ({ navigation }, props) => {
   useEffect(() => {
     setId(props.id);
     setNome(props.nome);
+    setEmail(props.email);
     setSenha(props.senha);
     setEstado(props.estado);
   }, []);
 
 
   const salvar = (estado) => {
-    if(login.length == 0 || nome.length == 0 || senha.length == 0 || repetirSenha.length == 0 ){
+    if (email.length == 0 || nome.length == 0 || senha.length == 0 || repetirSenha.length == 0) {
       Alert.alert('Erro', 'Um ou mais campos estão em branco!');
 
     }
 
-    else if (senha != repetirSenha ){
+
+    else if (senha != repetirSenha) {
       Alert.alert('Erro', 'senhas não conferem');
     }
-    
-   if(estado == 'cadastro'){
-      insereDado(nome, usuario, senha);
+
+    if (estado == 'cadastro') {
+      insereDado(nome, email, senha);
 
       navigation.navigate('Login');
     }
@@ -94,7 +95,7 @@ const CadastrarUsuario = ({ navigation }, props) => {
             keyboardType="email-address"
             autoCapitalize='none'
             onChangeText={
-              login => setLogin(login)}
+              email => setEmail(email)}
           />
           <Text style={styles.textoInput}> Senha </Text>
           <TextInput
