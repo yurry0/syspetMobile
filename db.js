@@ -226,7 +226,7 @@ export default class Db {
                         else {
                             console.log('A criação foi bem sucedida');
                         }
-                    }
+                    } 
                 );
             });
         })
