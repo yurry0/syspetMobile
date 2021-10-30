@@ -62,12 +62,12 @@ export default function Login({ navigation }, props) {
 
                     {/* Comentário: A função de login será acionada aqui, através do intermédio da Const entrar(estado) 
                      15/10/2021: Função de login não totalmente implementada, precisa ser revista até o final do projeto
-                     
-                     onPress={()=>{navigation.navigate('Home')}}>
+                       onPress={() => { entrar(estado) }}
+          
 
                      */}
                     <TouchableOpacity style={styles.botao}
-                        onPress={() => { entrar(estado) }} >
+                    onPress={()=>{navigation.navigate('Home')}}>
                         <Text style={styles.botaoText}>Entrar</Text>
                     </TouchableOpacity>
                     <TouchableOpacity

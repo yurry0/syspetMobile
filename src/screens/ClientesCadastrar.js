@@ -67,7 +67,6 @@ const ClientesCadastrar = ({ navigation }, props) => {
   const salvar = (estado) => {
     if (cli_nome.length == 0 || cidade.length == 0 || cli_rg.length == 0 || cli_estado.length == 0 || cli_cep == 0 || cli_endereco == 0 || cli_bairro == 0 || cli_email == 0) {
       Alert.alert('Erro', 'Um ou mais campos estão em branco!');
-
     }
 
     else if (cli_nome.length < 5) {
@@ -121,7 +120,7 @@ const ClientesCadastrar = ({ navigation }, props) => {
             style={styles.barra}
             keyboardType='default'
             placeholder="Digite o CEP do usuário"
-            autoCapitalize='none'
+
             onChangeText={
               cli_endereco => setCliEndereco(cli_endereco)
             }
@@ -131,7 +130,7 @@ const ClientesCadastrar = ({ navigation }, props) => {
           <TextInput
             style={styles.barra}
             placeholder="Digite o CEP do usuário"
-            autoCapitalize='none'
+
             onChangeText={
               cli_bairro => setCliBairro(cli_bairro)
             }
@@ -143,7 +142,8 @@ const ClientesCadastrar = ({ navigation }, props) => {
             placeholder="Digite a cidade do cliente"
             keyboardType="default"
             onChangeText={
-              cidade => setCidade(cidade)}
+              cidade => setCidade(cidade)
+            }
           />
           <Text style={styles.textoInput}> Estado </Text>
           <TextInput
@@ -151,21 +151,24 @@ const ClientesCadastrar = ({ navigation }, props) => {
             placeholder="Digite o estado do cliente"
             keyboardType="default"
             onChangeText={
-              cli_estado => setCliEstado(cli_estado)}
+              cli_estado => setCliEstado(cli_estado)
+            }
           />
           <Text style={styles.textoInput}> RG </Text>
           <TextInput
             style={styles.barra}
             placeholder="Digite o RG do cliente"
-            keyboardType="numbers-and-punctuation"
+            keyboardType="numeric"
             onChangeText={
-              cli_rg => setCliRG(cli_rg)}
+              cli_rg => setCliRG(cli_rg)
+            }
           />              
           <Text style={styles.textoInput}> E-mail </Text>
           <TextInput
             style={styles.barra}
             placeholder="Digite o e-mail do cliente"
             keyboardType="email-address"
+            autoCapitalize="none"
             onChangeText={
               cli_email => setCliEmail(cli_email)}
           />
