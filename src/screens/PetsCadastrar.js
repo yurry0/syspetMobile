@@ -44,12 +44,13 @@ const PetsCadastrar = ({ navigation }, props) => {
   const [sexo, setSexo] = useState('');
   const [idade, setIdade] = useState('');
   const [vacinas, setVacinas] = useState('');
+  const [altura, setAltura] = useState('');
   const [peso, setPeso] = useState('');
+  const [img_pet, setImgPet] = useState('');
   const [tipo, setTipo] = useState('');
   const [especie, setEspecie] = useState('');
   const [pelagem, setPelagem] = useState('');
   const [porte, setPorte] = useState('');
-
   const [adotado, setAdotado] = useState('');
 
   const [estado, setEstado] = useState('cadastro');
@@ -61,7 +62,9 @@ const PetsCadastrar = ({ navigation }, props) => {
     setSexo(props.sexo);
     setIdade(props.idade);
     setVacinas(props.vacinas);
+    setAltura(props.altura);
     setPeso(props.peso);
+    setImgPet(props.img_pet);
     setTipo(props.tipo);
     setEspecie(props.especie);
     setPelagem(props.pelagem);
@@ -81,7 +84,7 @@ const PetsCadastrar = ({ navigation }, props) => {
     }
 
     if (estado == 'cadastro') {
-      insereDado(nome, raca, sexo, idade, porte, vacinas, peso, tipo, especie, pelagem, adotado);
+      insereDado(nome, raca, sexo, idade, vacinas, altura, peso, img_pet, tipo, especie, pelagem, porte, adotado);
 
       navigation.navigate('PetsIndex');
     }
@@ -166,7 +169,7 @@ const PetsCadastrar = ({ navigation }, props) => {
 
 
           <Text style={styles.textoInput}> Porte </Text>
-          <TextInput  
+          <TextInput
             style={styles.barra}
             placeholder="Digite a especie do pet"
             keyboardType='default'
@@ -193,6 +196,27 @@ const PetsCadastrar = ({ navigation }, props) => {
             keyboardType='default'
             onChangeText={
               vacinas => setVacinas(vacinas)
+            }
+
+          />
+          <Text style={styles.textoInput}> Adotado? </Text>
+          <TextInput
+            style={styles.barraVacina}
+            placeholder="verificar como faz pra fazer um toggle"
+            keyboardType='default'
+            onChangeText={
+              adotado => setAdotado(adotado)
+            }
+
+          />
+
+          <Text style={styles.textoInput}> Imagem Pet </Text>
+          <TextInput
+            style={styles.barraVacina}
+            placeholder="pelo amor de DEUS como faz pra isso funcionar em mobile"
+            keyboardType='default'
+            onChangeText={
+              img_pet => setImgPet(img_pet)
             }
 
           />

@@ -334,7 +334,7 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('DELETE FROM usuario WHERE pk_id_cliente = ?',
+                    tx.executeSql('DELETE FROM cliente WHERE pk_id_cliente = ?',
                         [
                             id
                         ], (tx, results) => {
@@ -349,5 +349,158 @@ export default class Db {
     }
 
 
+     // ----------------------------------------------------------------------------------------------------------------------------------------------------- //
+    // --------------------------------------------------------- P E T S ----------------------------------------------------------------------------------- //
+
+     //Inicia Tabela Pets
+
+
+     initDbPet() {
+        let db;
+        SQLite.openDatabase(database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        ).then(DB => {
+            db = DB;
+            db.transaction(function (tx) {
+                tx.executeSql(
+                    "SELECT name FROM sqlite_master WHERE type='table' AND name='pet'",
+                    [],
+                    function (tx, result) {
+                        console.log('item:', result.rows.length);
+                        if (result.rows.length == 0) {
+                            tx.executeSql('DROP TABLE IF EXISTS pet', []);
+                            tx.executeSql(
+                                'CREATE TABLE IF NOT EXISTS pet(' +
+                                'pk_id_pet INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50), raca VARCHAR(50), sexo VARCHAR(50), idade VARCHAR(100), vacinas VARCHAR(100), altura VARCHAR(100), peso VARCHAR(100) , img_pet VARCHAR(100), tipo VARCHAR(100), especie VARCHAR(100), pelagem VARCHAR(100), porte VARCHAR(100), adotado NUMERIC(1), data_cadastro DATETIME(20))', []);
+                        }
+
+                        else {
+                            console.log('A criação foi bem sucedida');
+                        }
+                    } 
+                );
+            });
+        })
+
+    }//fim do método initDb
+
+    
+    //Insere um novo registro na tabela PET
+
+
+    addCliente(pet) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('INSERT INTO pet (nome, raca, sexo, idade, vacinas, altura, peso, img_pet, tipo, especie, pelagem, porte, adotado ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                        [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.img_pet, pet.tipo, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
+                            if (results.rowsAffected > 0) {
+                                Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
+                            } else {
+                                Alert.alert('Cadastro', 'Erro no Registro');
+                            }
+                        });
+                })
+            })
+    }//fim do método initDb
+
+
+    updateCliente(pet) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('UPDATE pet SET nome = ?, raca = ?, sexo = ?, idade = ? ,  altura = ?, peso = ?, img_pet = ?, tipo = ?, especie = ?, pelagem = ?, porte = ?, adotado = ? WHERE pk_id_pet = ?',
+                        [
+                            pet.nome,
+                            pet.raca,
+                            pet.sexo,
+                            pet.idade,
+                            pet.altura,
+                            pet.peso,
+                            pet.img_pet,
+                            pet.tipo,
+                            pet.especie,
+                            pet.porte,
+                            pet.adotado,
+                            pet.pk_id_pet
+
+                        ], (tx, results) => {
+                            if (results.rowsAffected > 0) {
+                                Alert.alert('Alteração', 'Dados alterado com Sucesso');
+                            } else {
+                                Alert.alert('Alteração', 'Erro na alteração');
+                            }
+                        });
+                })
+            })
+    }
+
+    listarCliente() {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT * FROM pet ORDER BY nome', [], (tx, results) => {
+                        var len = results.rows.length;
+                        for (let i = 0; i < len; i++) {
+                            let row = results.rows.item(i);
+                            console.log('==================================================================================')
+                            console.log(`ID: ${row.pk_id_pet}, Nome do cliente: ${row.nome}, Raça: ${row.raca},  CEP: ${row.cli_cep} `,);
+                            console.log('success');
+                        }
+                        closeDatabase(db);
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
+            })
+    }
+
+    deletarCliente(id) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('DELETE FROM pet WHERE pk_id_pet = ?',
+                        [
+                            id
+                        ], (tx, results) => {
+                            if (results.rowsAffected > 0) {
+                                Alert.alert('Exclusão', 'Usuario excluído com Sucesso');
+                            } else {
+                                Alert.alert('Exclusão', 'Erro na exclusão');
+                            }
+                        });
+                })
+            })
+    }
 
 }
