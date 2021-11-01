@@ -32,7 +32,7 @@ const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco,
   db.addCliente(cliente);
 }
 
-//const CadastrarUsuario = ({ navigation }) => 
+
 
 const ClientesCadastrar = ({ navigation }, props) => {
 
@@ -58,9 +58,7 @@ const ClientesCadastrar = ({ navigation }, props) => {
     setCliCep(props.cli_Cep);
     setCliBairro(props.cli_bairro);
     setCliEndereco(props.cli_Endereco);
-
-    setCliEmail (props.cli_email)
-
+    setCliEmail(props.cli_email);
   }, []);
 
 
@@ -68,36 +66,34 @@ const ClientesCadastrar = ({ navigation }, props) => {
     if (cli_nome.length == 0 || cidade.length == 0 || cli_rg.length == 0 || cli_estado.length == 0 || cli_cep == 0 || cli_endereco == 0 || cli_bairro == 0 || cli_email == 0) {
       Alert.alert('Erro', 'Um ou mais campos estão em branco!');
     }
-
-    else if (cli_nome.length < 5) {
-      Alert.alert('Erro', 'Nome muito curto!');
+    else if (cli_nome.length == null || cidade.length == null || cli_rg.length == null || cli_estado.length == null || cli_cep == null || cli_endereco == null || cli_bairro == null || cli_email == null) {
+      Alert.alert('NULL', 'NULLNULLNULLNULL');
     }
+
 
     if (estado == 'cadastro') {
       insereDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email);
-
-      navigation.navigate('ClientesIndex');
+      
+      navigation.navigate('Home');
     }
     setEstado('cadastro');
   }
 
   return (
-    <View style={styles.container_header}>
+        <View style={styles.container_header}>
 
       <ScrollView keyboardShouldPersistTaps="handled">
         <KeyboardAvoidingView
           behavior="padding"
-          style={{ flex: 1, justifyContent: 'space-between' }} >
-
+          style={{ flex: 1, justifyContent: 'space-between' }}>
           <Text style={styles.header}>Preencha os campos para cadastrar um novo cliente</Text>
-
-
           <Text style={styles.textoInput}> Nome de cliente </Text>
 
           <TextInput
             style={styles.barra}
             placeholder="Digite o nome do cliente"
             keyboardType="default"
+
             onChangeText={
               cli_nome => setCliNome(cli_nome)
             }
@@ -109,6 +105,8 @@ const ClientesCadastrar = ({ navigation }, props) => {
             style={styles.barra}
             placeholder="Digite o CEP do usuário"
             autoCapitalize='none'
+            keyboardType='numeric'
+
             onChangeText={
               cli_cep => setCliCep(cli_cep)
             }
@@ -162,7 +160,7 @@ const ClientesCadastrar = ({ navigation }, props) => {
             onChangeText={
               cli_rg => setCliRG(cli_rg)
             }
-          />              
+          />
           <Text style={styles.textoInput}> E-mail </Text>
           <TextInput
             style={styles.barra}
@@ -178,6 +176,8 @@ const ClientesCadastrar = ({ navigation }, props) => {
         </KeyboardAvoidingView>
       </ScrollView>
     </View>
+  
+  
   )
 };
 export default ClientesCadastrar;

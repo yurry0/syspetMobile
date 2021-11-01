@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
-        backgroundColor: "#E8EDDF"
+        backgroundColor: "#E8EDDF",
+ 
     },
     header: {
         marginTop: 25,
@@ -34,8 +35,8 @@ const styles = StyleSheet.create({
         marginTop: 50,
         width: 300,
         height: 42,
-        backgroundColor: '#C83E4D',
-        marginBottom: 25
+        backgroundColor: '#709255',
+        marginBottom: 45
 
     },
 

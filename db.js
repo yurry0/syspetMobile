@@ -200,7 +200,9 @@ export default class Db {
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------------- //
     // --------------------------------------------------------- C L I E N T E ----------------------------------------------------------------------------- //
-    //Insere um novo registro na tabela CLIENTE
+    
+    //Inicia Tabela Clientes
+
 
     initDbClientes() {
         let db;
@@ -220,7 +222,7 @@ export default class Db {
                             tx.executeSql('DROP TABLE IF EXISTS cliente', []);
                             tx.executeSql(
                                 'CREATE TABLE IF NOT EXISTS cliente(' +
-                                'pk_id_cliente INTEGER PRIMARY KEY AUTOINCREMENT, cli_nome VARCHAR(50), cidade VARCHAR(50), cli_rg VARCHAR(50), cli_estado VARCHAR(100), cli_cep VARCHAR(100), cli_endereco VARCHAR(100), cli_bairro VARCHAR(100) cli_email VARCHAR(100))', []);
+                                'pk_id_cliente INTEGER PRIMARY KEY AUTOINCREMENT, cli_nome VARCHAR(50), cidade VARCHAR(50), cli_rg VARCHAR(50), cli_estado VARCHAR(100), cli_cep VARCHAR(100), cli_endereco VARCHAR(100), cli_bairro VARCHAR(100) , cli_email VARCHAR(100))', []);
                         }
 
                         else {
@@ -233,6 +235,9 @@ export default class Db {
 
     }//fim do método initDb
 
+    //Insere um novo registro na tabela CLIENTE
+
+
     addCliente(cliente) {
         let db;
         SQLite.openDatabase(
@@ -244,7 +249,7 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('INSERT INTO cliente (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_email ) VALUES (?,?,?,?,?)',
+                    tx.executeSql('INSERT INTO cliente (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_email ) VALUES (?,?,?,?,?,?,?,?)',
                         [cliente.cli_nome, cliente.cidade, cliente.cli_rg, cliente.cli_estado, cliente.cli_cep, cliente.cli_endereco, cliente.cli_bairro, cliente.cli_email], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');

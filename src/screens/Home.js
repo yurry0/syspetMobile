@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View, Button } from 'react-native'
 import styles from '../styles/App';
 import  Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -47,8 +47,18 @@ const Home = ({ navigation }) => {
         })}
       > 
         <Tab.Screen  name="Index" component={HomeIndex} options={{headerShown: false}} />
-        <Tab.Screen  name="Clientes" component={ClientesIndex} />
-        <Tab.Screen name="Pets" component={PetsIndex} />
+        <Tab.Screen  name="Clientes" component={ClientesIndex} options={{headerRight: () => (
+          <Button
+            onPress={() => navigation.navigate('ClientesCadastrar')}
+            title="+Cliente"
+            color="#3ebd5e"
+          />), headerStyle: {
+            backgroundColor: '#005377',
+          },
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          }} />
+          <Tab.Screen name="Pets" component={PetsIndex} />
         <Tab.Screen name="Adoções" component={AdocoesIndex} />
         
       </Tab.Navigator>

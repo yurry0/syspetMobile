@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-const HomeIndex = ({Navigation}) =>{
+const HomeIndex = ({navigation}) =>{
+
+    
 
     return(
 
         <View style={{flex: 1,
         alignContent: 'center'}}>
-            <Text>HOME</Text>
+            
+            <TouchableOpacity onPress={ () => {navigation.navigate('Login')} }>
+            <Text >Retornar Login</Text>
+          </TouchableOpacity>
         </View>
     )
 }

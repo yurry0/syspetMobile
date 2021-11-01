@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 
 import { Text, TouchableOpacity, View } from 'react-native'
 
@@ -9,10 +9,10 @@ import Db from '../../db';
 
 
 const ClientesIndex = ({ navigation }) => {
+    
+var db = new Db(); //Criando um objeto da classe Db.js
 
-var db = new Db();
-
-
+const database_name = 'syspet_mob.db';
     return (
         <View style={styles.container}>
             <Text style={styles.texto}>Bem vindo a seção de cliente do Syspet!</Text>
@@ -24,5 +24,3 @@ var db = new Db();
     )
 
 }
-
-export default ClientesIndex;

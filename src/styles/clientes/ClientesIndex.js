@@ -1,36 +1,42 @@
 import { StyleSheet } from "react-native";
 
-
-const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-        backgroundColor: '#D5F9DE',
-        alignItems: 'center',
-        justifyContent:'center'
+  const styles = StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+      alignItems: 'center',
+      padding: 10,
     },
-    texto: {
-        fontSize:15,
-        margin: 20
+   
+    touchableOpacity: {
+      backgroundColor: '#0091EA',
+      alignItems: 'center',
+      borderRadius: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%'
     },
-    botao: {
-        marginTop: 50,
-        width: 300,
-        height: 42,
-        backgroundColor: '#C83E4D',
-        marginBottom: 25
-
+   
+    touchableOpacityText: {
+      color: '#FFFFFF',
+      fontSize: 23,
+      textAlign: 'center',
+      padding: 8
     },
-
-    botaoText: {
-        color: '#fff',
-        alignSelf: 'center',
-        marginTop: 10,
-        fontSize: 16
+   
+    textInputStyle: {
+      height: 45,
+      width: '90%',
+      textAlign: 'center',
+      borderWidth: 1,
+      borderColor: '#00B8D4',
+      borderRadius: 7,
+      marginTop: 15,
     },
-
-
-
-})
+   
+    itemsStyle: {
+      fontSize: 22,
+      color: '#000'
+    }
+  });
 
 export default styles;

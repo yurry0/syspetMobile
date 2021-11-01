@@ -59,7 +59,6 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
     if (estado == 'cadastro') {
       insereDado(nome, email, senha);
-
       navigation.navigate('Login');
     }
     setEstado('cadastro');
