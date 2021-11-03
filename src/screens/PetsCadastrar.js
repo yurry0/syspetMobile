@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Text,
+  Switch,
   TextInput
 } from 'react-native';
 import styles from '../styles/pets/PetsCadastrar'
@@ -34,9 +35,11 @@ const insereDado = (nome, raca, sexo, idade, vacinas, peso, tipo, especie, pelag
   db.addPet(pet);
 }
 
+
 //const CadastrarUsuario = ({ navigation }) => 
 
 const PetsCadastrar = ({ navigation }, props) => {
+
 
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
@@ -52,8 +55,13 @@ const PetsCadastrar = ({ navigation }, props) => {
   const [pelagem, setPelagem] = useState('');
   const [porte, setPorte] = useState('');
   const [adotado, setAdotado] = useState('');
+  const [isEnabled, setIsEnabled] = useState('');
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const [estado, setEstado] = useState('cadastro');
+
+  
+
 
   useEffect(() => {
     setId(props.id);
@@ -199,27 +207,7 @@ const PetsCadastrar = ({ navigation }, props) => {
             }
 
           />
-          <Text style={styles.textoInput}> Adotado? </Text>
-          <TextInput
-            style={styles.barraVacina}
-            placeholder="verificar como faz pra fazer um toggle"
-            keyboardType='default'
-            onChangeText={
-              adotado => setAdotado(adotado)
-            }
-
-          />
-
-          <Text style={styles.textoInput}> Imagem Pet </Text>
-          <TextInput
-            style={styles.barraVacina}
-            placeholder="pelo amor de DEUS como faz pra isso funcionar em mobile"
-            keyboardType='default'
-            onChangeText={
-              img_pet => setImgPet(img_pet)
-            }
-
-          />
+         
 
           <TouchableOpacity style={styles.botao} onPress={() => { salvar(estado) }} >
             <Text style={styles.botaoText}>Salvar Cadastro</Text>

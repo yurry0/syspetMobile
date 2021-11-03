@@ -373,11 +373,11 @@ export default class Db {
                             tx.executeSql('DROP TABLE IF EXISTS pet', []);
                             tx.executeSql(
                                 'CREATE TABLE IF NOT EXISTS pet(' +
-                                'pk_id_pet INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50), raca VARCHAR(50), sexo VARCHAR(50), idade VARCHAR(100), vacinas VARCHAR(100), altura VARCHAR(100), peso VARCHAR(100) , img_pet VARCHAR(100), tipo VARCHAR(100), especie VARCHAR(100), pelagem VARCHAR(100), porte VARCHAR(100), adotado NUMERIC(1), data_cadastro DATETIME(20))', []);
+                                'pk_id_pet INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50), raca VARCHAR(50), sexo VARCHAR(50), idade VARCHAR(100), vacinas VARCHAR(100), altura VARCHAR(100), peso VARCHAR(100), tipo VARCHAR(100), especie VARCHAR(100), pelagem VARCHAR(100), porte VARCHAR(100), adotado NUMERIC(1), data_cadastro DATETIME(20))', []);
                         }
 
                         else {
-                            console.log('A criação foi bem sucedida');
+                            console.log('A criação da tabela PETs foi realizada com sucesso.');
                         }
                     } 
                 );
@@ -390,7 +390,7 @@ export default class Db {
     //Insere um novo registro na tabela PET
 
 
-    addCliente(pet) {
+    addPet(pet) {
         let db;
         SQLite.openDatabase(
             database_name,
@@ -401,8 +401,8 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('INSERT INTO pet (nome, raca, sexo, idade, vacinas, altura, peso, img_pet, tipo, especie, pelagem, porte, adotado ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                        [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.img_pet, pet.tipo, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
+                    tx.executeSql('INSERT INTO pet (nome, raca, sexo, idade, vacinas, altura, peso, tipo, especie, pelagem, porte, adotado ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                        [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.tipo, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
                             } else {
@@ -414,7 +414,7 @@ export default class Db {
     }//fim do método initDb
 
 
-    updateCliente(pet) {
+    updatePet(pet) {
         let db;
         SQLite.openDatabase(
             database_name,
@@ -425,7 +425,7 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE pet SET nome = ?, raca = ?, sexo = ?, idade = ? ,  altura = ?, peso = ?, img_pet = ?, tipo = ?, especie = ?, pelagem = ?, porte = ?, adotado = ? WHERE pk_id_pet = ?',
+                    tx.executeSql('UPDATE pet SET nome = ?, raca = ?, sexo = ?, idade = ? ,  altura = ?, peso = ?, tipo = ?, especie = ?, pelagem = ?, porte = ?, adotado = ? WHERE pk_id_pet = ?',
                         [
                             pet.nome,
                             pet.raca,
@@ -433,7 +433,6 @@ export default class Db {
                             pet.idade,
                             pet.altura,
                             pet.peso,
-                            pet.img_pet,
                             pet.tipo,
                             pet.especie,
                             pet.porte,
@@ -451,7 +450,7 @@ export default class Db {
             })
     }
 
-    listarCliente() {
+    listarPet() {
         let db;
         SQLite.openDatabase(
             database_name,
@@ -478,7 +477,7 @@ export default class Db {
             })
     }
 
-    deletarCliente(id) {
+    deletarPet(id) {
         let db;
         SQLite.openDatabase(
             database_name,

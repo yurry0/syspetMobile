@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Text,
-  TextInput
+  TextInput,
+  Button
 } from 'react-native';
 import styles from '../styles/clientes/ClientesCadastrar'
 import Mybutton from '../elements/MyButton'
@@ -17,7 +18,8 @@ import Db from '../../db';
 var db = new Db();
 
 
-const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_email) => {
+
+const editaDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_email) => {
   db.initDb();
   let cliente = {
     cli_nome: cli_nome,
@@ -29,12 +31,12 @@ const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco,
     cli_bairro: cli_bairro,
     cli_email: cli_email
   }
-  db.addCliente(cliente);
+  db.editCliente(cliente);
 }
 
 
 
-const ClientesCadastrar = ({ navigation }, props) => {
+const ClientesEditar = ({ navigation }, props) => {
 
   const [id, setId] = useState('');
   const [cli_nome, setCliNome] = useState('');
@@ -47,22 +49,31 @@ const ClientesCadastrar = ({ navigation }, props) => {
   const [cli_email, setCliEmail] = useState('');
 
 
-  const [estado, setEstado] = useState('cadastro');
+  const [estado, setEstado] = useState('editar');
 
-  useEffect(() => {
+  
+
+  useEffect(() => {  
     setId(props.id);
     setCliNome(props.cli_nome);
     setCidade(props.cidade);
     setCliRG(props.cli_rg);
     setCliEstado(props.cli_estado);
-    setCliCep(props.cli_Cep);
+    setCliCep(props.cli_cep);
     setCliBairro(props.cli_bairro);
     setCliEndereco(props.cli_Endereco);
     setCliEmail(props.cli_email);
+
   }, []);
 
+  function mostrarValores(){
+    console.log(cli_nome);
+    console.log(cli_cep);
+    
+  }
 
-  const salvar = (estado) => {
+
+  const editar = (estado) => {
     if (cli_nome.length == 0 || cidade.length == 0 || cli_rg.length == 0 || cli_estado.length == 0 || cli_cep == 0 || cli_endereco == 0 || cli_bairro == 0 || cli_email == 0) {
       Alert.alert('Erro', 'Um ou mais campos estão em branco!');
     }
@@ -71,12 +82,12 @@ const ClientesCadastrar = ({ navigation }, props) => {
     }
 
 
-    if (estado == 'cadastro') {
-      insereDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email);
+    if (estado == 'editar') {
+      editaDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email);
       
       navigation.navigate('Home');
     }
-    setEstado('cadastro');
+    setEstado('editar');
   }
 
   return (
@@ -86,8 +97,13 @@ const ClientesCadastrar = ({ navigation }, props) => {
         <KeyboardAvoidingView
           behavior="padding"
           style={{ flex: 1, justifyContent: 'space-between' }}>
-          <Text style={styles.header}>Preencha os campos para cadastrar um novo cliente</Text>
+          <Text style={styles.header}> Editar Cliente</Text>
           <Text style={styles.textoInput}> Nome de cliente </Text>
+
+          <TouchableOpacity onPress={() => { mostrarValores() }}> 
+            <Text> TESTE </Text> 
+            </TouchableOpacity>
+          
 
           <TextInput
             style={styles.barra}
@@ -96,7 +112,8 @@ const ClientesCadastrar = ({ navigation }, props) => {
             onChangeText={
               cli_nome => setCliNome(cli_nome)
             }
-
+            
+            defaultValue= {props.cli_nome}
           />
 
           <Text style={styles.textoInput}> CEP </Text>
@@ -109,6 +126,8 @@ const ClientesCadastrar = ({ navigation }, props) => {
             onChangeText={
               cli_cep => setCliCep(cli_cep)
             }
+
+            defaultValue= {cli_cep}
           />
 
 
@@ -169,8 +188,8 @@ const ClientesCadastrar = ({ navigation }, props) => {
             onChangeText={
               cli_email => setCliEmail(cli_email)}
           />
-          <TouchableOpacity style={styles.botao} onPress={() => { salvar(estado) }} >
-            <Text style={styles.botaoText}>Salvar Cadastro</Text>
+          <TouchableOpacity style={styles.botao} onPress={() => { editar(estado) }} >
+            <Text style={styles.botaoText}>Editar Cadastro</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -179,4 +198,4 @@ const ClientesCadastrar = ({ navigation }, props) => {
   
   )
 };
-export default ClientesCadastrar;
+export default ClientesEditar;

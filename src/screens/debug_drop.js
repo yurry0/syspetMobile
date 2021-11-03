@@ -30,7 +30,7 @@ const drop = ({navigation}) => {
             <Text> -------------------------------------- </Text>
             <Text> -------------------------------------- </Text>
             
-            <TouchableOpacity onPress={ async () => { db.listarPets()}} style={{marginTop: 20}}><Text>MYSQL SELECT PETS (CONSOLE LOG)</Text></TouchableOpacity>
+            <TouchableOpacity onPress={ async () => { db.listarPet()}} style={{marginTop: 20}}><Text>MYSQL SELECT PETS (CONSOLE LOG)</Text></TouchableOpacity>
             
         </View>
     )

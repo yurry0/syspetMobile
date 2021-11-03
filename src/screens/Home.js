@@ -47,10 +47,11 @@ const Home = ({ navigation }) => {
         })}
       > 
         <Tab.Screen  name="Index" component={HomeIndex} options={{headerShown: false}} />
+
         <Tab.Screen  name="Clientes" component={ClientesIndex} options={{headerRight: () => (
           <Button
             onPress={() => navigation.navigate('ClientesCadastrar')}
-            title="+Cliente"
+            title="+ Cliente"
             color="#3ebd5e"
           />), headerStyle: {
             backgroundColor: '#005377',
