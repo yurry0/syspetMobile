@@ -75,9 +75,9 @@ export default class ClientesIndex extends Component {
                             <View style={{ justifyContent: 'flex-end', flexDirection: 'row' }}>
                                 <View style={{ marginRight: 5 }}>
                                     <Button title='Alterar' onPress={() => {
-                                        Alert.alert('Alterar:', 'Deseja alterar o registro de ' + item.cli_nome,
+                                        Alert.alert('Alterar:', 'Deseja alterar o registro de ' + item.cli_nome + '?',
                                             [
-                                                { text: 'Sim', onPress: () => { this.props.navigation.navigate ('ClientesEditar', {cli_nome: item.cli_nome, cidade:item.cidade, pk_id_cliente: item.pk_id_cliente}) } },
+                                                { text: 'Sim', onPress: () => { this.props.navigation.navigate ('ClientesEditar', { id: item.pk_id_cliente, cli_nome: item.cli_nome, cidade:item.cidade}) } },
                                                 { text: 'Não' }
 
                                             ])

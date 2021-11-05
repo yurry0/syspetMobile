@@ -9,7 +9,7 @@ const AdocoesIndex = ({navigation}) =>{
         <Text style={styles.texto}>Bem vindo a seção de adoções do Syspet!</Text>
         <Text style={styles.texto}>Olha o botão de ADD adoções:</Text>
         <TouchableOpacity style={styles.botao} onPress={() => { navigation.navigate('AdocoesCadastrar') }} >
-            <Text style={styles.botaoText}>Cadastrar novo cliente</Text>
+            <Text style={styles.botaoText}>Cadastrar nova adoção</Text>
         </TouchableOpacity>
     </View>
     )

@@ -18,6 +18,7 @@ const Tab = createBottomTabNavigator();
 const Home = ({ navigation }) => {
 
   db.initDb();
+  
 
     // const [login, setLogin] = useState('');
     return (

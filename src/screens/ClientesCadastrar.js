@@ -74,7 +74,7 @@ const ClientesCadastrar = ({ navigation }, props) => {
     if (estado == 'cadastro') {
       insereDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email);
       
-      navigation.navigate('Home');
+
     }
     setEstado('cadastro');
   }
@@ -116,7 +116,7 @@ const ClientesCadastrar = ({ navigation }, props) => {
           <TextInput
             style={styles.barra}
             keyboardType='default'
-            placeholder="Digite o CEP do usuário"
+            placeholder="Digite o endereço do usuário"
 
             onChangeText={
               cli_endereco => setCliEndereco(cli_endereco)
@@ -126,7 +126,7 @@ const ClientesCadastrar = ({ navigation }, props) => {
           <Text style={styles.textoInput}> Bairro </Text>
           <TextInput
             style={styles.barra}
-            placeholder="Digite o CEP do usuário"
+            placeholder="Digite o bairro do usuário"
 
             onChangeText={
               cli_bairro => setCliBairro(cli_bairro)

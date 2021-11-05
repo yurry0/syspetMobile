@@ -39,6 +39,7 @@ const editaDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, 
 const ClientesEditar = ({ navigation }, props) => {
 
   const [id, setId] = useState('');
+  
   const [cli_nome, setCliNome] = useState('');
   const [cidade, setCidade] = useState('');
   const [cli_rg, setCliRG] = useState('');
@@ -48,8 +49,6 @@ const ClientesEditar = ({ navigation }, props) => {
   const [cli_bairro, setCliBairro] = useState('');
   const [cli_email, setCliEmail] = useState('');
 
-
-  const [estado, setEstado] = useState('editar');
 
   
 
@@ -72,6 +71,7 @@ const ClientesEditar = ({ navigation }, props) => {
     
   }
 
+  //Autenticação de campos // 
 
   const editar = (estado) => {
     if (cli_nome.length == 0 || cidade.length == 0 || cli_rg.length == 0 || cli_estado.length == 0 || cli_cep == 0 || cli_endereco == 0 || cli_bairro == 0 || cli_email == 0) {
@@ -81,7 +81,7 @@ const ClientesEditar = ({ navigation }, props) => {
       Alert.alert('NULL', 'NULLNULLNULLNULL');
     }
 
-
+    //Checa a flag de estado para iniciar edição
     if (estado == 'editar') {
       editaDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email);
       
@@ -104,16 +104,17 @@ const ClientesEditar = ({ navigation }, props) => {
             <Text> TESTE </Text> 
             </TouchableOpacity>
           
+          <Text> ID: {id} </Text>
 
           <TextInput
             style={styles.barra}
             placeholder="Digite o nome do cliente"
             keyboardType="default"
+  
             onChangeText={
               cli_nome => setCliNome(cli_nome)
             }
-            
-            defaultValue= {props.cli_nome}
+         
           />
 
           <Text style={styles.textoInput}> CEP </Text>
