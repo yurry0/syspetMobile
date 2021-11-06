@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView, Image, TouchableOpacity, Text, TextInput, KeyboardAvoidingView, Alert } from 'react-native';
 import Db from '../../db';
+import { Actions } from 'react-native-router-flux';
 import styles from '../styles/Login';
 var db = new Db();
 {/* Essa parte é ligada as funções de checagem no BD que ainda não foram finalizadas. */ }
@@ -67,12 +68,12 @@ export default function Login({ navigation }, props) {
 
                      */}
                     <TouchableOpacity style={styles.botao}
-                    onPress={()=>{navigation.navigate('Home')}}>
+                    onPress={()=>{Actions.homeIndex()}}>
                         <Text style={styles.botaoText}>Entrar</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.botaoCad}
-                        onPress={() => { navigation.navigate('CadastrarUsuario') }}
+                        onPress={() => { Actions.CadastrarUsuario()}}
                     >
                         <Text style={styles.botaoText}>Cadastrar Usuário</Text>
                     </TouchableOpacity>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
+import {Actions} from 'react-native-router-flux'
 import Db from '../../db';
 
 var db = new Db();
@@ -17,7 +18,7 @@ const HomeIndex = ({ navigation }) => {
             alignContent: 'center'
         }}>
 
-            <TouchableOpacity onPress={() => { navigation.navigate('Login') }}>
+            <TouchableOpacity onPress={() => { Actions.Login() }}>
                 <Text >Retornar Login</Text>
             </TouchableOpacity>
         </View>
