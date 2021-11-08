@@ -11,8 +11,7 @@ import {
   Button
 } from 'react-native';
 import styles from '../styles/clientes/ClientesCadastrar'
-import Mybutton from '../elements/MyButton'
-
+import { Actions } from 'react-native-router-flux';
 import Db from '../../db';
 
 var db = new Db();
@@ -36,10 +35,9 @@ const editaDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, 
 
 
 
-const ClientesEditar = ({ navigation }, props) => {
+const ClientesEditar = (props) => {
 
   const [id, setId] = useState('');
-  
   const [cli_nome, setCliNome] = useState('');
   const [cidade, setCidade] = useState('');
   const [cli_rg, setCliRG] = useState('');
@@ -50,9 +48,9 @@ const ClientesEditar = ({ navigation }, props) => {
   const [cli_email, setCliEmail] = useState('');
 
 
-  
 
-  useEffect(() => {  
+
+  useEffect(() => {
     setId(props.id);
     setCliNome(props.cli_nome);
     setCidade(props.cidade);
@@ -65,10 +63,16 @@ const ClientesEditar = ({ navigation }, props) => {
 
   }, []);
 
-  function mostrarValores(){
-    console.log(cli_nome);
+  function mostrarValores() {
+    console.log(id);
+    console.log(cli_nome);   
+    console.log(cidade);
+    console.log(cli_rg);
+    console.log(cli_estado);
     console.log(cli_cep);
-    
+    console.log(cli_endereco);
+    console.log(cli_bairro);
+    console.log(cli_email);
   }
 
   //Autenticação de campos // 
@@ -84,38 +88,48 @@ const ClientesEditar = ({ navigation }, props) => {
     //Checa a flag de estado para iniciar edição
     if (estado == 'editar') {
       editaDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email);
-      
+
       navigation.navigate('Home');
     }
     setEstado('editar');
   }
 
   return (
-        <View style={styles.container_header}>
+    <View style={styles.container_header}>
 
       <ScrollView keyboardShouldPersistTaps="handled">
         <KeyboardAvoidingView
           behavior="padding"
           style={{ flex: 1, justifyContent: 'space-between' }}>
+          <TouchableOpacity onPress={() => { mostrarValores() }}>
+            <Text> TESTE </Text>
+          </TouchableOpacity>
+
           <Text style={styles.header}> Editar Cliente</Text>
-          <Text style={styles.textoInput}> Nome de cliente </Text>
-
-          <TouchableOpacity onPress={() => { mostrarValores() }}> 
-            <Text> TESTE </Text> 
-            </TouchableOpacity>
-          
           <Text> ID: {id} </Text>
+          <TextInput
+            style={styles.barra}
+            editable={false}
+            placeholder="Digite o nome do cliente"
+            keyboardType="default"
+            defaultValue={id}
+            onChangeText={
+              id => setId(id)
+            }
+          />
 
+
+          <Text style={styles.textoInput}> Nome de cliente </Text>
           <TextInput
             style={styles.barra}
             placeholder="Digite o nome do cliente"
             keyboardType="default"
-  
+            defaultValue={cli_nome}
             onChangeText={
-              cli_nome => setCliNome(cli_nome)
+              cli_nome => cli_nome(cli_nome)
             }
-         
           />
+
 
           <Text style={styles.textoInput}> CEP </Text>
           <TextInput
@@ -123,12 +137,12 @@ const ClientesEditar = ({ navigation }, props) => {
             placeholder="Digite o CEP do usuário"
             autoCapitalize='none'
             keyboardType='numeric'
-
+            defaultValue={cli_cep}
             onChangeText={
               cli_cep => setCliCep(cli_cep)
             }
 
-            defaultValue= {cli_cep}
+
           />
 
 
@@ -137,7 +151,7 @@ const ClientesEditar = ({ navigation }, props) => {
             style={styles.barra}
             keyboardType='default'
             placeholder="Digite o CEP do usuário"
-
+            defaultValue={cli_endereco}
             onChangeText={
               cli_endereco => setCliEndereco(cli_endereco)
             }
@@ -147,7 +161,7 @@ const ClientesEditar = ({ navigation }, props) => {
           <TextInput
             style={styles.barra}
             placeholder="Digite o CEP do usuário"
-
+            defaultValue={cli_bairro}
             onChangeText={
               cli_bairro => setCliBairro(cli_bairro)
             }
@@ -158,6 +172,7 @@ const ClientesEditar = ({ navigation }, props) => {
             style={styles.barra}
             placeholder="Digite a cidade do cliente"
             keyboardType="default"
+            defaultValue={cidade}
             onChangeText={
               cidade => setCidade(cidade)
             }
@@ -167,6 +182,7 @@ const ClientesEditar = ({ navigation }, props) => {
             style={styles.barra}
             placeholder="Digite o estado do cliente"
             keyboardType="default"
+            defaultValue={cli_estado}
             onChangeText={
               cli_estado => setCliEstado(cli_estado)
             }
@@ -176,6 +192,7 @@ const ClientesEditar = ({ navigation }, props) => {
             style={styles.barra}
             placeholder="Digite o RG do cliente"
             keyboardType="numeric"
+            defaultValue={cli_rg}
             onChangeText={
               cli_rg => setCliRG(cli_rg)
             }
@@ -186,6 +203,7 @@ const ClientesEditar = ({ navigation }, props) => {
             placeholder="Digite o e-mail do cliente"
             keyboardType="email-address"
             autoCapitalize="none"
+            defaultValue={cli_email}
             onChangeText={
               cli_email => setCliEmail(cli_email)}
           />
@@ -195,8 +213,8 @@ const ClientesEditar = ({ navigation }, props) => {
         </KeyboardAvoidingView>
       </ScrollView>
     </View>
-  
-  
+
+
   )
 };
 export default ClientesEditar;

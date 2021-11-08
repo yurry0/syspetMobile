@@ -1,4 +1,5 @@
 import SQLite from 'react-native-sqlite-storage';
+import {Actions} from 'react-native-router-flux'
 import { Alert } from 'react-native';
 
 SQLite.DEBUG(true);
@@ -253,6 +254,9 @@ export default class Db {
                         [cliente.cli_nome, cliente.cidade, cliente.cli_rg, cliente.cli_estado, cliente.cli_cep, cliente.cli_endereco, cliente.cli_bairro, cliente.cli_email], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
+                                Actions.ClientesIndex();
+                                Actions.refresh('ClientesIndex');
+                                
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
                             }
