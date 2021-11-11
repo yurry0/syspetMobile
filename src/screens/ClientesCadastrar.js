@@ -9,9 +9,8 @@ import {
   Text,
   TextInput
 } from 'react-native';
-import styles from '../styles/clientes/ClientesCadastrar'
-import Mybutton from '../elements/MyButton'
 
+import styles from '../styles/clientes/ClientesCadastrar'
 import Db from '../../db';
 
 var db = new Db();
@@ -34,7 +33,7 @@ const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco,
 
 
 
-const ClientesCadastrar = ({ navigation }, props) => {
+const ClientesCadastrar = (props) => {
 
   const [id, setId] = useState('');
   const [cli_nome, setCliNome] = useState('');
@@ -69,23 +68,19 @@ const ClientesCadastrar = ({ navigation }, props) => {
     else if (cli_nome.length == null || cidade.length == null || cli_rg.length == null || cli_estado.length == null || cli_cep == null || cli_endereco == null || cli_bairro == null || cli_email == null) {
       Alert.alert('NULL', 'NULLNULLNULLNULL');
     }
-
-
     if (estado == 'cadastro') {
-      insereDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email);
-      
-
+      insereDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_email);
     }
     setEstado('cadastro');
   }
 
   return (
-        <View style={styles.container_header}>
+    <View style={styles.container_header}>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={{ flex: 1, justifyContent: 'space-between' }}>
+        <ScrollView keyboardShouldPersistTaps="handled">
 
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <KeyboardAvoidingView
-          behavior="padding"
-          style={{ flex: 1, justifyContent: 'space-between' }}>
           <Text style={styles.header}>Preencha os campos para cadastrar um novo cliente</Text>
           <Text style={styles.textoInput}> Nome de cliente </Text>
 
@@ -105,7 +100,6 @@ const ClientesCadastrar = ({ navigation }, props) => {
             placeholder="Digite o CEP do usuário"
             autoCapitalize='none'
             keyboardType='numeric'
-
             onChangeText={
               cli_cep => setCliCep(cli_cep)
             }
@@ -169,14 +163,17 @@ const ClientesCadastrar = ({ navigation }, props) => {
             onChangeText={
               cli_email => setCliEmail(cli_email)}
           />
+
           <TouchableOpacity style={styles.botao} onPress={() => { salvar(estado) }} >
             <Text style={styles.botaoText}>Salvar Cadastro</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </ScrollView>
+
+        </ScrollView>
+      </KeyboardAvoidingView>
+
     </View>
-  
-  
+
+
   )
 };
 export default ClientesCadastrar;

@@ -25,6 +25,9 @@ import AdocoesCadastrar from './AdocoesCadastrar'
 //Paginas edição dentro das tabs
 import ClientesEditar from './ClientesEditar';
 
+//Paginas de visualizar
+import ClientesView from './ClientesView'
+
 import  Ionicons from 'react-native-vector-icons/Ionicons';
 
 
@@ -87,7 +90,7 @@ const App = () => {
                   {/* Scenes relacionadas a funções do Clientes */}
                 <Scene key="ClientesCadastrar" title={'Cadastrar um novo cliente'} component={ClientesCadastrar} back={true}/> 
                 <Scene key="ClientesEditar" title={"Editar Cliente"} component={ClientesEditar} back={true}/>
-
+                <Scene key="ClientesView" title={"Visualizar Cliente"} component={ClientesView} back={true}/>
 
             </Scene>
 

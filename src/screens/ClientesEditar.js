@@ -18,25 +18,25 @@ var db = new Db();
 
 
 
-const editaDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_email) => {
+const editaDado = (cli_nome, cidade, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_email,cli_rg, id) => {
   db.initDb();
   let cliente = {
     cli_nome: cli_nome,
     cidade: cidade,
-    cli_rg: cli_rg,
     cli_estado: cli_estado,
     cli_cep: cli_cep,
     cli_endereco: cli_endereco,
     cli_bairro: cli_bairro,
-    cli_email: cli_email
+    cli_rg: cli_rg,
+    cli_email: cli_email,
+    pk_id_cliente: id
   }
-  db.editCliente(cliente);
+  db.updateCliente(cliente);
 }
 
 
 
 const ClientesEditar = (props) => {
-
   const [id, setId] = useState('');
   const [cli_nome, setCliNome] = useState('');
   const [cidade, setCidade] = useState('');
@@ -47,9 +47,9 @@ const ClientesEditar = (props) => {
   const [cli_bairro, setCliBairro] = useState('');
   const [cli_email, setCliEmail] = useState('');
 
+  const [estado, setEstado] = useState('editar');
 
-
-
+  
   useEffect(() => {
     setId(props.id);
     setCliNome(props.cli_nome);
@@ -58,20 +58,14 @@ const ClientesEditar = (props) => {
     setCliEstado(props.cli_estado);
     setCliCep(props.cli_cep);
     setCliBairro(props.cli_bairro);
-    setCliEndereco(props.cli_Endereco);
+    setCliEndereco(props.cli_endereco);
     setCliEmail(props.cli_email);
 
   }, []);
 
   function mostrarValores() {
     console.log(id);
-    console.log(cli_nome);   
-    console.log(cidade);
-    console.log(cli_rg);
-    console.log(cli_estado);
-    console.log(cli_cep);
     console.log(cli_endereco);
-    console.log(cli_bairro);
     console.log(cli_email);
   }
 
@@ -87,9 +81,8 @@ const ClientesEditar = (props) => {
 
     //Checa a flag de estado para iniciar edição
     if (estado == 'editar') {
-      editaDado(cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_email);
-
-      navigation.navigate('Home');
+      editaDado(cli_nome, cidade, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_rg,  cli_email, id);
+   
     }
     setEstado('editar');
   }
@@ -101,18 +94,18 @@ const ClientesEditar = (props) => {
         <KeyboardAvoidingView
           behavior="padding"
           style={{ flex: 1, justifyContent: 'space-between' }}>
-          <TouchableOpacity onPress={() => { mostrarValores() }}>
+          <TouchableOpacity style={{ margin: 5, justifyContent: 'center', alignSelf: 'center' }} onPress={() => { mostrarValores() }}>
             <Text> TESTE </Text>
           </TouchableOpacity>
 
+
           <Text style={styles.header}> Editar Cliente</Text>
-          <Text> ID: {id} </Text>
           <TextInput
             style={styles.barra}
             editable={false}
-            placeholder="Digite o nome do cliente"
+            placeholder="Valor do ID"
             keyboardType="default"
-            defaultValue={id}
+            defaultValue={id.toString()}
             onChangeText={
               id => setId(id)
             }
@@ -126,7 +119,7 @@ const ClientesEditar = (props) => {
             keyboardType="default"
             defaultValue={cli_nome}
             onChangeText={
-              cli_nome => cli_nome(cli_nome)
+              cli_nome => setCliNome(cli_nome)
             }
           />
 
@@ -137,11 +130,10 @@ const ClientesEditar = (props) => {
             placeholder="Digite o CEP do usuário"
             autoCapitalize='none'
             keyboardType='numeric'
-            defaultValue={cli_cep}
+            defaultValue={cli_cep.toString()}
             onChangeText={
               cli_cep => setCliCep(cli_cep)
             }
-
 
           />
 
@@ -192,7 +184,7 @@ const ClientesEditar = (props) => {
             style={styles.barra}
             placeholder="Digite o RG do cliente"
             keyboardType="numeric"
-            defaultValue={cli_rg}
+            defaultValue={cli_rg.toString()}
             onChangeText={
               cli_rg => setCliRG(cli_rg)
             }
@@ -203,7 +195,7 @@ const ClientesEditar = (props) => {
             placeholder="Digite o e-mail do cliente"
             keyboardType="email-address"
             autoCapitalize="none"
-            defaultValue={cli_email}
+            defaultValue={cli_email.toString()}
             onChangeText={
               cli_email => setCliEmail(cli_email)}
           />

@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import { FlatList, Text, View, StyleSheet, Button, Alert } from 'react-native';
+import React, { Component, useEffect } from 'react';
+import { FlatList, Text, View, StyleSheet, Button, Alert, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 import ActionButton from 'react-native-action-button';
 import Db from '../../db'
 import { Actions } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons'
+import styles from '../styles/lista_generica'
 
 const base = new Db();
 
 const database_name = 'syspet_mob.db';
+
+
 
 
 export default class ClientesIndex extends Component {
@@ -18,6 +20,9 @@ export default class ClientesIndex extends Component {
             FlatListItems: [],
         };
     }
+
+
+
     //
     componentDidMount() {
         let db;
@@ -52,12 +57,20 @@ export default class ClientesIndex extends Component {
         );
     };
     render() {
+     
         return (
-            <View style={{flex: 1}}>
+  
+            <View style={{ flex: 1 }}>
+       
                 <View style={styles.container}>
+
                     <Text style={styles.textoCab}>Lista dos Clientes</Text>
-               
+
+                    <TouchableOpacity onPress={()=>{Actions.refresh()}}>
+                        <Text> Atualizar Página</Text>
+                    </TouchableOpacity>
                 </View>
+                <ScrollView>
                 <FlatList
                     data={this.state.FlatListItems}//data recebe as informações buscadas na tabela cliente
                     ItemSeparatorComponent={this.ListViewItemSeparator}
@@ -68,15 +81,20 @@ export default class ClientesIndex extends Component {
                             style={{ backgroundColor: '#B0C4DE', padding: 30, borderBottomWidth: 1, flexDirection: 'row', justifyContent: 'space-between' }}
                         >
                             <View>
+                                
                                 <Text>Id: {item.pk_id_cliente}</Text>
-                                <Text>Nome: {item.cli_nome}</Text>
+                                <TouchableOpacity onPress={() => { Actions.ClientesView({id: item.pk_id_cliente, cli_nome: item.cli_nome, cli_cep: item.cli_cep, cli_endereco: item.cli_endereco, cli_bairro: item.cli_bairro, cidade: item.cidade, cli_estado: item.cli_estado, cli_rg: item.cli_rg, cli_email: item.cli_email}) }}>
+                                    <Text>Nome: {item.cli_nome}</Text>
+                                </TouchableOpacity>
+
                             </View>
                             <View style={{ justifyContent: 'flex-end', flexDirection: 'row' }}>
+
                                 <View style={{ marginRight: 5 }}>
-                                    <Button title='Alterar' onPress={() => {
+                                    <Button style={styles.botao} title='Alterar' onPress={() => {
                                         Alert.alert('Alterar:', 'Deseja alterar o registro de ' + item.cli_nome + '?',
                                             [
-                                                { text: 'Sim', onPress: () => { Actions.ClientesEditar({ id: item.pk_id_cliente, cli_nome: item.cli_nome, cidade: item.cidade, cli_rg: item.cli_rg, cli_estado: item.cli_estado, cli_cep: item.cli_cep, cli_endereco: item.cli_endereco, cli_bairro: item.cli_bairro, cli_email: item.cli_email, estado: 'editar' }) } },
+                                                { text: 'Sim', onPress: () => { Actions.ClientesEditar({ id: item.pk_id_cliente, cli_nome: item.cli_nome, cli_cep: item.cli_cep, cli_endereco: item.cli_endereco, cli_bairro: item.cli_bairro, cidade: item.cidade, cli_estado: item.cli_estado, cli_rg: item.cli_rg, cli_email: item.cli_email, estado: 'editar' }) } },
                                                 { text: 'Não' }
 
                                             ])
@@ -84,7 +102,7 @@ export default class ClientesIndex extends Component {
                                     }} />
                                 </View>
                                 <View>
-                                    <Button title='Excluir' onPress={() => {
+                                    <Button style={styles.botao} title='Excluir' onPress={() => {
                                         Alert.alert('Excluir:', 'Deseja excluir o registro de ' + item.cli_nome,
                                             [
                                                 { text: 'Sim', onPress: () => { this.deletar(item.pk_id_cliente) } },
@@ -92,42 +110,28 @@ export default class ClientesIndex extends Component {
                                             ]);
                                     }} />
                                 </View>
+
+
+
                             </View>
                         </View>
 
                     )}
                 />
-               
-               <ActionButton
+                 </ScrollView>
+                <ActionButton
                     offsetY={25}
                     offsetX={0}
                     position="center"
                     buttonColor="rgba(231,76,60,1)"
                     onPress={() => { Actions.ClientesCadastrar() }}
-                />                        
+                />
+
+
             </View>
+
 
         );
     }
 }
 
-const styles = StyleSheet.create({
-    actionButtonIcon: {
-        fontSize: 20,
-        height: 22,
-        color: 'white',
-    },
-    container: {
-        backgroundColor: '#4682B4',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    textoCab: {
-        color: '#fff',
-        fontSize: 30,
-        margin: 30
-    },
-    borda: {
-        borderBottomWidth: 2
-    }
-});

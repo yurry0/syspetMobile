@@ -1,7 +1,7 @@
 import SQLite from 'react-native-sqlite-storage';
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import { Alert } from 'react-native';
-//SYNC CHANGE
+
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
 const database_name = 'syspet_mob.db';
@@ -201,7 +201,7 @@ export default class Db {
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------------- //
     // --------------------------------------------------------- C L I E N T E ----------------------------------------------------------------------------- //
-    
+
     //Inicia Tabela Clientes
 
 
@@ -229,7 +229,7 @@ export default class Db {
                         else {
                             console.log('A criação foi bem sucedida');
                         }
-                    } 
+                    }
                 );
             });
         })
@@ -255,8 +255,9 @@ export default class Db {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
                                 Actions.ClientesIndex();
-                                Actions.refresh('ClientesIndex');
-                                
+                                Actions.refresh({key: 'ClientesIndex'});
+                         
+
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
                             }
@@ -277,7 +278,7 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE cliente SET cli_nome = ?, cidade = ?, cli_estado = ?, cli_cep = ,  cli_endereco = ?, cli_bairro = ?, cli_email = ? WHERE pk_id_cliente = ?',
+                    tx.executeSql('UPDATE cliente SET cli_nome = ?, cidade = ?, cli_estado = ?, cli_cep = ?, cli_endereco = ?, cli_bairro = ?, cli_email = ? WHERE pk_id_cliente = ?',
                         [
                             cliente.cli_nome,
                             cliente.cidade,
@@ -290,8 +291,22 @@ export default class Db {
 
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Alteração', 'Dados alterado com Sucesso');
+                             
+                                Alert.alert('Alteração', 'Dados alterados com Sucesso');
+                                Actions.refresh({key:'ClientesIndex'});
+                                Actions.ClientesIndex();
+                            
+                                
+                           
                             } else {
+                                console.log("Nome:" + cliente.cli_nome);
+                                console.log("Cidade: " + cliente.cidade);
+                                console.log("Estado" + cliente.cli_estado);
+                                console.log("CEP" + cliente.cli_cep);
+                                console.log("Endereco" + cliente.cli_endereco);
+                                console.log("Bairro" + cliente.cli_bairro);
+                                console.log('Email: ' + cliente.cli_email);
+                                console.log("ID:" + cliente.pk_id_cliente);
                                 Alert.alert('Alteração', 'Erro na alteração');
                             }
                         });
@@ -353,13 +368,13 @@ export default class Db {
     }
 
 
-     // ----------------------------------------------------------------------------------------------------------------------------------------------------- //
+    // ----------------------------------------------------------------------------------------------------------------------------------------------------- //
     // --------------------------------------------------------- P E T S ----------------------------------------------------------------------------------- //
 
-     //Inicia Tabela Pets
+    //Inicia Tabela Pets
 
 
-     initDbPet() {
+    initDbPet() {
         let db;
         SQLite.openDatabase(database_name,
             database_version,
@@ -383,14 +398,14 @@ export default class Db {
                         else {
                             console.log('A criação da tabela PETs foi realizada com sucesso.');
                         }
-                    } 
+                    }
                 );
             });
         })
 
     }//fim do método initDb
 
-    
+
     //Insere um novo registro na tabela PET
 
 

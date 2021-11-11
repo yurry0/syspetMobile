@@ -18,7 +18,7 @@ const HomeIndex = ({ navigation }) => {
             alignContent: 'center'
         }}>
 
-            <TouchableOpacity onPress={() => { Actions.Login() }}>
+            <TouchableOpacity onPress={() => {Actions.login()}}>
                 <Text >Retornar Login</Text>
             </TouchableOpacity>
         </View>
