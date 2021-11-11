@@ -1,7 +1,7 @@
 import SQLite from 'react-native-sqlite-storage';
 import {Actions} from 'react-native-router-flux'
 import { Alert } from 'react-native';
-
+//SYNC CHANGE
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
 const database_name = 'syspet_mob.db';
