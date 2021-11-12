@@ -80,7 +80,7 @@ export default function Login({ navigation }, props) {
 
                     <TouchableOpacity
                         style={styles.botaoDebug}
-                        onPress={() => { navigation.navigate('drop') }}
+                        onPress={() => { Actions.Debug()}}
                     >
                         <Text style={styles.botaoText}>DEBUG</Text>
                     </TouchableOpacity>

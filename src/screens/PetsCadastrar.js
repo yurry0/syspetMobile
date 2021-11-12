@@ -11,14 +11,15 @@ import {
   TextInput
 } from 'react-native';
 import styles from '../styles/pets/PetsCadastrar'
-import Mybutton from '../elements/MyButton'
+
+
 
 import Db from '../../db';
 
 var db = new Db();
 
 
-const insereDado = (nome, raca, sexo, idade, vacinas, peso, tipo, especie, pelagem, adotado) => {
+const insereDado = (nome, raca, sexo, idade, vacinas, peso, especie, pelagem, adotado) => {
   db.initDb();
   let pet = {
     nome: nome,
@@ -27,7 +28,6 @@ const insereDado = (nome, raca, sexo, idade, vacinas, peso, tipo, especie, pelag
     idade: idade,
     vacinas: vacinas,
     peso: peso,
-    tipo: tipo,
     especie: especie,
     pelagem: pelagem,
     adotado: adotado,
