@@ -9,8 +9,7 @@ import {
   Text,
   TextInput
 } from 'react-native';
-
-import styles from '../styles/clientes/ClientesCadastrar'
+import styles from '../styles/cadastro_generico'
 import Db from '../../db';
 
 var db = new Db();

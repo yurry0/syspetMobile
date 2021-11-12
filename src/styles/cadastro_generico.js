@@ -31,10 +31,10 @@ const styles = StyleSheet.create({
         borderBottomWidth: 4
     },
     botao: {
-        marginTop: 50,
+        marginTop: 80,
         width: 300,
         height: 42,
-        backgroundColor: '#C83E4D',
+        backgroundColor: '#339933',
         marginBottom: 25
 
     },
@@ -48,12 +48,14 @@ const styles = StyleSheet.create({
     textoInput: {
         alignSelf: 'center',
         letterSpacing: 1,
-        fontSize: 15
+        fontSize: 15,
+        marginTop: 2
     },
     barraVacina: {
         height: 100,
+        width: 300,
         backgroundColor: '#fff',
-        marginTop: 3,
+        marginTop: 20,
         borderBottomColor: '#fc9d03',
         borderBottomWidth: 4,
         justifyContent: 'flex-start'
@@ -66,7 +68,8 @@ const styles = StyleSheet.create({
       },
       select: {
           height: 50,
-          width: 150
+          width: 150,
+          marginBottom: 5
       },
 
 })

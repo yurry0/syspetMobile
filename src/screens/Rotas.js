@@ -101,6 +101,10 @@ const App = () => {
                 <Scene key="ClientesView" title={"Visualizar Cliente"} component={ClientesView} back={true} />
 
                 {/* Scenes relacionadas as funções de Pet */}
+                <Scene key="PetsCadastrar" title={'Cadastrar um novo pet'} component={PetsCadastrar} back={true} />
+                <Scene key="PetsEditar" title={"Editar Pet"} component={PetsEditar} back={true} />
+                <Scene key="PetsView" title={"Visualizar Pet"} component={PetsView} back={true} />
+
 
 
             </Scene>

@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
     },
     botao: {
         backgroundColor: '#DD2D4A'
-    }
+    },
+ 
 });
 
 export default styles;

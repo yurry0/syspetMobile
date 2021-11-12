@@ -420,10 +420,15 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('INSERT INTO pet (nome, raca, sexo, idade, vacinas, altura, peso, tipo, especie, pelagem, porte, adotado ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                        [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.tipo, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
+                    tx.executeSql('INSERT INTO pet (nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte, adotado ) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                        [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
+                           
+                       
+                          
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
+                                Actions.PetsIndex();
+                                Actions.refresh({key: 'ClientesIndex'});
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
                             }
@@ -444,7 +449,7 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE pet SET nome = ?, raca = ?, sexo = ?, idade = ? ,  altura = ?, peso = ?, tipo = ?, especie = ?, pelagem = ?, porte = ?, adotado = ? WHERE pk_id_pet = ?',
+                    tx.executeSql('UPDATE pet SET nome = ?, raca = ?, sexo = ?, idade = ? ,  altura = ?, peso = ?, especie = ?, pelagem = ?, porte = ?, adotado = ? WHERE pk_id_pet = ?',
                         [
                             pet.nome,
                             pet.raca,
@@ -452,7 +457,6 @@ export default class Db {
                             pet.idade,
                             pet.altura,
                             pet.peso,
-                            pet.tipo,
                             pet.especie,
                             pet.porte,
                             pet.adotado,
@@ -512,7 +516,7 @@ export default class Db {
                             id
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Exclusão', 'Usuario excluído com Sucesso');
+                                Alert.alert('Exclusão', 'Pet excluído com Sucesso');
                             } else {
                                 Alert.alert('Exclusão', 'Erro na exclusão');
                             }

@@ -47,7 +47,7 @@ export default class PetsIndex extends Component {
 
 
     deletar = (id) => {
-        base.deletarCliente(id);
+        base.deletarPet(id);
         Actions.refresh({ key: 'PetsIndex' });
     }
 
