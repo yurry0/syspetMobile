@@ -5,6 +5,7 @@ import ActionButton from 'react-native-action-button';
 import Db from '../../db'
 import { Actions } from 'react-native-router-flux';
 import styles from '../styles/lista_generica'
+import  Icon  from 'react-native-vector-icons/Ionicons';
 
 const base = new Db();
 
@@ -66,8 +67,8 @@ export default class ClientesIndex extends Component {
 
                     <Text style={styles.textoCab}>Lista dos Clientes</Text>
 
-                    <TouchableOpacity onPress={()=>{Actions.refresh()}}>
-                        <Text> Atualizar Página</Text>
+                    <TouchableOpacity onPress={()=>{Actions.refresh({key: 'ClientesIndex'})}}>
+                    <Icon name="sync" size={35} style={{paddingBottom: 25, color: 'white'}}> </Icon>
                     </TouchableOpacity>
                 </View>
                 <ScrollView>

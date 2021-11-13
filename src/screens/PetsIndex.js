@@ -5,6 +5,7 @@ import ActionButton from 'react-native-action-button';
 import Db from '../../db'
 import { Actions } from 'react-native-router-flux';
 import styles from '../styles/lista_generica'
+import  Icon  from 'react-native-vector-icons/Ionicons';
 
 const base = new Db();
 
@@ -66,8 +67,8 @@ export default class PetsIndex extends Component {
 
                     <Text style={styles.textoCab}>Lista dos Pets</Text>
 
-                    <TouchableOpacity onPress={() => { Actions.refresh() }}>
-                        <Text> Atualizar Página</Text>
+                    <TouchableOpacity onPress={() => { Actions.refresh({key: 'PetsIndex'}) }}>
+                       <Icon name="sync" size={35} style={{paddingBottom: 25, color: 'white'}}> </Icon>
                     </TouchableOpacity>
                 </View>
                 <ScrollView>
@@ -83,7 +84,7 @@ export default class PetsIndex extends Component {
                                 <View>
 
                                     <Text>Id: {item.pk_id_pet}</Text>
-                                    <TouchableOpacity onPress={() => { Actions.PetsView({ id: item.pk_id_pet, nome: item.nome, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, peso: item.cidade,  especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado }) }}>
+                                    <TouchableOpacity onPress={() => { Actions.PetsView({ id: item.pk_id_pet, nome: item.nome, raca: item.raca, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, altura:item.altura, peso: item.peso,  especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado }) }}>
                                     <Text>Nome: {item.nome}</Text>
                                     <Text>Raça: {item.raca}</Text>
                                         
@@ -96,12 +97,12 @@ export default class PetsIndex extends Component {
                                         <Button style={styles.botao} title='Alterar' onPress={() => {
                                             Alert.alert('Alterar:', 'Deseja alterar o registro de ' + item.nome + '?',
                                                 [
-                                                    { text: 'Sim', onPress: () => { Actions.PetsEditar({ id: item.pk_id_pet, nome: item.nome, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, peso: item.cidade,  especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado, estado: 'editar' }) } },
+                                                    { text: 'Sim', onPress: () => { Actions.PetsEditar({ id: item.pk_id_pet, nome: item.nome, raca: item.raca, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, altura: item.altura, peso: item.peso,  especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado, estado: 'editar' }) } },
                                                     { text: 'Não' }
 
                                                 ])
 
-                                        }} />
+                                        }}/>
                                     </View>
                                     <View>
                                         <Button style={styles.botao} title='Excluir' onPress={() => {

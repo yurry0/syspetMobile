@@ -449,22 +449,26 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE pet SET nome = ?, raca = ?, sexo = ?, idade = ? ,  altura = ?, peso = ?, especie = ?, pelagem = ?, porte = ?, adotado = ? WHERE pk_id_pet = ?',
+                    tx.executeSql('UPDATE pet SET nome = ?, raca = ?, sexo = ?, idade = ? , vacinas = ?, altura = ?, peso = ?, especie = ?, pelagem = ?, porte = ?, adotado = ? WHERE pk_id_pet = ?',
                         [
                             pet.nome,
                             pet.raca,
                             pet.sexo,
                             pet.idade,
+                            pet.vacinas,
                             pet.altura,
                             pet.peso,
                             pet.especie,
+                            pet.pelagem,
                             pet.porte,
                             pet.adotado,
                             pet.pk_id_pet
-
+                            
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Alteração', 'Dados alterado com Sucesso');
+                                Actions.PetsIndex();
+                                Actions.refresh({key: 'ClientesIndex'});
                             } else {
                                 Alert.alert('Alteração', 'Erro na alteração');
                             }

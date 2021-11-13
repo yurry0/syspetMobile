@@ -129,7 +129,6 @@ const PetsCadastrar = (props) => {
 
             </Picker>
 
-            <Text style={styles.textoInput}>{sexo}</Text>
 
             <Text style={styles.textoInput}> Idade </Text>
             <TextInput
