@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native'
 import { Router, Scene, Stack } from 'react-native-router-flux';
 //Scenes que ficam junto a raiz da rota:
 import Login from './Login';
-import Home from './Home';
 import CadastrarUsuario from './CadastrarUsuario'
 
 //DEBUG - SER REMOVIDO ANTES DA VERSÃO FINAL //
@@ -25,10 +23,15 @@ import AdocoesCadastrar from './AdocoesCadastrar'
 //Paginas edição dentro das tabs
 import ClientesEditar from './ClientesEditar';
 import PetsEditar from './PetsEditar';
+import AdocoesEditar from './AdocoesEditar';
 
 //Paginas de visualizar
 import ClientesView from './ClientesView';
 import PetsView from './PetsView';
+import AdocoesView from './AdocoesView'
+
+
+//Icones
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
@@ -105,7 +108,10 @@ const App = () => {
                 <Scene key="PetsEditar" title={"Editar Pet"} component={PetsEditar} back={true} />
                 <Scene key="PetsView" title={"Visualizar Pet"} component={PetsView} back={true} />
 
-
+                {/* Scenes relacionadas as funções de Adocao */}
+                <Scene key="AdocoesCadastrar" title={'Cadastrar uma nova adoção'} component={AdocoesCadastrar} back={true} />
+                <Scene key="AdocoesEditar" title={"Editar Adoção"} component={AdocoesEditar} back={true} />
+                <Scene key="AdocoesView" title={"Visualizar Adoção"} component={AdocoesView} back={true} />
 
             </Scene>
 

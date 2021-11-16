@@ -9,7 +9,7 @@ import {
   Text,
   TextInput
 } from 'react-native';
-import styles from '../styles/adocoes/AdocoesCadastrar'
+import styles from '../styles/cadastro_generico'
 import Db from '../../db';
 
 var db = new Db();
@@ -27,18 +27,18 @@ const insereDado = (id_cliente, id_pet, deletado) => {
 
 //const CadastrarUsuario = ({ navigation }) => 
 
-const AdocoesCadastrar = ({ navigation }, props) => {
-
+const AdocoesCadastrar = (props) => {
+  const [id_adocao, setIdAdocao] = useState('');
   const [id_cliente, setIdCliente] = useState('');
   const [id_pet, setIdPet] = useState('');
   const [deletado, setDeletado] = useState('');
   const [estado, setEstado] = useState('cadastro');
 
   useEffect(() => {
+    setIdAdocao(props.id_adocao);
     setIdCliente(props.id_cliente);
     setIdPet(props.id_pet);
     setDeletado(props.deletado);
-
   }, []);
 
   const salvar = (estado) => {
@@ -79,7 +79,7 @@ const AdocoesCadastrar = ({ navigation }, props) => {
             value="ID_CLIENTE"
             editable={false}
             onChangeText={
-              id_pet => setIdPet(cli_nome)
+              id_pet => setIdPet(id_pet)
             }
 
           />

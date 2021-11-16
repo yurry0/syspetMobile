@@ -21,6 +21,12 @@ const drop = ({navigation}) => {
             <TouchableOpacity onPress={ async() => { db.initDbPet()}} style={{marginBottom: 25}}><Text>MYSQL INICIALIZAR TABELA PETS</Text></TouchableOpacity>
             <Text> -------------------------------------- </Text>
             <Text> -------------------------------------- </Text>
+
+            <TouchableOpacity onPress={ async() => { db.initDbAdocao()}} style={{marginBottom: 25}}><Text>MYSQL INICIALIZAR TABELA ADOCAO</Text></TouchableOpacity>
+            <Text> -------------------------------------- </Text>
+            <Text> -------------------------------------- </Text>
+
+            
             
             <TouchableOpacity onPress={ async () => { db.listarUsuario()}} style={{marginTop: 20}}><Text>MYSQL SELECT USUARIOS (CONSOLE LOG)</Text></TouchableOpacity>
             <Text> -------------------------------------- </Text>

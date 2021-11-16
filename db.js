@@ -529,4 +529,39 @@ export default class Db {
             })
     }
 
+      // --------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // -------------------------------------------------------------------  A D O C A O   ----------------------------------------------------------------------//
+    //Tabelas criadas: ADOCAO
+
+    initDbAdocao() {
+        let db;
+        SQLite.openDatabase(database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        ).then(DB => {
+            db = DB;
+            db.transaction(function (tx) {
+                tx.executeSql(
+                    "SELECT name FROM sqlite_master WHERE type='table' AND name='adocao'",
+                    [],
+                    function (tx, result) {
+                        console.log('item:', result.rows.length);
+                        if (result.rows.length == 0) {
+                            tx.executeSql('DROP TABLE IF EXISTS adocao', []);
+                            tx.executeSql(
+                                'CREATE TABLE adocao (' +
+                                'pk_id_adocao INTEGER NOT NULL, id_cliente INTEGER NOT NULL, id_pet INTEGER NOT NULL, PRIMARY KEY(pk_id_adocao AUTOINCREMENT), FOREIGN KEY(id_cliente) REFERENCES cliente(pk_id_cliente) )', []);
+                        }
+
+                        else {
+                            console.log('A criação foi bem sucedida');
+                        }
+                    }
+                );
+            });
+        })
+
+    }
+
 }
