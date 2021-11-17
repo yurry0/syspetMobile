@@ -7,13 +7,15 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Text,
-  TextInput
+  TextInput,
+  Picker
 } from 'react-native';
+import SQLite from 'react-native-sqlite-storage';
 import styles from '../styles/cadastro_generico'
 import Db from '../../db';
 
 var db = new Db();
-
+const database_name = 'syspet_mob.db';
 
 const insereDado = (id_cliente, id_pet, deletado) => {
   db.initDb();
@@ -25,9 +27,16 @@ const insereDado = (id_cliente, id_pet, deletado) => {
   db.addAdocao(adocao);
 }
 
+
+
+
 //const CadastrarUsuario = ({ navigation }) => 
 
 const AdocoesCadastrar = (props) => {
+
+
+  const [clientes, setClientes] = useState([]);
+  const [pets, setPets] = useState([]);
   const [id_adocao, setIdAdocao] = useState('');
   const [id_cliente, setIdCliente] = useState('');
   const [id_pet, setIdPet] = useState('');
@@ -35,6 +44,30 @@ const AdocoesCadastrar = (props) => {
   const [estado, setEstado] = useState('cadastro');
 
   useEffect(() => {
+
+    function componentDidMount() {
+      var clienteIDList = [];
+      let db;
+      SQLite.openDatabase(
+        database_name,
+      )
+        .then(DB => {
+          db = DB;
+          db.transaction(tx => {
+            tx.executeSql('SELECT * FROM cliente', [], (tx, results) => {
+              for (let i = 0; i < results.rows.length; ++i) {
+                let row = results.rows.item(i);
+                clienteIDList.push(row.pk_id_cliente);
+              }
+              setClientes(clienteIDList);
+            });
+          });
+        })
+    }
+
+    componentDidMount();
+
+
     setIdAdocao(props.id_adocao);
     setIdCliente(props.id_cliente);
     setIdPet(props.id_pet);
@@ -68,21 +101,16 @@ const AdocoesCadastrar = (props) => {
           behavior="padding"
           style={{ flex: 1, justifyContent: 'space-between' }} >
 
-          <Text style={styles.header}>Preencha os campos para cadastrar um novo cliente</Text>
+          <Text style={styles.header}>Preencha os campos para cadastrar uma nova adoção</Text>
 
-
-          <Text style={styles.textoInput}> ID do Cliente </Text>
-
-          <TextInput
-            style={styles.barra}
-            keyboardType="default"
-            value="ID_CLIENTE"
-            editable={false}
-            onChangeText={
-              id_pet => setIdPet(id_pet)
-            }
-
-          />
+          <Picker
+            style={styles.select}
+            selectedValue={clientes.selectedValue}
+            onValueChange={() => { }}> 
+            {clientes.map((item, index) => {
+              return (<Picker.Item label={item} value={index} key={index} />)
+            })}
+          </Picker>
 
           <Text style={styles.textoInput}> Nome do Cliente </Text>
 
