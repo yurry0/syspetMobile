@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Scene, Stack } from 'react-native-router-flux';
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 //Scenes que ficam junto a raiz da rota:
 import Login from './Login';
 import CadastrarUsuario from './CadastrarUsuario'
@@ -60,64 +61,65 @@ const iconHome = ({ title, focused, size, color }) => {
 
 const App = () => {
     return (
-        <Router>
-            <Scene key="root">
-                <Scene
-                    key="login"
-                    component={Login}
-                    title="Login"
-                    hideNavBar={true}
-                />
+        <SafeAreaProvider>
+            <Router>
+                <Scene key="root">
+                    <Scene
+                        key="login"
+                        component={Login}
+                        title="Login"
+                        hideNavBar={true}
+                    />
 
-                <Scene
-                    key="CadastrarUsuario"
-                    component={CadastrarUsuario}
-                    title="Cadastrar um novo usuario"
-                    back={true}
-                />
-                <Scene
-                    key="Debug"
-                    component={drop}
-                    title="DEBUGDEBUGDEBUGDEBUG"
-                    back={true}
-                />
+                    <Scene
+                        key="CadastrarUsuario"
+                        component={CadastrarUsuario}
+                        title="Cadastrar um novo usuario"
+                        back={true}
+                    />
+                    <Scene
+                        key="Debug"
+                        component={drop}
+                        title="DEBUGDEBUGDEBUGDEBUG"
+                        back={true}
+                    />
 
-                {/* Aqui fica a tabBar em react-flux */}
-                <Scene
-                    key="HomeTabBar"
-                    tabs={true}
-                    hideNavBar={true}
-                    tabBarStyle={{ backgroundColor: '#FFFFF' }}>
+                    {/* Aqui fica a tabBar em react-flux */}
+                    <Scene
+                        key="HomeTabBar"
+                        tabs={true}
+                        hideNavBar={true}
+                        tabBarStyle={{ backgroundColor: '#FFFFF' }}>
 
-                    {/* Tab - HomeIndex */}
-                    <Scene key="homeIndex" title={'Home'} titleStyle={{ color: '#F0EFF4' }} hideNavBar={true} component={HomeIndex} icon={iconHome} />
-                    {/* Tab - Clientes Index */}
-                    <Scene key="ClientesIndex" title={'Clientes'} hideNavBar={true} component={ClientesIndex} icon={iconHome} />
-                    <Scene key="PetsIndex" title={'Pets'} hideNavBar={true} component={PetsIndex} icon={iconHome} />
-                    <Scene key="Adocoes" title={'Adoções'} hideNavBar={true} component={AdocoesIndex} icon={iconHome} />
+                        {/* Tab - HomeIndex */}
+                        <Scene key="homeIndex" title={'Home'} titleStyle={{ color: '#F0EFF4' }} hideNavBar={true} component={HomeIndex} icon={iconHome} />
+                        {/* Tab - Clientes Index */}
+                        <Scene key="ClientesIndex" title={'Clientes'} hideNavBar={true} component={ClientesIndex} icon={iconHome} />
+                        <Scene key="PetsIndex" title={'Pets'} hideNavBar={true} component={PetsIndex} icon={iconHome} />
+                        <Scene key="Adocoes" title={'Adoções'} hideNavBar={true} component={AdocoesIndex} icon={iconHome} />
+                    </Scene>
+                    {/* Fim da tabBar em react-flux */}
+
+                    {/* Scenes relacionadas as funções do Cliente */}
+                    <Scene key="ClientesCadastrar" title={'Cadastrar um novo cliente'} component={ClientesCadastrar} back={true} />
+                    <Scene key="ClientesEditar" title={"Editar Cliente"} component={ClientesEditar} back={true} />
+                    <Scene key="ClientesView" title={"Visualizar Cliente"} component={ClientesView} back={true} />
+
+                    {/* Scenes relacionadas as funções de Pet */}
+                    <Scene key="PetsCadastrar" title={'Cadastrar um novo pet'} component={PetsCadastrar} back={true} />
+                    <Scene key="PetsEditar" title={"Editar Pet"} component={PetsEditar} back={true} />
+                    <Scene key="PetsView" title={"Visualizar Pet"} component={PetsView} back={true} />
+
+                    {/* Scenes relacionadas as funções de Adocao */}
+                    <Scene key="AdocoesCadastrar" title={'Cadastrar uma nova adoção'} component={AdocoesCadastrar} back={true} />
+                    <Scene key="AdocoesEditar" title={"Editar Adoção"} component={AdocoesEditar} back={true} />
+                    <Scene key="AdocoesView" title={"Visualizar Adoção"} component={AdocoesView} back={true} />
+
                 </Scene>
-                {/* Fim da tabBar em react-flux */}
 
-                {/* Scenes relacionadas as funções do Cliente */}
-                <Scene key="ClientesCadastrar" title={'Cadastrar um novo cliente'} component={ClientesCadastrar} back={true} />
-                <Scene key="ClientesEditar" title={"Editar Cliente"} component={ClientesEditar} back={true} />
-                <Scene key="ClientesView" title={"Visualizar Cliente"} component={ClientesView} back={true} />
+            </Router>
 
-                {/* Scenes relacionadas as funções de Pet */}
-                <Scene key="PetsCadastrar" title={'Cadastrar um novo pet'} component={PetsCadastrar} back={true} />
-                <Scene key="PetsEditar" title={"Editar Pet"} component={PetsEditar} back={true} />
-                <Scene key="PetsView" title={"Visualizar Pet"} component={PetsView} back={true} />
-
-                {/* Scenes relacionadas as funções de Adocao */}
-                <Scene key="AdocoesCadastrar" title={'Cadastrar uma nova adoção'} component={AdocoesCadastrar} back={true} />
-                <Scene key="AdocoesEditar" title={"Editar Adoção"} component={AdocoesEditar} back={true} />
-                <Scene key="AdocoesView" title={"Visualizar Adoção"} component={AdocoesView} back={true} />
-
-            </Scene>
-
-        </Router>
-
-
+        </SafeAreaProvider>
     )
 }
 export default App;

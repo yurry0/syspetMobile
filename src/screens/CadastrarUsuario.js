@@ -9,7 +9,7 @@ import {
   Text,
   TextInput
 } from 'react-native';
-import styles from '../styles/usuario/Cadastrar_Usuario'
+import styles from '../styles/cadastro_generico'
 
 import Db from '../../db';
 
@@ -66,68 +66,69 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
   return (
     <View style={styles.container_header}>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={{ flex: 1, justifyContent: 'space-between' }} >
+        <ScrollView keyboardShouldPersistTaps="handled">
 
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <KeyboardAvoidingView
-          behavior="padding"
-          style={{ flex: 1, justifyContent: 'space-between' }} >
-
-          <Text style={styles.header}>Preencha os campos para cadastrar um novo usuário</Text>
-
-
-          <Text style={styles.textoInput}> Nome de usuário </Text>
-
-          <TextInput
-            style={styles.barra}
-            placeholder="Digite o nome do usuário"
-            keyboardType="default"
-            onChangeText={
-              nome => setNome(nome)
-            }
-
-          />
-
-          <Text style={styles.textoInput}> Email </Text>
-          <TextInput
-            style={styles.barra}
-            placeholder="Digite seu e-mail de acesso"
-            keyboardType="email-address"
-            autoCapitalize='none'
-            onChangeText={
-              email => setEmail(email)}
-          />
-          <Text style={styles.textoInput}> Senha </Text>
-          <TextInput
-            style={styles.barra}
-            secureTextEntry={true}
-            placeholder="Digite a senha do usuário"
-            autoCapitalize='none'
-            onChangeText={
-              senha => setSenha(senha)
-            }
-
-          />
-
-          <Text style={styles.textoInput}> Repetir Senha </Text>
-          <TextInput
-            style={styles.barra}
-            secureTextEntry={true}
-            placeholder="Confirme a senha"
-            autoCapitalize='none'
-            onChangeText={
-              repetirSenha => setRepetirSenha(repetirSenha)
-            }
-          />
+          <View style={styles.formulario}>
+            <Text style={styles.header}>Preencha os campos para cadastrar um novo usuário</Text>
 
 
-          <TouchableOpacity style={styles.botao} onPress={() => { salvar(estado) }} >
-            <Text style={styles.botaoText}>Salvar Cadastro</Text>
-          </TouchableOpacity>
+            <Text style={styles.textoInput}> Nome de usuário </Text>
+
+            <TextInput
+              style={styles.barra}
+              placeholder="Digite o nome do usuário"
+              keyboardType="default"
+              onChangeText={
+                nome => setNome(nome)
+              }
+
+            />
+
+            <Text style={styles.textoInput}> Email </Text>
+            <TextInput
+              style={styles.barra}
+              placeholder="Digite seu e-mail de acesso"
+              keyboardType="email-address"
+              autoCapitalize='none'
+              onChangeText={
+                email => setEmail(email)}
+            />
+            <Text style={styles.textoInput}> Senha </Text>
+            <TextInput
+              style={styles.barra}
+              secureTextEntry={true}
+              placeholder="Digite a senha do usuário"
+              autoCapitalize='none'
+              onChangeText={
+                senha => setSenha(senha)
+              }
+
+            />
+
+            <Text style={styles.textoInput}> Repetir Senha </Text>
+            <TextInput
+              style={styles.barra}
+              secureTextEntry={true}
+              placeholder="Confirme a senha"
+              autoCapitalize='none'
+              onChangeText={
+                repetirSenha => setRepetirSenha(repetirSenha)
+              }
+            />
 
 
-        </KeyboardAvoidingView>
-      </ScrollView>
-    </View>
+            <TouchableOpacity style={styles.botao} onPress={() => { salvar(estado) }} >
+              <Text style={styles.botaoText}>Salvar Cadastro</Text>
+            </TouchableOpacity>
+
+
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </View >
 
   )
 
