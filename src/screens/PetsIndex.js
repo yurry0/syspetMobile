@@ -127,7 +127,7 @@ export default class PetsIndex extends Component {
                     offsetX={0}
                     position="center"
                     buttonColor="rgba(231,76,60,1)"
-                    onPress={() => { Actions.PetsCadastrar() }}
+                    onPress={() => { Actions.PetsCadastrar()}}
                 />
 
 

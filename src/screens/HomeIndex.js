@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux'
 import styles from '../styles/home'
 import Db from '../../db';
 import { Button, ThemeProvider, Divider } from 'react-native-elements';
+;
 
 var db = new Db();
 
@@ -30,10 +31,11 @@ const HomeIndex = ({ navigation }) => {
 
             </View>
             <View style={{ flexDirection: 'row', alignContent: 'center' }} >
-
-            <Image
-                    style={styles.button_img}
-                    source={require('../assets/button_img.png')} />
+                <TouchableOpacity onPress={() => { Actions.login() }}>
+                    <Image
+                        style={styles.button_img}
+                        source={require('../assets/button_img.png')} />
+                </TouchableOpacity>
             </View>
 
 

@@ -9,7 +9,9 @@ import {
   Text,
   TextInput
 } from 'react-native';
+import { Input, Button } from 'react-native-elements'
 import styles from '../styles/cadastro_generico'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import Db from '../../db';
 
@@ -32,10 +34,66 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
+  const [errorNome, setErrorNome] = useState('');
   const [email, setEmail] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [errorSenha, setErrorSenha] = useState('');
   const [repetirSenha, setRepetirSenha] = useState('');
+  const [errorRepetirSenha, setErrorRepetirSenha] = useState('');
   const [estado, setEstado] = useState('cadastro');
+
+  // ----------------------------------------------------------------------- ----------------- ----------------------------------------------------------//
+  //------------------------------------------------------------------------ V A L I D A Ç Ã O ----------------------------------------------------------//
+  //------------------------------------------------------------------------ ----------------- ----------------------------------------------------------//
+
+  const validar = () => {
+    let error = false
+    setErrorEmail(null)
+    setErrorNome(null)
+    setErrorSenha(null)
+    setErrorRepetirSenha(null)
+
+
+
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regex = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g
+    if (!re.test(String(email).toLowerCase())) {
+      setErrorEmail("O formato do email está incorreto!")
+      error = true
+    }
+
+    if (email == null) {
+      setErrorEmail("O campo 'email' está em branco!")
+      error = true
+    }
+    if (!regex.test(String(nome).toLowerCase())) {
+      setErrorNome("O campo 'nome' contém caracteres especiais!")
+      error = true
+    }
+
+    if (nome == null) {
+      setErrorNome("O campo 'nome' está em branco!")
+      error = true
+    }
+
+    if (senha == null) {
+      setErrorSenha("O campo 'senha' está em branco!")
+      error = true
+    }
+
+    if (repetirSenha == null) {
+      setErrorRepetirSenha("O campo 'repetir senha' está em branco!")
+      error = true
+    }
+
+    if (repetirSenha != senha) {
+      setErrorRepetirSenha("As senhas digitadas não conferem!")
+      error = true
+    }
+
+    return !error
+  }
 
   useEffect(() => {
     setId(props.id);
@@ -45,25 +103,17 @@ const CadastrarUsuario = ({ navigation }, props) => {
     setEstado(props.estado);
   }, []);
 
-
   const salvar = (estado) => {
-    if (email.length == 0 || nome.length == 0 || senha.length == 0 || repetirSenha.length == 0) {
-      Alert.alert('Erro', 'Um ou mais campos estão em branco!');
+    if (validar() == false) {
+      console.log('Deu erro');
 
+    } else {
+      if (estado == 'cadastro') {
+        insereDado(nome, email, senha);
+      }
+      setEstado('cadastro');
     }
-
-
-    else if (senha != repetirSenha) {
-      Alert.alert('Erro', 'senhas não conferem');
-    }
-
-    if (estado == 'cadastro') {
-      insereDado(nome, email, senha);
-      navigation.navigate('Login');
-    }
-    setEstado('cadastro');
   }
-
   return (
     <View style={styles.container_header}>
       <KeyboardAvoidingView
@@ -77,61 +127,72 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
             <Text style={styles.textoInput}> Nome de usuário </Text>
 
-            <TextInput
+            <Input
               style={styles.barra}
               placeholder="Digite o nome do usuário"
               keyboardType="default"
               onChangeText={
-                nome => setNome(nome)
+                value => {
+                  setNome(value);
+                  setErrorNome(null);
+                }
               }
-
+              errorMessage={errorNome}
             />
 
             <Text style={styles.textoInput}> Email </Text>
-            <TextInput
+            <Input
               style={styles.barra}
               placeholder="Digite seu e-mail de acesso"
               keyboardType="email-address"
               autoCapitalize='none'
-              onChangeText={
-                email => setEmail(email)}
+              onChangeText={value => {
+                setEmail(value);
+                setErrorEmail(null);
+              }}
+              errorMessage={errorEmail}
             />
+
             <Text style={styles.textoInput}> Senha </Text>
-            <TextInput
+            <Input
               style={styles.barra}
               secureTextEntry={true}
               placeholder="Digite a senha do usuário"
               autoCapitalize='none'
-              onChangeText={
-                senha => setSenha(senha)
+              onChangeText={value => {
+                setSenha(value);
+                setErrorSenha(null);
               }
-
+              }
+              errorMessage={errorSenha}
             />
-
             <Text style={styles.textoInput}> Repetir Senha </Text>
-            <TextInput
+            <Input
               style={styles.barra}
               secureTextEntry={true}
               placeholder="Confirme a senha"
               autoCapitalize='none'
-              onChangeText={
-                repetirSenha => setRepetirSenha(repetirSenha)
+              onChangeText={value => {
+                setRepetirSenha(value);
+                setErrorRepetirSenha(null);
               }
+              }
+              errorMessage={errorRepetirSenha}
             />
-
-
-            <TouchableOpacity style={styles.botao} onPress={() => { salvar(estado) }} >
-              <Text style={styles.botaoText}>Salvar Cadastro</Text>
-            </TouchableOpacity>
-
-
+            <Button
+              icon={{
+                name: "check-circle",
+                size: 15,
+                color: "white"
+              }}
+              title="Cadastrar"
+              buttonStyle={{ width: 250, marginTop: 20, marginBottom: 40 }}
+              onPress={() => { salvar(estado) }}
+            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </View >
-
   )
-
 };
-
 export default CadastrarUsuario;

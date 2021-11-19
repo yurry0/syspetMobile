@@ -80,6 +80,7 @@ export default class Db {
                         [usuario.nome, usuario.email, usuario.senha], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
+                                Actions.Login()
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
                             }

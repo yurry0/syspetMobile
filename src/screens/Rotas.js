@@ -92,7 +92,7 @@ const App = () => {
                         tabBarStyle={{ backgroundColor: '#FFFFF' }}>
 
                         {/* Tab - HomeIndex */}
-                        <Scene key="homeIndex" title={'Home'} titleStyle={{ color: '#F0EFF4' }} hideNavBar={true} component={HomeIndex} icon={iconHome} />
+                        <Scene key="homeIndex" title={'Home'}  titleStyle={{ color: '#F0EFF4' }} hideNavBar={true} component={HomeIndex} icon={iconHome} />
                         {/* Tab - Clientes Index */}
                         <Scene key="ClientesIndex" title={'Clientes'} hideNavBar={true} component={ClientesIndex} icon={iconHome} />
                         <Scene key="PetsIndex" title={'Pets'} hideNavBar={true} component={PetsIndex} icon={iconHome} />
