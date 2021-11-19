@@ -49,7 +49,7 @@ export default class Db {
                             tx.executeSql('DROP TABLE IF EXISTS usuario', []);
                             tx.executeSql(
                                 'CREATE TABLE IF NOT EXISTS usuario(' +
-                                'usuario_id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50), email VARCHAR(50), senha VARCHAR(50))', []);
+                                'usuario_id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50) NOT NULL, email VARCHAR(50) NOT NULL UNIQUE, senha VARCHAR(50) NOT NULL)', []);
                         }
 
                         else {
@@ -80,7 +80,7 @@ export default class Db {
                         [usuario.nome, usuario.email, usuario.senha], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
-                                Actions.Login()
+                                Actions.login()
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
                             }
@@ -88,6 +88,34 @@ export default class Db {
                 })
             })
     }//fim do método initDb
+
+    confereUsuario(usuario) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT * FROM usuario WHERE email = ? ', [usuario.email], (tx, results) => {
+                        if (results.rowsAffected = 1) {
+                            console.log('EMAIL JÁ EXISTE!')
+                            Alert.alert('ERRO', 'Já existe um usuário com este email');
+                            Actions.refresh('CadastrarUsuario');
+                        } 
+                       
+                        else{
+                            this.addUsuario(usuario);
+                        }
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
+            })
+    }
 
     updateUsuario(usuario) {
         let db;

@@ -3,11 +3,7 @@ import {
   View,
   ScrollView,
   KeyboardAvoidingView,
-  Alert,
-  SafeAreaView,
-  TouchableOpacity,
-  Text,
-  TextInput
+  Text
 } from 'react-native';
 import { Input, Button } from 'react-native-elements'
 import styles from '../styles/cadastro_generico'
@@ -25,7 +21,8 @@ const insereDado = (nome, email, senha) => {
     email: email,
     senha: senha
   }
-  db.addUsuario(usuario);
+  db.confereUsuario(usuario);
+
 }
 
 //const CadastrarUsuario = ({ navigation }) => 
@@ -54,10 +51,11 @@ const CadastrarUsuario = ({ navigation }, props) => {
     setErrorSenha(null)
     setErrorRepetirSenha(null)
 
-
-
+    const regexSenha = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+    const noNumber = /^([^0-9]*)$/
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const regex = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g
+    const regex = /^[a-zA-Z0-9\s!@#\$%\^\&*\)\(+=._-]+$/g
+
     if (!re.test(String(email).toLowerCase())) {
       setErrorEmail("O formato do email está incorreto!")
       error = true
@@ -72,6 +70,12 @@ const CadastrarUsuario = ({ navigation }, props) => {
       error = true
     }
 
+    if (!noNumber.test(String(nome).toLowerCase())) {
+      setErrorNome("O campo 'nome' contém números!")
+      error = true
+    }
+
+
     if (nome == null) {
       setErrorNome("O campo 'nome' está em branco!")
       error = true
@@ -82,8 +86,14 @@ const CadastrarUsuario = ({ navigation }, props) => {
       error = true
     }
 
+
     if (repetirSenha == null) {
       setErrorRepetirSenha("O campo 'repetir senha' está em branco!")
+      error = true
+    }
+
+    if (!regexSenha.test(String(senha).toLowerCase())) {
+      setErrorSenha("A senha não obedece a todos os critérios: Mínimo 8 digitos, pelo menos um número e um caractere especial.")
       error = true
     }
 
@@ -94,6 +104,10 @@ const CadastrarUsuario = ({ navigation }, props) => {
 
     return !error
   }
+
+  // ----------------------------------------------------------------------- ----------------- ----------------------------------------------------------//
+  //------------------------------------------------------------------------ V A L I D A Ç Ã O ----------------------------------------------------------//
+  //------------------------------------------------------------------------ ----------------- ----------------------------------------------------------//
 
   useEffect(() => {
     setId(props.id);
@@ -108,9 +122,10 @@ const CadastrarUsuario = ({ navigation }, props) => {
       console.log('Deu erro');
 
     } else {
-      if (estado == 'cadastro') {
-        insereDado(nome, email, senha);
-      }
+        if (estado == 'cadastro') {
+          insereDado(nome, email, senha);
+        }
+
       setEstado('cadastro');
     }
   }
@@ -157,7 +172,8 @@ const CadastrarUsuario = ({ navigation }, props) => {
             <Input
               style={styles.barra}
               secureTextEntry={true}
-              placeholder="Digite a senha do usuário"
+              placeholder="Mínimo 8 digitos, pelo menos um número e um caractere especial"
+              maxLength={16}
               autoCapitalize='none'
               onChangeText={value => {
                 setSenha(value);
@@ -172,6 +188,7 @@ const CadastrarUsuario = ({ navigation }, props) => {
               secureTextEntry={true}
               placeholder="Confirme a senha"
               autoCapitalize='none'
+              maxLength={16}
               onChangeText={value => {
                 setRepetirSenha(value);
                 setErrorRepetirSenha(null);

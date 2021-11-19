@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
   },
   input: {
-    width: 300,
+    width: 200,
     borderWidth: 1,
     borderColor: '#555',
     borderRadius: 10,
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     height: 42,
     backgroundColor: '#53DD6C',
     marginBottom: 22,
+
 
 
   },

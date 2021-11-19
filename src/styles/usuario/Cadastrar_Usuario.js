@@ -16,6 +16,13 @@ const styles = StyleSheet.create({
         alignSelf:'center'
 
     },
+    regraSenha:{
+
+        fontSize: 12,
+        color: 'red',
+        
+
+    },
     barra: {
         marginTop: 10,
         marginBottom: 15,

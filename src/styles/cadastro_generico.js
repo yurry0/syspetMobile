@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         letterSpacing: 2,
         color: 'black',
         marginBottom: 35,
-        alignSelf:'center'
+        alignSelf: 'center'
 
     },
     barra: {
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginTop: 2
     },
+
     barraVacina: {
         height: 100,
         width: 300,
@@ -64,13 +65,13 @@ const styles = StyleSheet.create({
 
         justifyContent: 'center',
         alignItems: 'center'
-  
-      },
-      select: {
-          height: 50,
-          width: 150,
-          marginBottom: 5
-      },
+
+    },
+    select: {
+        height: 50,
+        width: 150,
+        marginBottom: 5
+    },
 
 })
 
