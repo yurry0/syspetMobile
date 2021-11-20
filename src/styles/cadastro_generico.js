@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
-        backgroundColor: "#E8EDDF"
+        backgroundColor: "white"
     },
     header: {
         marginTop: 25,
@@ -15,6 +15,12 @@ const styles = StyleSheet.create({
         marginBottom: 35,
         alignSelf: 'center'
 
+    },
+    textError:{
+        fontSize: 12,
+        color: 'red',
+        marginTop: 5,
+        marginBottom: 8
     },
     barra: {
         marginTop: 10,

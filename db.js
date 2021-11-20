@@ -105,9 +105,9 @@ export default class Db {
                             console.log('EMAIL JÁ EXISTE!')
                             Alert.alert('ERRO', 'Já existe um usuário com este email');
                             Actions.refresh('CadastrarUsuario');
-                        } 
-                       
-                        else{
+                        }
+
+                        else {
                             this.addUsuario(usuario);
                         }
                     });
@@ -284,8 +284,8 @@ export default class Db {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
                                 Actions.ClientesIndex();
-                                Actions.refresh({key: 'ClientesIndex'});
-                         
+                                Actions.refresh({ key: 'ClientesIndex' });
+
 
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
@@ -320,13 +320,13 @@ export default class Db {
 
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                             
+
                                 Alert.alert('Alteração', 'Dados alterados com Sucesso');
-                                Actions.refresh({key:'ClientesIndex'});
+                                Actions.refresh({ key: 'ClientesIndex' });
                                 Actions.ClientesIndex();
-                            
-                                
-                           
+
+
+
                             } else {
                                 console.log("Nome:" + cliente.cli_nome);
                                 console.log("Cidade: " + cliente.cidade);
@@ -451,13 +451,13 @@ export default class Db {
                 db.transaction((tx) => {
                     tx.executeSql('INSERT INTO pet (nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte, adotado ) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
                         [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
-                           
-                       
-                          
+
+
+
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
                                 Actions.PetsIndex();
-                                Actions.refresh({key: 'ClientesIndex'});
+                                Actions.refresh({ key: 'ClientesIndex' });
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
                             }
@@ -465,6 +465,35 @@ export default class Db {
                 })
             })
     }//fim do método initDb
+
+    conferePet(pet) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT * FROM pet WHERE nome = ? AND raca = ? AND sexo = ? AND idade = ? AND vacinas = ? AND altura = ? AND peso = ? AND especie = ? AND pelagem = ? AND porte = ? AND adotado = ?', [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado ], (tx, results) => {
+                        if (results.rowsAffected = 1) {
+                            console.log('EMAIL JÁ EXISTE!')
+                            Alert.alert('ERRO', 'Já existe um usuário com este email');
+                            Actions.refresh('CadastrarUsuario');
+                        }
+
+                        else {
+                            this.addPet(pet);
+                        }
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
+            })
+    }
+
 
 
     updatePet(pet) {
@@ -492,12 +521,12 @@ export default class Db {
                             pet.porte,
                             pet.adotado,
                             pet.pk_id_pet
-                            
+
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Alteração', 'Dados alterado com Sucesso');
                                 Actions.PetsIndex();
-                                Actions.refresh({key: 'ClientesIndex'});
+                                Actions.refresh({ key: 'ClientesIndex' });
                             } else {
                                 Alert.alert('Alteração', 'Erro na alteração');
                             }
@@ -558,7 +587,7 @@ export default class Db {
             })
     }
 
-      // --------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // --------------------------------------------------------------------------------------------------------------------------------------------------------//
     // -------------------------------------------------------------------  A D O C A O   ----------------------------------------------------------------------//
     //Tabelas criadas: ADOCAO
 
