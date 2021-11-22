@@ -479,9 +479,9 @@ export default class Db {
                 db.transaction((tx) => {
                     tx.executeSql('SELECT * FROM pet WHERE nome = ? AND raca = ? AND sexo = ? AND idade = ? AND vacinas = ? AND altura = ? AND peso = ? AND especie = ? AND pelagem = ? AND porte = ? AND adotado = ?', [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado ], (tx, results) => {
                         if (results.rowsAffected = 1) {
-                            console.log('EMAIL JÁ EXISTE!')
-                            Alert.alert('ERRO', 'Já existe um usuário com este email');
-                            Actions.refresh('CadastrarUsuario');
+                            console.log('PET JÁ EXISTE!')
+                            Alert.alert('ERRO', 'Já existe um pet com este email');
+                            Actions.refresh('PetsCadastrar');
                         }
 
                         else {

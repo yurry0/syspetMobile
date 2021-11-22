@@ -3,12 +3,7 @@ import {
   View,
   ScrollView,
   KeyboardAvoidingView,
-  Alert,
-  SafeAreaView,
-  TouchableOpacity,
   Text,
-  Switch,
-  TextInput,
   Picker
 } from 'react-native';
 import styles from '../styles/cadastro_generico'
@@ -38,8 +33,6 @@ const insereDado = (nome, raca, sexo, idade, vacinas, altura, peso, especie, pel
   db.conferePet(pet);
 }
 
-
-//const CadastrarUsuario = ({ navigation }) => 
 
 const PetsCadastrar = (props) => {
 
@@ -100,9 +93,12 @@ const PetsCadastrar = (props) => {
     setErrorPorte(null);
 
 
+    //Regex: não permite números:
     const noNumber = /^([^0-9]*)$/
-    const regexPonto = /^[a-zA-Z0-9\s!@#\$%\^\&*\)\(+=_-]+$/g
-    const regex = /^[a-zA-Z0-9\s!@#\$%\^\&*\)\(+=._-]+$/g
+    //Regex: só permite "." como caractere especial:
+    const regexPonto = /^[a-zA-Z0-9\s!@#\$%\^\&*\)\(+=_]+$/g
+    //Regex: Não permite caracteres especiais:
+    const regex = /^[\-\a-zA-Z0-9\s!@#\$%\^\&*\)\(+=._]+$/g
 
     //------------------Nome----------------------//
     if (nome == null) {
@@ -121,27 +117,43 @@ const PetsCadastrar = (props) => {
       error = true
     }
 
+    if (String(nome).startsWith("-")) {
+      setErrorNome("O campo 'nome' contém caracteres especiais!")
+      error = true
+
+    }
+
+
     //---------------------------------------------//
 
     //------------------Raça----------------------//
 
     if (raca == null) {
-      setErrorRaca("O campo 'raca' está em branco!")
+      setErrorRaca("O campo 'raça' está em branco!")
       error = true
     }
 
+    else {
 
-    if (!regex.test(String(raca).toLowerCase())) {
-      setErrorRaca("O campo 'raça' contém caracteres especiais!")
-      error = true
+      if (!regex.test(String(raca).toLowerCase())) {
+        setErrorRaca("O campo 'raça' contém caracteres especiais!")
+        error = true
+      }
+
+
+      if (!noNumber.test(String(raca).toLowerCase())) {
+        setErrorRaca("O campo 'raça' contém números!")
+        error = true
+      }
+
+
+      if (String(raca).startsWith("-")) {
+        setErrorNome("O campo 'nome' contém caracteres especiais!")
+        error = true
+
+      }
+
     }
-
-    if (!noNumber.test(String(raca).toLowerCase())) {
-      setErrorRaca("O campo 'raça' contém números!")
-      error = true
-    }
-
-
     //---------------------=----------------------//
 
 
@@ -189,10 +201,13 @@ const PetsCadastrar = (props) => {
       setErrorAltura("O campo 'Altura' está em branco!")
       error = true
     }
+    else {
 
-    if (!regexPonto.test(String(peso).toLowerCase())) {
-      setErrorAltura("O campo 'Altura' contém caracteres não permitidos!")
-      error = true
+      if (!regexPonto.test(String(altura).toLowerCase())) {
+        setErrorAltura("O campo 'Altura' contém caracteres não permitidos!")
+        error = true
+      }
+
     }
 
     //--------------------------------------------//
@@ -206,11 +221,12 @@ const PetsCadastrar = (props) => {
       error = true
     }
 
-    if (!regexPonto.test(String(peso).toLowerCase())) {
-      setError("O campo 'peso' contém caracteres não permitidos!")
-      error = true
+    else {
+      if (!regexPonto.test(String(peso).toLowerCase())) {
+        setErrorPeso("O campo 'peso' contém caracteres não permitidos!")
+        error = true
+      }
     }
-
     //--------------------------------------------//
 
 
@@ -280,8 +296,9 @@ const PetsCadastrar = (props) => {
 
     if (validar() == false) {
       console.log('Deu erro');
-      console.log(sexo);
-      console.log(pelagem);
+      console.log(altura)
+      console.log(raca)
+
 
     }
     else {
@@ -332,9 +349,10 @@ const PetsCadastrar = (props) => {
 
 
             </Picker>
-            <Text style={styles.textError}> {errorEspecie} </Text>
 
-            <Text style={styles.textoInput}> Raça </Text>
+            <Input errorMessage={errorEspecie} disabled={true} />
+
+            <Text style={styles.textoInput}>Raça</Text>
             <Input
               style={styles.barra}
               placeholder="Digite a raça do pet"
@@ -364,7 +382,7 @@ const PetsCadastrar = (props) => {
 
             </Picker>
 
-            <Input errorMessage={errorSexo} />
+            <Input errorMessage={errorSexo} disabled={true} />
 
 
             <Text style={styles.textoInput}> Idade </Text>
@@ -429,8 +447,7 @@ const PetsCadastrar = (props) => {
 
             </Picker>
 
-  
-            <Text style={styles.textError}> {errorPorte} </Text>
+            <Input errorMessage={errorEspecie} disabled={true} />
 
 
             <Text style={styles.textoInput}> Pelagem </Text>
@@ -451,7 +468,7 @@ const PetsCadastrar = (props) => {
 
 
 
-            <Text style={styles.textError}> {errorPelagem} </Text>
+            <Input errorMessage={errorPelagem} disabled={true} />
 
 
             <Text style={styles.textoInput}> Vacinas </Text>
