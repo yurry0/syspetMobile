@@ -30,7 +30,7 @@ const insereDado = (nome, raca, sexo, idade, vacinas, altura, peso, especie, pel
     porte: porte,
     adotado: adotado,
   }
-  db.conferePet(pet);
+  db.conferePetAdd(pet);
 }
 
 

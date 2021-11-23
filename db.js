@@ -295,7 +295,7 @@ export default class Db {
             })
     }//fim do método initDb
 
-
+    //AUTENTICAÇÃO DO INSERT CLIENTE
 
     confereClienteRg(cliente) {
         let db;
@@ -309,7 +309,7 @@ export default class Db {
                 db = DB;
                 db.transaction((tx) => {
                     tx.executeSql('SELECT * FROM cliente WHERE cli_rg = ?', [cliente.cli_rg], (tx, results) => {
-                        if (results.rowsAffected = 1) {
+                        if (results.rows.length > 0) {
                             console.log('RG JÁ EXITE')
                             Alert.alert('ERRO', 'Já existe um usuário com este RG cadastrado!');
                             Actions.refresh('CadastrarUsuario');
@@ -339,7 +339,7 @@ export default class Db {
                 db = DB;
                 db.transaction((tx) => {
                     tx.executeSql('SELECT * FROM cliente WHERE cli_email = ?', [cliente.cli_email], (tx, results) => {
-                        if (results.rowsAffected = 1) {
+                        if (results.rows.length > 0) {
                             console.log('EMAIL JÁ EXISTE!')
                             Alert.alert('ERRO', 'Já existe um cliente com este email');
                             Actions.refresh('CadastrarUsuario');
@@ -356,9 +356,6 @@ export default class Db {
     }
 
 
-
-
-
     updateCliente(cliente) {
         let db;
         SQLite.openDatabase(
@@ -370,7 +367,7 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE cliente SET cli_nome = ?, cidade = ?, cli_estado = ?, cli_cep = ?, cli_endereco = ?, cli_bairro = ?, cli_email = ? WHERE pk_id_cliente = ?',
+                    tx.executeSql('UPDATE cliente SET cli_nome = ?, cidade = ?, cli_estado = ?, cli_cep = ?, cli_endereco = ?, cli_bairro = ?, cli_rg = ?, cli_email = ? WHERE pk_id_cliente = ?',
                         [
                             cliente.cli_nome,
                             cliente.cidade,
@@ -378,6 +375,7 @@ export default class Db {
                             cliente.cli_cep,
                             cliente.cli_endereco,
                             cliente.cli_bairro,
+                            cliente.cli_rg,
                             cliente.cli_email,
                             cliente.pk_id_cliente
 
@@ -405,6 +403,70 @@ export default class Db {
                 })
             })
     }
+
+    
+    //AUTENTICAÇÃO DO UPDATE CLIENTE
+
+
+    confereClienteRgEdit(cliente) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT * FROM cliente WHERE cli_rg = ?', [cliente.cli_rg], (tx, results) => {
+                        if (results.rows.length > 1) {
+                            console.log('RG JÁ EXITE')
+                            Alert.alert('ERRO', 'Já existe um usuário com este RG cadastrado!');
+                            Actions.refresh('CadastrarUsuario');
+                        }
+
+                        else {
+
+                            this.confereClienteEmailEdit(cliente);
+                        }
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
+            })
+    }
+
+    confereClienteEmailEdit(cliente) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT * FROM cliente WHERE cli_email = ?', [cliente.cli_email], (tx, results) => {
+                        if (results.rows.length > 1) {
+                            console.log('EMAIL JÁ EXISTE!')
+                            Alert.alert('ERRO', 'Já existe um cliente com este email');
+                            Actions.refresh('CadastrarUsuario');
+                        }
+
+                        else {
+                            this.updateCliente(cliente);
+                        }
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
+            })
+    }
+
+
+
 
     listarCliente() {
         let db;
@@ -529,7 +591,7 @@ export default class Db {
             })
     }//fim do método initDb
 
-    conferePet(pet) {
+    conferePetAdd(pet) {
         let db;
         SQLite.openDatabase(
             database_name,
@@ -542,7 +604,7 @@ export default class Db {
                 db.transaction((tx) => {
                     tx.executeSql('SELECT * FROM pet WHERE nome = ? AND raca = ? AND sexo = ? AND idade = ? AND vacinas = ? AND altura = ? AND peso = ? AND especie = ? AND pelagem = ? AND porte = ? AND adotado = ?', [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
 
-                        if (results.rowsAffected = 1) {
+                        if (results.rows.length > 0) {
                             console.log('PET JÁ EXISTE!');
                             console.log('PORQUE');
                             Alert.alert('ERRO', 'Já existe um pet com este cadastro');

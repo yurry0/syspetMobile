@@ -29,8 +29,7 @@ const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco,
     cli_bairro: cli_bairro,
     cli_email: cli_email
   }
-  db.confereCliente(cliente);
-  db.addCliente(cliente);
+  db.confereClienteRg(cliente);
 }
 
 
@@ -174,6 +173,10 @@ const ClientesCadastrar = (props) => {
       error = true
     }
 
+    if (cli_rg.length < 9) {
+      setErrorCliRg("O campo 'RG' não está preenchida completamente.");
+      error = true;
+    }
 
     if (!onlyNumber.test(String(cli_rg).toLowerCase())) {
       setErrorCliRg("O campo 'RG' contém caracteres especiais!")
@@ -225,10 +228,17 @@ const ClientesCadastrar = (props) => {
       error = true
     }
 
+    if (cli_cep.length < 8) {
+      setErrorCliCep("O campo 'CEP' não está preenchido completamente!")
+      error = true
+    }
+
     if (!onlyNumber.test(String(cli_cep).toLowerCase())) {
       setErrorCliCep("O campo 'CEP' contém caracteres não permitidos!")
       error = true
     }
+
+
 
 
     //--------------------------------------------//
@@ -507,7 +517,7 @@ const ClientesCadastrar = (props) => {
                 size: 15,
                 color: "white"
               }}
-              title="Cadastrar Pet"
+              title="Cadastrar Cliente"
               buttonStyle={{ width: 250, marginTop: 20, marginBottom: 40 }}
               onPress={() => { salvar(estado) }}
             />
