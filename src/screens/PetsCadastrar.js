@@ -96,9 +96,15 @@ const PetsCadastrar = (props) => {
     //Regex: não permite números:
     const noNumber = /^([^0-9]*)$/
     //Regex: só permite "." como caractere especial:
-    const regexPonto = /^[a-zA-Z0-9\s!@#\$%\^\&*\)\(+=_]+$/g
+    const regexPonto = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\>|\?|\/|\""|\;|\:|\s/g
     //Regex: Não permite caracteres especiais:
-    const regex = /^[\-\a-zA-Z0-9\s!@#\$%\^\&*\)\(+=._]+$/g
+    const regex = /^[a-zA-Z0-9\s!@#\$%\^\&*\)\(+=._-]+$/g
+    //Regex: aceita números e espaço, mas só depois de algum input de caractere:
+    const spaceNumber = /^(?!(?:[0-9]+| +)$).*$/
+    //Regex: permite somente hifen e alfabeto:
+    const hifen = /^[0-9A-Za-z_@'-]+$/
+    //Regex: alfanumerico:
+    const alpha = /^[a-z0-9]+$/
 
     //------------------Nome----------------------//
     if (nome == null) {
@@ -135,7 +141,7 @@ const PetsCadastrar = (props) => {
 
     else {
 
-      if (!regex.test(String(raca).toLowerCase())) {
+      if (!hifen.test(String(raca).toLowerCase())) {
         setErrorRaca("O campo 'raça' contém caracteres especiais!")
         error = true
       }
@@ -183,14 +189,18 @@ const PetsCadastrar = (props) => {
       setErrorVacinas("O campo 'vacinas' está em branco!")
       error = true
     }
-
-    if (!regexPonto.test(String(vacinas).toLowerCase())) {
-      setErrorVacinas("O campo 'Vacinas' contém caracteres especiais!")
+    if (!spaceNumber.test(String(vacinas).toLowerCase())) {
+      setErrorVacinas("O campo 'Vacinas' contém só números/espaços em branco!")
       error = true
     }
-    if (!noNumber.test(String(vacinas).toLowerCase())) {
-      setErrorVacinas("O campo 'Vacinas' contém números!")
-      error = true
+
+    else {
+      if (!alpha.test(String(vacinas).toLowerCase())) {
+        setErrorVacinas("O campo 'Vacinas' contém caracteres especiais!")
+        error = true
+
+      }
+
     }
 
     //--------------------------------------------//
@@ -203,10 +213,7 @@ const PetsCadastrar = (props) => {
     }
     else {
 
-      if (!regexPonto.test(String(altura).toLowerCase())) {
-        setErrorAltura("O campo 'Altura' contém caracteres não permitidos!")
-        error = true
-      }
+
 
     }
 
@@ -222,9 +229,11 @@ const PetsCadastrar = (props) => {
     }
 
     else {
-      if (!regexPonto.test(String(peso).toLowerCase())) {
-        setErrorPeso("O campo 'peso' contém caracteres não permitidos!")
+      if (peso.length > 4) {
+
+        setErrorPeso("O campo 'peso' tem caracteres acima do limite!")
         error = true
+
       }
     }
     //--------------------------------------------//
@@ -298,6 +307,7 @@ const PetsCadastrar = (props) => {
       console.log('Deu erro');
       console.log(altura)
       console.log(raca)
+      console.log(vacinas)
 
 
     }

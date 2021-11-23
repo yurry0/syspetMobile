@@ -252,7 +252,7 @@ export default class Db {
                             tx.executeSql('DROP TABLE IF EXISTS cliente', []);
                             tx.executeSql(
                                 'CREATE TABLE IF NOT EXISTS cliente(' +
-                                'pk_id_cliente INTEGER PRIMARY KEY AUTOINCREMENT, cli_nome VARCHAR(50), cidade VARCHAR(50), cli_rg VARCHAR(50), cli_estado VARCHAR(100), cli_cep VARCHAR(100), cli_endereco VARCHAR(100), cli_bairro VARCHAR(100) , cli_email VARCHAR(100))', []);
+                                'pk_id_cliente INTEGER PRIMARY KEY AUTOINCREMENT, cli_nome VARCHAR(50) NOT NULL, cidade VARCHAR(50) NOT NULL, cli_rg VARCHAR(50) NOT NULL UNIQUE  , cli_estado VARCHAR(100) NOT NULL, cli_cep VARCHAR(100) NOT NULL, cli_endereco VARCHAR(100) NOT NULL, cli_bairro VARCHAR(100) NOT NULL, cli_email VARCHAR(100) UNIQUE NOT NULL)', []);
                         }
 
                         else {
@@ -294,6 +294,69 @@ export default class Db {
                 })
             })
     }//fim do método initDb
+
+
+
+    confereClienteRg(cliente) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT * FROM cliente WHERE cli_rg = ?', [cliente.cli_rg], (tx, results) => {
+                        if (results.rowsAffected = 1) {
+                            console.log('RG JÁ EXITE')
+                            Alert.alert('ERRO', 'Já existe um usuário com este RG cadastrado!');
+                            Actions.refresh('CadastrarUsuario');
+                        }
+
+                        else {
+
+                            this.confereClienteEmail(cliente);
+                        }
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
+            })
+    }
+
+
+    confereClienteEmail(cliente) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT * FROM cliente WHERE cli_email = ?', [cliente.cli_email], (tx, results) => {
+                        if (results.rowsAffected = 1) {
+                            console.log('EMAIL JÁ EXISTE!')
+                            Alert.alert('ERRO', 'Já existe um cliente com este email');
+                            Actions.refresh('CadastrarUsuario');
+                        }
+
+                        else {
+                            this.addCliente(cliente);
+                        }
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
+            })
+    }
+
+
+
 
 
     updateCliente(cliente) {
@@ -477,10 +540,12 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('SELECT * FROM pet WHERE nome = ? AND raca = ? AND sexo = ? AND idade = ? AND vacinas = ? AND altura = ? AND peso = ? AND especie = ? AND pelagem = ? AND porte = ? AND adotado = ?', [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado ], (tx, results) => {
+                    tx.executeSql('SELECT * FROM pet WHERE nome = ? AND raca = ? AND sexo = ? AND idade = ? AND vacinas = ? AND altura = ? AND peso = ? AND especie = ? AND pelagem = ? AND porte = ? AND adotado = ?', [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
+
                         if (results.rowsAffected = 1) {
-                            console.log('PET JÁ EXISTE!')
-                            Alert.alert('ERRO', 'Já existe um pet com este email');
+                            console.log('PET JÁ EXISTE!');
+                            console.log('PORQUE');
+                            Alert.alert('ERRO', 'Já existe um pet com este cadastro');
                             Actions.refresh('PetsCadastrar');
                         }
 
@@ -551,7 +616,7 @@ export default class Db {
                         for (let i = 0; i < len; i++) {
                             let row = results.rows.item(i);
                             console.log('==================================================================================')
-                            console.log(`ID: ${row.pk_id_pet}, Nome do cliente: ${row.nome}, Raça: ${row.raca},  CEP: ${row.cli_cep} `,);
+                            console.log(`ID: ${row.pk_id_pet}, Nome do cliente: ${row.nome}, Raça: ${row.raca},  Vacinas: ${row.vacinas} `,);
                             console.log('success');
                         }
                         closeDatabase(db);
