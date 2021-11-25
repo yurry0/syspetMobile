@@ -97,7 +97,7 @@ export default class PetsIndex extends Component {
                                         <Button style={styles.botao} title='Alterar' onPress={() => {
                                             Alert.alert('Alterar:', 'Deseja alterar o registro de ' + item.nome + '?',
                                                 [
-                                                    { text: 'Sim', onPress: () => { Actions.PetsEditar({ id: item.pk_id_pet, nome: item.nome, raca: item.raca, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, altura: item.altura, peso: item.peso,  especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado, estado: 'editar' }) } },
+                                                    { text: 'Sim', onPress: () => { Actions.PetsEditar({ id: item.pk_id_pet, nome: item.nome, raca: item.raca, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, altura: item.altura, peso: item.peso,  especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado, cod_interno: item.cod_interno, estado: 'editar' }) } },
                                                     { text: 'Não' }
 
                                                 ])

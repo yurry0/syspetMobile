@@ -97,6 +97,7 @@ const PetsCadastrar = (props) => {
     setErrorEspecie(null);
     setErrorPelagem(null);
     setErrorPorte(null);
+    setErrorCodInterno(null);
 
 
     //Regex: não permite números:

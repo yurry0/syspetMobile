@@ -404,7 +404,7 @@ export default class Db {
             })
     }
 
-    
+
     //AUTENTICAÇÃO DO UPDATE CLIENTE
 
 
@@ -575,7 +575,7 @@ export default class Db {
                 db = DB;
                 db.transaction((tx) => {
                     tx.executeSql('INSERT INTO pet (nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte, adotado, cod_interno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
-                        [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte,  pet.adotado, pet.cod_interno], (tx, results) => {
+                        [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado, pet.cod_interno], (tx, results) => {
 
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
@@ -632,7 +632,7 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE pet SET nome = ?, raca = ?, sexo = ?, idade = ? , vacinas = ?, altura = ?, peso = ?, especie = ?, pelagem = ?, porte = ?, adotado = ? WHERE pk_id_pet = ?',
+                    tx.executeSql('UPDATE pet SET nome = ?, raca = ?, sexo = ?, idade = ? , vacinas = ?, altura = ?, peso = ?, especie = ?, pelagem = ?, porte = ?, adotado = ?, cod_interno = ? WHERE pk_id_pet = ?',
                         [
                             pet.nome,
                             pet.raca,
@@ -645,6 +645,7 @@ export default class Db {
                             pet.pelagem,
                             pet.porte,
                             pet.adotado,
+                            pet.cod_interno,
                             pet.pk_id_pet
 
                         ], (tx, results) => {
@@ -657,6 +658,36 @@ export default class Db {
                             }
                         });
                 })
+            })
+    }
+
+    conferePetEdit(pet) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT * FROM pet WHERE cod_interno = ?', [pet.cod_interno], (tx, results) => {
+
+                        if (results.rows.length < 1) {
+                            console.log('PET INEXISTENTE');
+                            console.log('ERROR');
+                            Alert.alert('ERRO LÓGICO', 'Você está editando um PET que não está cadastrado no sistema.');
+                            Actions.refresh('PetsEditar');
+                        }
+
+                        else {
+                            this.updatePet(pet);
+                        }
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
             })
     }
 
