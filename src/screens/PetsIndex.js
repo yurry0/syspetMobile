@@ -84,7 +84,7 @@ export default class PetsIndex extends Component {
                                 <View>
 
                                     <Text>Id: {item.pk_id_pet}</Text>
-                                    <TouchableOpacity onPress={() => { Actions.PetsView({ id: item.pk_id_pet, nome: item.nome, raca: item.raca, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, altura:item.altura, peso: item.peso,  especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado }) }}>
+                                    <TouchableOpacity onPress={() => { Actions.PetsView({ id: item.pk_id_pet, nome: item.nome, raca: item.raca, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, altura:item.altura, peso: item.peso,  especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado, cod_interno: item.cod_interno }) }}>
                                     <Text>Nome: {item.nome}</Text>
                                     <Text>Raça: {item.raca}</Text>
                                         

@@ -546,7 +546,7 @@ export default class Db {
                             tx.executeSql('DROP TABLE IF EXISTS pet', []);
                             tx.executeSql(
                                 'CREATE TABLE IF NOT EXISTS pet(' +
-                                'pk_id_pet INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50), raca VARCHAR(50), sexo VARCHAR(50), idade VARCHAR(100), vacinas VARCHAR(100), altura VARCHAR(100), peso VARCHAR(100), especie VARCHAR(100), pelagem VARCHAR(100), porte VARCHAR(100), adotado NUMERIC(1))', []);
+                                'pk_id_pet INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(50), raca VARCHAR(50), sexo VARCHAR(50), idade VARCHAR(100), vacinas VARCHAR(100), altura VARCHAR(100), peso VARCHAR(100), especie VARCHAR(100), pelagem VARCHAR(100), porte VARCHAR(100), adotado NUMERIC(1), cod_interno VARCHAR(50) NOT NULL UNIQUE)', []);
                         }
 
                         else {
@@ -574,10 +574,8 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('INSERT INTO pet (nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte, adotado ) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-                        [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
-
-
+                    tx.executeSql('INSERT INTO pet (nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte, adotado, cod_interno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+                        [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte,  pet.adotado, pet.cod_interno], (tx, results) => {
 
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
@@ -602,7 +600,7 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('SELECT * FROM pet WHERE nome = ? AND raca = ? AND sexo = ? AND idade = ? AND vacinas = ? AND altura = ? AND peso = ? AND especie = ? AND pelagem = ? AND porte = ? AND adotado = ?', [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado], (tx, results) => {
+                    tx.executeSql('SELECT * FROM pet WHERE cod_interno = ?', [pet.cod_interno], (tx, results) => {
 
                         if (results.rows.length > 0) {
                             console.log('PET JÁ EXISTE!');

@@ -15,7 +15,7 @@ import { Input, Button } from 'react-native-elements'
 var db = new Db();
 
 
-const insereDado = (nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte, adotado) => {
+const insereDado = (nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte, adotado, cod_interno) => {
   db.initDb();
   let pet = {
     nome: nome,
@@ -29,6 +29,7 @@ const insereDado = (nome, raca, sexo, idade, vacinas, altura, peso, especie, pel
     pelagem: pelagem,
     porte: porte,
     adotado: adotado,
+    cod_interno: cod_interno
   }
   db.conferePetAdd(pet);
 }
@@ -69,6 +70,11 @@ const PetsCadastrar = (props) => {
   const [porte, setPorte] = useState('');
   const [errorPorte, setErrorPorte] = useState('');
 
+  const [cod_interno, setCodInterno] = useState('');
+  const [errorCodInterno, setErrorCodInterno] = useState('');
+
+
+
   //db - não mostrado ao usuário:
   const [adotado, setAdotado] = useState('0');
   const [estado, setEstado] = useState('cadastro');
@@ -105,6 +111,11 @@ const PetsCadastrar = (props) => {
     const hifen = /^[0-9A-Za-z_@'-]+$/
     //Regex: alfanumerico:
     const alpha = /^[a-z0-9]+$/
+
+    //Regex: numerico:
+    const soNumero = /^[0-9]+$/
+
+
 
     //------------------Nome----------------------//
     if (nome == null) {
@@ -276,6 +287,30 @@ const PetsCadastrar = (props) => {
     //------------------------------------------------//
 
 
+    //--------------------COD_INTERNO---------------------//
+    if (cod_interno == null) {
+      setErrorCodInterno("O campo 'código interno' está em branco!")
+      error = true
+    }
+
+
+    if (String(cod_interno).length < 5) {
+
+      setErrorCodInterno("O campo 'codigo interno' precisa de 3 números.")
+      error = true
+    }
+
+
+    if (!alpha.test(String(cod_interno).toLowerCase())) {
+      setErrorCodInterno("O campo 'código interno' só contem caracteres especiais!")
+      error = true
+    }
+
+
+
+    //------------------------------------------------//
+
+
     return !error
   }
 
@@ -297,6 +332,7 @@ const PetsCadastrar = (props) => {
     setEspecie(props.especie);
     setPelagem(props.pelagem);
     setPorte(props.porte);
+    setCodInterno(props.cod_interno)
     setAdotado(props.adotado);
   }, []);
 
@@ -305,6 +341,7 @@ const PetsCadastrar = (props) => {
 
     if (validar() == false) {
       console.log('Deu erro');
+      console.log(cod_interno)
       console.log(altura)
       console.log(raca)
       console.log(vacinas)
@@ -313,7 +350,7 @@ const PetsCadastrar = (props) => {
     }
     else {
       if (estado == 'cadastro') {
-        insereDado(nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte, adotado);
+        insereDado(nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte,adotado , cod_interno);
       }
     }
     setEstado('cadastro');
@@ -346,6 +383,24 @@ const PetsCadastrar = (props) => {
               errorMessage={errorNome}
 
             />
+
+            <Text style={styles.textoInput}> Código Interno </Text>
+            <Text style={styles.textError}> Modelo: NNN; Ex: 001 </Text>
+            <Input
+              style={styles.barra}
+              placeholder="Insira o código único do animal no sistema."
+              keyboardType="numeric"
+              autoCapitalize="characters"
+              onChangeText={
+                value => {
+                  setCodInterno("AN" + value);
+                  setErrorCodInterno(null);
+                }
+              }
+              maxLength={3}
+              errorMessage={errorCodInterno}
+            />
+
             <Text style={styles.textoInput}> Espécie </Text>
             <Picker
               style={styles.select}

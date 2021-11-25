@@ -66,10 +66,10 @@ export default class ClientesIndex extends Component {
                 <View style={styles.container}>
 
                     <Text style={styles.textoCab}>Lista dos Clientes</Text>
-
                     <TouchableOpacity onPress={()=>{Actions.refresh({key: 'ClientesIndex'})}}>
                     <Icon name="sync" size={35} style={{paddingBottom: 25, color: 'white'}}> </Icon>
                     </TouchableOpacity>
+                    
                 </View>
                 <ScrollView>
                 <FlatList
