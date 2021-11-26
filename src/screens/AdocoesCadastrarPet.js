@@ -10,7 +10,7 @@ import {
   TextInput,
   Picker
 } from 'react-native';
-import {Actions} from 'react-native-router-flux'
+import SQLite from 'react-native-sqlite-storage';
 import styles from '../styles/adocoes/AdocoesCadastrar'
 import Db from '../../db';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -23,7 +23,7 @@ const database_name = 'syspet_mob.db';
 
 //const CadastrarUsuario = ({ navigation }) => 
 
-const AdocoesCadastrar = (props) => {
+const AdocoesCadastrarPet = (props) => {
 
 
 
@@ -40,7 +40,6 @@ const AdocoesCadastrar = (props) => {
       </View>
       <Text style={{ fontSize: 25, margin: 20, textAlign: 'center', color: 'white' }}> Siga as instruções em cada página para realizar a adoção: </Text>
       <Button
-      onPress={() => {Actions.AdocoesCadastrarPet()}}
       buttonStyle={{ marginTop: 20, width: 200}}
         icon={
           <Icon
@@ -57,4 +56,4 @@ const AdocoesCadastrar = (props) => {
 
   )
 };
-export default AdocoesCadastrar;
+export default AdocoesCadastrarPet;

@@ -3,10 +3,16 @@ import { Text, TouchableOpacity, View, Image } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import styles from '../styles/home'
 import Db from '../../db';
-import { Button, ThemeProvider, Divider } from 'react-native-elements';
+import { Button, ThemeProvider, Divider, Header } from 'react-native-elements';
 ;
 
 var db = new Db();
+
+function logout() {
+    
+    console.log('Teste');
+
+}
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 const HomeIndex = ({ navigation }) => {
@@ -19,7 +25,15 @@ const HomeIndex = ({ navigation }) => {
     return (
 
 
+
+
         <View style={styles.container}>
+            <Header 
+               
+                leftComponent={{ icon: 'logout', color: '#fff', iconStyle: { color: '#fff' }, onPress: () => logout()}}
+                centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+                rightComponent={{ icon: 'home', color: '#fff' }}
+            />
             <View style={{ justifyContent: 'flex-start' }}>
                 <Image
                     style={styles.header_image}

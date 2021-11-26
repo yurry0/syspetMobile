@@ -31,6 +31,10 @@ import ClientesView from './ClientesView';
 import PetsView from './PetsView';
 import AdocoesView from './AdocoesView'
 
+//Paginas de CadastrarAdoção
+
+import AdocoesCadastrarPet from './AdocoesCadastrarPet';
+
 
 //Icones
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -92,7 +96,7 @@ const App = () => {
                         tabBarStyle={{ backgroundColor: '#FFFFF' }}>
 
                         {/* Tab - HomeIndex */}
-                        <Scene key="homeIndex" title={'Home'}  titleStyle={{ color: '#F0EFF4' }} hideNavBar={true} component={HomeIndex} icon={iconHome} />
+                        <Scene key="homeIndex" title={'Home'} titleStyle={{ color: '#F0EFF4' }} hideNavBar={true} component={HomeIndex} icon={iconHome} />
                         {/* Tab - Clientes Index */}
                         <Scene key="ClientesIndex" title={'Clientes'} hideNavBar={true} component={ClientesIndex} icon={iconHome} />
                         <Scene key="PetsIndex" title={'Pets'} hideNavBar={true} component={PetsIndex} icon={iconHome} />
@@ -114,6 +118,11 @@ const App = () => {
                     <Scene key="AdocoesCadastrar" title={'Cadastrar uma nova adoção'} component={AdocoesCadastrar} back={true} />
                     <Scene key="AdocoesEditar" title={"Editar Adoção"} component={AdocoesEditar} back={true} />
                     <Scene key="AdocoesView" title={"Visualizar Adoção"} component={AdocoesView} back={true} />
+
+
+                    {/* Scenes relacionadas ao fluxo de adicionar adoção: */}
+                    <Scene key="AdocoesCadastrarPet" title={'Selecione um pet'} component={AdocoesCadastrarPet} back={true} />
+
 
                 </Scene>
 
