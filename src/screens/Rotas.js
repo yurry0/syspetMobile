@@ -121,7 +121,7 @@ const App = () => {
 
 
                     {/* Scenes relacionadas ao fluxo de adicionar adoção: */}
-                    <Scene key="AdocoesCadastrarPet" title={'Selecione um pet'} component={AdocoesCadastrarPet} back={true} />
+                    <Scene key="AdocoesCadastrarPet" title={'Adoção - Pet'} component={AdocoesCadastrarPet} back={true} />
 
 
                 </Scene>

@@ -765,7 +765,7 @@ export default class Db {
                             tx.executeSql('DROP TABLE IF EXISTS adocao', []);
                             tx.executeSql(
                                 'CREATE TABLE adocao (' +
-                                'pk_id_adocao INTEGER NOT NULL, id_cliente INTEGER NOT NULL, id_pet INTEGER NOT NULL, PRIMARY KEY(pk_id_adocao AUTOINCREMENT), FOREIGN KEY(id_cliente) REFERENCES cliente(pk_id_cliente) )', []);
+                                'pk_id_adocao INTEGER NOT NULL, id_cliente INTEGER NOT NULL, id_pet INTEGER NOT NULL, PRIMARY KEY(pk_id_adocao AUTOINCREMENT), FOREIGN KEY(id_cliente) REFERENCES cliente(pk_id_cliente), FOREIGN KEY(id_pet) REFERENCES pet(pk_id_pet) )', []);
                         }
                         else {
                             console.log('A criação foi bem sucedida');
