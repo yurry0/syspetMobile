@@ -24,10 +24,10 @@ const database_name = 'syspet_mob.db';
 
 
 
-
 //const CadastrarUsuario = ({ navigation }) => 
 
-export default class CadastrarAdocaoPet extends Component {
+export default class AdocoesCadastrarCliente extends Component {
+
 
 
   keyExtractor = (item, index) => index.toString()
@@ -53,8 +53,13 @@ export default class CadastrarAdocaoPet extends Component {
       FlatListItems: [],
       ids: [],
       checked: true,
+      pet_nome: props.pet_nome,
+      pet_id: props.pet_id,
+      pet_raca: props.pet_raca
     };
   }
+
+
 
 
 
@@ -88,7 +93,7 @@ export default class CadastrarAdocaoPet extends Component {
       .then(DB => {
         db = DB;
         db.transaction(tx => {
-          tx.executeSql('SELECT * FROM pet', [], (tx, results) => {
+          tx.executeSql('SELECT * FROM cliente', [], (tx, results) => {
             var temp = [];
             for (let i = 0; i < results.rows.length; ++i) {
               temp.push(results.rows.item(i));
@@ -108,9 +113,9 @@ export default class CadastrarAdocaoPet extends Component {
     return (
       <View style={styles.container_header}>
 
-        <Text style={{ fontSize: 32, margin: 20, textAlign: 'center', color: 'white' }}> Selecione um pet:</Text>
+        <Text style={{ fontSize: 32, margin: 20, textAlign: 'center', color: 'white' }}> Selecione um cliente:</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'center', borderWidth: 6, borderRadius: 40, borderStyle: 'dotted', borderColor: 'white' }}>
-          <Icon name="paw" size={65} color="white" style={{ alignSelf: 'flex-end', marginRight: 10, marginTop: 10, marginHorizontal: 40 }}></Icon>
+          <Icon name="user" size={55} color="white" style={{ alignSelf: 'flex-end', marginRight: 20, marginTop: 10, marginHorizontal: 40 }}></Icon>
         </View>
         <FlatList
           style={{ marginTop: 20 }}
@@ -125,9 +130,11 @@ export default class CadastrarAdocaoPet extends Component {
             >
               <View style>
 
-              <TouchableOpacity onPress={() => { Actions.AdocoesCadastrarCliente({pet_id: item.pk_id_pet, pet_nome: item.nome, pet_raca: item.raca  }) }}>
-                  <Text style={{ color: 'white', textShadowRadius: 50 }}>Código Interno: {item.cod_interno}</Text>
-                  <Text style={{ color: 'white', textShadowRadius: 50 }}>Nome: {item.nome}</Text>
+                <TouchableOpacity onPress={() => { Actions.AdocoesConfirm({ id_cliente: item.pk_id_cliente, nome_cliente: item.cli_nome, rg_cliente: item.cli_rg, pet_id: this.state.pet_id, pet_nome: this.state.pet_nome, pet_raca: this.state.pet_raca}) }}>
+                  <Text style={{ color: 'white', textShadowRadius: 50 }}>ID do Cliente: {item.pk_id_cliente}</Text>
+                  <Text style={{ color: 'white', textShadowRadius: 50 }}>Nome: {item.cli_nome}</Text>
+                  <Text style={{ color: 'white', textShadowRadius: 50 }}>RG do Cliente: {item.cli_rg}</Text>
+
 
                 </TouchableOpacity>
 
@@ -154,6 +161,7 @@ export default class CadastrarAdocaoPet extends Component {
         />
         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 50 }}>
           <Button
+            onPress={() => { console.log(this.state.pet_id) }}
             buttonStyle={{ marginTop: 5, width: 200 }}
             icon={
               <Icon

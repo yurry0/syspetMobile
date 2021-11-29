@@ -34,7 +34,8 @@ import AdocoesView from './AdocoesView'
 //Paginas de CadastrarAdoção
 
 import AdocoesCadastrarPet from './AdocoesCadastrarPet';
-
+import AdocoesCadastrarCliente from './AdocoesCadastrarCliente';
+import AdocoesConfirm from './AdocoesConfirm';
 
 //Icones
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -122,8 +123,9 @@ const App = () => {
 
                     {/* Scenes relacionadas ao fluxo de adicionar adoção: */}
                     <Scene key="AdocoesCadastrarPet" title={'Adoção - Pet'} component={AdocoesCadastrarPet} back={true} />
-
-
+                    <Scene key="AdocoesCadastrarCliente" title={'Adoção - Cliente'} component={AdocoesCadastrarCliente} back={true} />
+                    <Scene key="AdocoesConfirm" title={'Adoção - Confirmar Dados'} component={AdocoesConfirm} back={true} />
+                    
                 </Scene>
 
             </Router>

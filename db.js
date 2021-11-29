@@ -776,4 +776,31 @@ export default class Db {
         })
     }
 
+    addAdocao(adocao) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('INSERT INTO adocao(id_cliente, id_pet) VALUES (?,?)',
+                        [adocao.id_cliente, adocao.id_pet], (tx, results) => {
+
+                            if (results.rowsAffected > 0) {
+                                Alert.alert('Cadastro', 'Adoção inserida com Sucesso');
+                                Actions.PetsIndex();
+                                Actions.AdocoesIndex('');
+                                Actions.refresh({ key: 'AdocoesIndex' });
+                            } else {
+                                Alert.alert('Cadastro', 'Erro no Registro');
+                            }
+                        });
+                })
+            })
+    }//fim do método initDb
+
 }
