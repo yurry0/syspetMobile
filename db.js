@@ -745,6 +745,7 @@ export default class Db {
 
     // --------------------------------------------------------------------------------------------------------------------------------------------------------//
     // -------------------------------------------------------------------  A D O C A O   ----------------------------------------------------------------------//
+   
     //Tabelas criadas: ADOCAO
 
     initDbAdocao() {
@@ -775,7 +776,7 @@ export default class Db {
             });
         })
     }
-
+    //Add Adoção - Chave Estrangeira ID CLIENTE e ID PET!
     addAdocao(adocao) {
         let db;
         SQLite.openDatabase(
@@ -789,9 +790,8 @@ export default class Db {
                 db.transaction((tx) => {
                     tx.executeSql('INSERT INTO adocao(id_cliente, id_pet) VALUES (?,?)',
                         [adocao.id_cliente, adocao.id_pet], (tx, results) => {
-
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Cadastro', 'Adoção inserida com Sucesso');
+                                Alert.alert('Cadastro', 'Adoção inserida com sucesso');
                                 Actions.PetsIndex();
                                 Actions.AdocoesIndex('');
                                 Actions.refresh({ key: 'AdocoesIndex' });
@@ -801,6 +801,5 @@ export default class Db {
                         });
                 })
             })
-    }//fim do método initDb
-
+    }
 }
