@@ -24,6 +24,7 @@ db.initDb();
 const AdocoesView = (props) => {
     const [id_adocao, setIdAdocao] = useState('');
     const [id_cliente, setIdCliente] = useState('');
+    const [nome_cliente, setNomeCliente] = useState('');
     const [id_pet, setIdPet] = useState('');
 
 

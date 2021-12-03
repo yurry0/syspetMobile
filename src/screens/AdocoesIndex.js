@@ -4,7 +4,7 @@ import SQLite from 'react-native-sqlite-storage';
 import ActionButton from 'react-native-action-button';
 import Db from '../../db'
 import { Actions } from 'react-native-router-flux';
-import styles from '../styles/lista_generica'
+import styles from '../styles/adocoes/AdocoesIndex'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const base = new Db();
@@ -18,9 +18,6 @@ export default class AdocoesIndex extends Component {
 
         };
     }
-
-
-
     //
     componentDidMount() {
         let db;
@@ -30,7 +27,7 @@ export default class AdocoesIndex extends Component {
             .then(DB => {
                 db = DB;
                 db.transaction(tx => {
-                    tx.executeSql('SELECT pk_id_adocao, nome, cli_nome, raca, cli_rg FROM adocao INNER JOIN pet ON pet.pk_id_pet = adocao.id_pet INNER JOIN cliente ON cliente.pk_id_cliente = adocao.id_cliente   ', [], (tx, results) => {
+                    tx.executeSql('SELECT pk_id_adocao, nome, ' + "created_at," + 'cli_nome, raca, cli_rg FROM adocao INNER JOIN pet ON pet.pk_id_pet = adocao.id_pet INNER JOIN cliente ON cliente.pk_id_cliente = adocao.id_cliente   ', [], (tx, results) => {
                         var temp = [];
                         for (let i = 0; i < results.rows.length; ++i) {
                             temp.push(results.rows.item(i));
@@ -42,8 +39,6 @@ export default class AdocoesIndex extends Component {
                 });
             })
     }
-
-
     deletar = (id) => {
         base.deletarAdocao(id);
         Actions.refresh({ key: 'AdocoesIndex' });
@@ -81,27 +76,31 @@ export default class AdocoesIndex extends Component {
                                 <View>
 
                                     <Text>ID Adoção: {item.pk_id_adocao}</Text>
-                                    <TouchableOpacity onPress={() => { Actions.AdocoesView({ id: item.pk_id_adocao, cliente: item.id_cliente, pet: item.id_pet, estado: 'editar' }) }}>
+                                    <TouchableOpacity onPress={() => { Actions.AdocoesView({ id: item.pk_id_adocao, id_cliente: id_cliente, nome_cliente: item.cli_nome, id_pet: item.id_pet, nome_pet: item.nome, estado: 'editar' }) }}>
                                         <Text>Nome do cliente: {item.cli_nome}</Text>
                                         <Text>Nome do Pet: {item.nome}</Text>
+                                        <Text>Data de Cadastro: {item.created_at}</Text>
 
                                     </TouchableOpacity>
 
                                 </View>
-                                <View style={{ justifyContent: 'flex-end', flexDirection: 'row' }}>
+                                <View style={{ justifyContent: 'flex-end', flexDirection: 'column' }}>
 
-                                    <View style={{ marginRight: 5 }}>
+                                    <View style={{ marginBottom: 20, marginLeft: 20 }}>
                                         <Button style={styles.botao} title='Alterar' onPress={() => {
                                             Alert.alert('Alterar:', 'Deseja alterar o registro da adoção selecionada?',
                                                 [
-                                                    { text: 'Sim', onPress: () => { Actions.ClientesEditar({ id: item.pk_id_adocao, cliente: item.id_cliente, pet: item.id_pet, estado: 'editar' }) } },
+                                                    { text: 'Sim', onPress: () => { Actions.AdocoesEditar({ id: item.pk_id_adocao, cliente: item.id_cliente, pet: item.id_pet, estado: 'editar' }) } },
                                                     { text: 'Não' }
 
                                                 ])
 
                                         }} />
                                     </View>
-                                    <View>
+
+                                    <View style={{ marginBottom: 5, marginLeft: 20 }}>
+
+
                                         <Button style={styles.botao} title='Excluir' onPress={() => {
                                             Alert.alert('Excluir:', 'Deseja excluir o registro da adoção selecionada? ',
                                                 [
@@ -110,6 +109,7 @@ export default class AdocoesIndex extends Component {
                                                 ]);
                                         }} />
                                     </View>
+
 
 
 

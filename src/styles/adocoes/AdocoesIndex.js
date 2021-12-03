@@ -1,36 +1,66 @@
-import { StyleSheet } from "react-native";
-
+import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
-
-    container: {
+    mainContainer: {
         flex: 1,
-        backgroundColor: '#A9DEF9',
         alignItems: 'center',
-        justifyContent:'center'
+        padding: 10,
+      },
+     
+      touchableOpacity: {
+        backgroundColor: '#DD2D4A',
+        alignItems: 'center',
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%'
+      },
+     
+      touchableOpacityText: {
+        color: '#FFFFFF',
+        fontSize: 23,
+        textAlign: 'center',
+        padding: 8
+      },
+     
+      textInputStyle: {
+        height: 45,
+        width: '90%',
+        textAlign: 'center',
+        borderWidth: 1,
+        borderColor: '#00B8D4',
+        borderRadius: 7,
+        marginTop: 15,
+      },
+     
+      itemsStyle: {
+        fontSize: 22,
+        color: '#000'
+      },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
     },
-    texto: {
-        fontSize:15,
-        margin: 20
+    
+    container: {
+        backgroundColor: '#EC4E20',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textoCab: {
+        color: '#fff',
+        fontSize: 30,
+        margin: 30
+    },
+    borda: {
+        borderBottomWidth: 2
     },
     botao: {
-        marginTop: 50,
-        width: 300,
-        height: 42,
-        backgroundColor: '#C83E4D',
-        marginBottom: 25
-
+        backgroundColor: 'orange',
+        marginBottom: 5
     },
-
-    botaoText: {
-        color: '#fff',
-        alignSelf: 'center',
-        marginTop: 10,
-        fontSize: 16
-    },
-
-
-
-})
+ 
+});
 
 export default styles;
