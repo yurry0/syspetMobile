@@ -618,9 +618,6 @@ export default class Db {
                 });
             })
     }
-
-
-
     updatePet(pet) {
         let db;
         SQLite.openDatabase(
@@ -707,7 +704,7 @@ export default class Db {
                         for (let i = 0; i < len; i++) {
                             let row = results.rows.item(i);
                             console.log('==================================================================================')
-                            console.log(`ID: ${row.pk_id_pet}, Nome do cliente: ${row.nome}, Raça: ${row.raca},  Vacinas: ${row.vacinas} `,);
+                            console.log(`ID: ${row.pk_id_pet}, Nome do cliente: ${row.nome}, Raça: ${row.raca},  Vacinas: ${row.vacinas}, Adotado: ${row.adotado}`,);
                             console.log('success');
                         }
                         closeDatabase(db);
@@ -745,7 +742,7 @@ export default class Db {
 
     // --------------------------------------------------------------------------------------------------------------------------------------------------------//
     // -------------------------------------------------------------------  A D O C A O   ----------------------------------------------------------------------//
-   
+
     //Tabelas criadas: ADOCAO
 
     initDbAdocao() {
@@ -766,7 +763,7 @@ export default class Db {
                             tx.executeSql('DROP TABLE IF EXISTS adocao', []);
                             tx.executeSql(
                                 'CREATE TABLE adocao (' +
-                                'pk_id_adocao INTEGER NOT NULL, id_cliente INTEGER NOT NULL, id_pet INTEGER NOT NULL, created_at DATETIME DEFAULT (STRFTIME('+"'%d-%m-%Y   %H:%M', 'NOW','localtime'))"+', PRIMARY KEY(pk_id_adocao AUTOINCREMENT), FOREIGN KEY(id_cliente) REFERENCES cliente(pk_id_cliente), FOREIGN KEY(id_pet) REFERENCES pet(pk_id_pet) )', []);
+                                'pk_id_adocao INTEGER NOT NULL, id_cliente INTEGER NOT NULL, id_pet INTEGER NOT NULL, created_at DATETIME DEFAULT (STRFTIME(' + "'%d-%m-%Y   %H:%M', 'NOW','localtime'))" + ', PRIMARY KEY(pk_id_adocao AUTOINCREMENT), FOREIGN KEY(id_cliente) REFERENCES cliente(pk_id_cliente), FOREIGN KEY(id_pet) REFERENCES pet(pk_id_pet) )', []);
                         }
                         else {
                             console.log('A criação foi bem sucedida');
@@ -776,7 +773,63 @@ export default class Db {
             });
         })
     }
-    //Add Adoção - Chave Estrangeira ID CLIENTE e ID PET!
+
+    // Esse método confere se o campo "adotado" do Pet está NULL
+    conferePetAdotado(adocao) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('SELECT pk_id_pet FROM pet WHERE pk_id_pet = ? AND adotado IS NULL OR adotado = "" ',
+                        [
+                            adocao.id_pet
+                        ], (tx, results) => {
+                            if (results.rows.length == 1) {
+                               this.setAdotado(adocao);
+                            } else {
+                                console.log('num respondeu');
+                                console.log(adocao.id_pet)
+                                Alert.alert('ERRO', 'Pet já adotado!');
+                            }
+                        });
+                })
+            })
+    }
+
+    //Este método atribui o campo "adotado" da tabela Pet o valor "1"
+    setAdotado(adocao) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('UPDATE pet SET adotado = 1 WHERE pk_id_pet = ?',
+                        [
+                            adocao.id_pet
+
+                        ], (tx, results) => {
+                            if (results.rowsAffected > 0) {
+                                this.addAdocao(adocao);
+                            } else {
+                                Alert.alert('Alteração', 'Erro na alteração');
+                            }
+                        });
+                })
+            })
+    }
+
+    //Após conferir o estado do Pet, este método realiza a adoção:
     addAdocao(adocao) {
         let db;
         SQLite.openDatabase(
@@ -793,10 +846,62 @@ export default class Db {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Adoção inserida com sucesso');
                                 Actions.PetsIndex();
-                                Actions.AdocoesIndex('');
+                                Actions.AdocoesIndex();
                                 Actions.refresh({ key: 'AdocoesIndex' });
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
+                            }
+                        });
+                })
+            })
+    }
+
+
+    setNaoAdotado(adocao) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('UPDATE pet SET adotado = 0 WHERE pk_id_pet = ?',
+                        [
+                            adocao.id_pet
+
+                        ], (tx, results) => {
+                            if (results.rowsAffected > 0) {
+                                this.deletarAdocao(adocao);
+                            } else {
+                                Alert.alert('Alteração', 'Erro na alteração');
+                            }
+                        });
+                })
+            })
+    }
+
+    deletarAdocao(id) {
+        let db;
+        SQLite.openDatabase(
+            database_name,
+            database_version,
+            database_displayname,
+            database_size,
+        )
+            .then(DB => {
+                db = DB;
+                db.transaction((tx) => {
+                    tx.executeSql('DELETE FROM adocao WHERE pk_id_adocao = ?',
+                        [
+                            id
+                        ], (tx, results) => {
+                            if (results.rowsAffected > 0) {
+                                Alert.alert('Exclusão', 'Adoção excluída com sucesso');
+                            } else {
+                                Alert.alert('Exclusão', 'Erro na exclusão');
                             }
                         });
                 })

@@ -33,7 +33,7 @@ const PetsView = (props) => {
     const [especie, setEspecie] = useState('');
     const [pelagem, setPelagem] = useState('');
     const [porte, setPorte] = useState('');
-    const [adotado, setAdotado] = useState('0');
+    const [adotado, setAdotado] = useState('');
     const [cod_interno, setCodInterno] = useState('0');
     
     const [estado, setEstado] = useState('cadastro');

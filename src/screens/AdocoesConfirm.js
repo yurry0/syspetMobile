@@ -21,7 +21,7 @@ const insereDado = (id_cliente, id_pet) => {
     id_cliente: id_cliente,
     id_pet: id_pet
   }
-  db.addAdocao(adocao);
+  db.conferePetAdotado(adocao);
 }
 
 const AdocoesConfirm = (props) => {

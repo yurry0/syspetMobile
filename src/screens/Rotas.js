@@ -118,7 +118,7 @@ const App = () => {
                     {/* Scenes relacionadas as funções de Adocao */}
                     <Scene key="AdocoesCadastrar" title={'Cadastrar uma nova adoção'} component={AdocoesCadastrar} back={true} />
                     <Scene key="AdocoesEditar" title={"Editar Adoção"} component={AdocoesEditar} back={true} />
-                    <Scene key="AdocoesView" title={"Visualizar Adoção"} component={AdocoesView} back={true} />
+                    <Scene key="AdocoesView" title={"Detalhes da Adoção"} component={AdocoesView} back={true} />
 
 
                     {/* Scenes relacionadas ao fluxo de adicionar adoção: */}

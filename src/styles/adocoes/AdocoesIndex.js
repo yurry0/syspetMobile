@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     },
     botao: {
         backgroundColor: 'orange',
-        marginBottom: 5
+        marginBottom: 5,
     },
  
 });
