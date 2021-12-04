@@ -791,7 +791,7 @@ export default class Db {
                             adocao.id_pet
                         ], (tx, results) => {
                             if (results.rows.length == 1) {
-                               this.setAdotado(adocao);
+                                this.setAdotado(adocao);
                             } else {
                                 console.log('num respondeu');
                                 console.log(adocao.id_pet)
@@ -857,7 +857,7 @@ export default class Db {
     }
 
 
-    setNaoAdotado(adocao) {
+    setNaoAdotado(id_pet) {
         let db;
         SQLite.openDatabase(
             database_name,
@@ -868,14 +868,18 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE pet SET adotado = 0 WHERE pk_id_pet = ?',
+                    tx.executeSql('UPDATE pet SET adotado = NULL WHERE pk_id_pet = ?',
                         [
-                            adocao.id_pet
-
+                           id_pet
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                this.deletarAdocao(adocao);
+                                console.log('Entrei no fluxo de sucesso');
+                                console.log(results)
+                                this.deletarAdocao(id);
                             } else {
+                                console.log(id);
+                                console.log(results);
+                                console.log('Entrei no fluxo de erro de setNaoAdotado');
                                 Alert.alert('Alteração', 'Erro na alteração');
                             }
                         });
@@ -899,8 +903,12 @@ export default class Db {
                             id
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
+                                console.log('Entrei no fluxo de sucesso');
+
                                 Alert.alert('Exclusão', 'Adoção excluída com sucesso');
                             } else {
+                                console.log('Entrei no fluxo de erro de deletarAdocao');
+                                
                                 Alert.alert('Exclusão', 'Erro na exclusão');
                             }
                         });

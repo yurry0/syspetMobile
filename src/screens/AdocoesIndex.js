@@ -40,8 +40,9 @@ export default class AdocoesIndex extends Component {
                 });
             })
     }
-    deletar = (id) => {
-        base.setNaoAdotado(id);
+    deletar = (id_pet, id) => {
+        base.setNaoAdotado(id_pet);
+        base.deletarAdocao(id);
         Actions.refresh({ key: 'AdocoesIndex' });
     }
 
@@ -74,14 +75,15 @@ export default class AdocoesIndex extends Component {
                             style={{ backgroundColor: '#CBD4C2', padding: 30, borderBottomWidth: 1, flexDirection: 'row', justifyContent: 'space-between' }}
                         >
                             <View>
-                                <Text>ID Adoção: {item.pk_id_adocao}</Text>
                                 <TouchableOpacity onPress={() => { Actions.AdocoesView({ id_adocao: item.pk_id_adocao, id_cliente: item.pk_id_cliente, nome_cliente: item.cli_nome, rg_cliente: item.cli_rg, id_pet: item.pk_id_pet, raca_pet: item.raca, nome_pet: item.nome, data_adocao: item.created_at, estado: 'editar' }) }}>
+                                    <Text>ID Adoção: {item.pk_id_adocao}</Text>
                                     <Text>Nome do cliente: {item.cli_nome}</Text>
                                     <Text>Nome do Pet: {item.nome}</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={{ justifyContent: 'flex-end', flexDirection: 'column', }}>
-                                <View style={{ marginBottom: 20, marginLeft: 20 }}>
+                               
+                                {/**                <View style={{ marginBottom: 20, marginLeft: 20 }}>
                                     <Button style={{ color: 'orange', margin: 20 }} title=' Alterar' onPress={() => {
                                         Alert.alert('Alterar:', 'Deseja alterar o registro da adoção selecionada?',
                                             [
@@ -90,7 +92,8 @@ export default class AdocoesIndex extends Component {
 
                                             ])
                                     }} />
-                                </View>
+                                </View>*/}
+
 
                                 <View style={{ marginBottom: 5, marginLeft: 20 }}>
 
@@ -105,7 +108,7 @@ export default class AdocoesIndex extends Component {
                                         iconLeft onPress={() => {
                                             Alert.alert('Excluir:', 'Deseja excluir o registro da adoção selecionada? ',
                                                 [
-                                                    { text: 'Sim', onPress: () => { this.deletar(item.pk_id_adocao) } },
+                                                    { text: 'Sim', onPress: () => { this.deletar(item.pk_id_pet, item.pk_id_adocao) } },
                                                     { text: 'Não', onPress: () => console.log('Não') }
                                                 ]);
                                         }} />

@@ -21,6 +21,9 @@ var db = new Db();
 db.initDb();
 
 
+
+
+
 const PetsView = (props) => {
     const [id, setId] = useState('');
     const [nome, setNome] = useState('');
@@ -33,11 +36,10 @@ const PetsView = (props) => {
     const [especie, setEspecie] = useState('');
     const [pelagem, setPelagem] = useState('');
     const [porte, setPorte] = useState('');
+    const [flag, setFlag] = useState('Sim');
     const [adotado, setAdotado] = useState('');
     const [cod_interno, setCodInterno] = useState('0');
-    
     const [estado, setEstado] = useState('cadastro');
-    const [flag, setFlag] = useState('')
 
 
 
@@ -57,25 +59,21 @@ const PetsView = (props) => {
         setPorte(props.porte);
         setAdotado(props.adotado);
         setCodInterno(props.cod_interno);
-        
 
-        if (adotado == '0') {
-
+        if (adotado == null) {
             setFlag('Não');
-
         }
+
         else {
             setFlag('Sim');
         }
+
     }, []);
 
-
-
-
+    function mostrarAdotado() {
+        console.log(adotado);
+    }
     return (
-
-
-
         <View style={styles.container}>
             <Image
                 style={styles.logo}
@@ -96,7 +94,10 @@ const PetsView = (props) => {
                 <Text style={styles.text_title}> Peso: <Text style={styles.text_profile}>  {peso} </Text> </Text>
                 <Text style={styles.text_title}> Pelagem: <Text style={styles.text_profile}>  {pelagem} </Text> </Text>
                 <Text style={styles.text_title}> Porte: <Text style={styles.text_profile}>  {porte} </Text> </Text>
+                <Text style={styles.text_title}> Vacinas: <Text style={styles.text_profile}>  {vacinas} </Text> </Text>
+                
                 <Text style={styles.text_title}> Adotado? <Text style={styles.text_profile}> {flag} </Text> </Text>
+
             </View>
         </View>
 

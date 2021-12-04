@@ -113,6 +113,9 @@ const PetsCadastrar = (props) => {
     //Regex: alfanumerico:
     const alpha = /^[a-z0-9]+$/
 
+    //Regex: alfaspace
+    const alfaspace = /^[a-zA-Z0-9 ]*$/
+
     //Regex: numerico:
     const soNumero = /^[0-9]+$/
 
@@ -207,7 +210,7 @@ const PetsCadastrar = (props) => {
     }
 
     else {
-      if (!alpha.test(String(vacinas).toLowerCase())) {
+      if (!alfaspace.test(String(vacinas).toLowerCase())) {
         setErrorVacinas("O campo 'Vacinas' contém caracteres especiais!")
         error = true
 
