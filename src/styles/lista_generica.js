@@ -51,8 +51,9 @@ const styles = StyleSheet.create({
     textoCab: {
         color: '#fff',
         fontSize: 30,
-        margin: 30
+        marginTop: 40
     },
+    
     borda: {
         borderBottomWidth: 2
     },
