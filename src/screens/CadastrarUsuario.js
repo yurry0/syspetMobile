@@ -120,7 +120,8 @@ const CadastrarUsuario = ({ navigation }, props) => {
   const salvar = (estado) => {
     if (validar() == false) {
       console.log('Deu erro');
-
+      console.log(senha);
+      console.log(email)
     } else {
         if (estado == 'cadastro') {
           insereDado(nome, email, senha);

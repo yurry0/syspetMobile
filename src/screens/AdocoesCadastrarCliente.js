@@ -89,7 +89,7 @@ export default class AdocoesCadastrarCliente extends Component {
   render() {
     return (
       <View style={styles.container_header}>
-        <Text style={{ fontSize: 32, margin: 20, textAlign: 'center', color: 'white' }}> Selecione um cliente:</Text>
+        <Text style={{ fontSize: 32, margin: 20, textAlign: 'center', color: 'white' }}> Toque em um dos pets listados para seleciona-lo:</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'center', borderWidth: 6, borderRadius: 40, borderStyle: 'dotted', borderColor: 'white' }}>
           <Icon name="user" size={55} color="white" style={{ alignSelf: 'flex-end', marginRight: 20, marginTop: 10, marginHorizontal: 40 }}></Icon>
         </View>
@@ -111,14 +111,7 @@ export default class AdocoesCadastrarCliente extends Component {
                 </TouchableOpacity>
               </View>
               <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-                <CheckBox
-                  // iconRight
-                  checkedIcon="dot-circle-o"
-                  uncheckedIcon="circle-o"
-                  checkedColor="orange"
-                  checked={this.isChecked(item.id)}
-                  onPress={() => this.toggleChecked(item.id)}
-                />
+            
               </View>
             </View>
           )}

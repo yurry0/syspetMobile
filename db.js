@@ -101,7 +101,7 @@ export default class Db {
                 db = DB;
                 db.transaction((tx) => {
                     tx.executeSql('SELECT * FROM usuario WHERE email = ? ', [usuario.email], (tx, results) => {
-                        if (results.rowsAffected = 1) {
+                        if (results.rows.length == 1) {
                             console.log('EMAIL JÁ EXISTE!')
                             Alert.alert('ERRO', 'Já existe um usuário com este email');
                             Actions.refresh('CadastrarUsuario');
@@ -211,13 +211,22 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('SELECT * FROM usuario WHERE email = ? AND senha = ?',
+                    tx.executeSql('SELECT nome, email, senha FROM usuario WHERE email = ? AND senha = ?',
                         [
                             usuario.email,
                             usuario.senha
-                        ], (tx, result) => {
-                            if (result.rows.length > 0) {
-                                console.log('Retornou verdade');
+                        ], (tx, results) => {
+                            var user_nome;
+                            var logado;
+                            if (results.rows.length == 1) {
+                                //console.log('Retornou verdade');
+                                // console.log(results);
+                                for (let i = 0; i <= results.rows.length; ++i) {
+                                    Actions.homeIndex( user_nome = results.rows.item(i).nome, logado = true );
+                                    console.log(results.rows.item(i).nome);
+
+
+                                }
                                 return true;
                             } else {
                                 Alert.alert('Erro', 'O login / senha informados não correspondem a nenhum usuario');
@@ -254,7 +263,6 @@ export default class Db {
                                 'CREATE TABLE IF NOT EXISTS cliente(' +
                                 'pk_id_cliente INTEGER PRIMARY KEY AUTOINCREMENT, cli_nome VARCHAR(50) NOT NULL, cidade VARCHAR(50) NOT NULL, cli_rg VARCHAR(50) NOT NULL UNIQUE  , cli_estado VARCHAR(100) NOT NULL, cli_cep VARCHAR(100) NOT NULL, cli_endereco VARCHAR(100) NOT NULL, cli_bairro VARCHAR(100) NOT NULL, cli_email VARCHAR(100) UNIQUE NOT NULL)', []);
                         }
-
                         else {
                             console.log('A criação foi bem sucedida');
                         }
@@ -870,7 +878,7 @@ export default class Db {
                 db.transaction((tx) => {
                     tx.executeSql('UPDATE pet SET adotado = NULL WHERE pk_id_pet = ?',
                         [
-                           id_pet
+                            id_pet
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 console.log('Entrei no fluxo de sucesso');
@@ -908,7 +916,7 @@ export default class Db {
                                 Alert.alert('Exclusão', 'Adoção excluída com sucesso');
                             } else {
                                 console.log('Entrei no fluxo de erro de deletarAdocao');
-                                
+
                                 Alert.alert('Exclusão', 'Erro na exclusão');
                             }
                         });

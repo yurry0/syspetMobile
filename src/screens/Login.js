@@ -7,6 +7,7 @@ import styles from '../styles/Login';
 import Icon from 'react-native-vector-icons/Ionicons'
 var db = new Db();
 {/* Essa parte é ligada as funções de checagem no BD que ainda não foram finalizadas. */ }
+
 const buscarUser = (email, senha) => {
 
     var check;
@@ -16,21 +17,66 @@ const buscarUser = (email, senha) => {
         senha: senha
     }
     db.userLogin(usuario);
-
-    if (db.userLogin(usuario) == true) {
-
-
-    }
-
     if (check == true) {
         navigation.navigate('Home');
     }
 }
 
-export default function Login({ navigation }, props) {
+export default function Login(props) {
     const [email, setEmail] = useState('');
+    const [errorEmail, setErrorEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [errorSenha, setErrorSenha] = useState('');
     const [estado, setEstado] = useState('logar');
+
+
+    // ----------------------------------------------------------------------- ----------------- ----------------------------------------------------------//
+    //------------------------------------------------------------------------ V A L I D A Ç Ã O ----------------------------------------------------------//
+    //------------------------------------------------------------------------ ----------------- ----------------------------------------------------------//
+
+    const validar = () => {
+        let error = false
+        setErrorEmail(null)
+        setErrorSenha(null)
+
+        const regexSenha = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+        const noNumber = /^([^0-9]*)$/
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const regex = /^[a-zA-Z0-9\s!@#\$%\^\&*\)\(+=._-]+$/g
+
+        if (email == null) {
+            setErrorEmail("O campo 'e-mail' está em branco!")
+            error = true
+        }
+
+
+        else {
+            if (!re.test(String(email).toLowerCase())) {
+                setErrorEmail("O formato do email está incorreto!")
+                error = true
+            }
+        }
+
+
+        if (senha == null) {
+            setErrorSenha("O campo 'senha' está em branco!")
+            error = true
+        } else {
+
+            if (!regexSenha.test(String(senha).toLowerCase())) {
+                setErrorSenha("Senha não válida")
+                error = true
+            }
+
+        }
+
+
+        return !error
+    }
+
+    // ----------------------------------------------------------------------- ----------------- ----------------------------------------------------------//
+    //------------------------------------------------------------------------ V A L I D A Ç Ã O ----------------------------------------------------------//
+    //------------------------------------------------------------------------ ----------------- ----------------------------------------------------------//
 
     useEffect(() => {
         setEmail(props.email);
@@ -39,13 +85,15 @@ export default function Login({ navigation }, props) {
     }, []);
 
     const entrar = (estado) => {
-        if (estado == 'logar') {
-            buscarUser(email, senha);
+        if (validar() == false) {
+            console.log('Deu erro');
+        } else {
+            if (estado == 'logar') {
+                buscarUser(email, senha);
+            }
+            setEstado('logar');
         }
-        setEstado('logar');
     }
-
-
     return (
         <KeyboardAvoidingView
             behavior="padding"
@@ -58,11 +106,17 @@ export default function Login({ navigation }, props) {
                         style={styles.logo}
                         source={require('../assets/logo.png')} />
                     <Text style={styles.text}>Bem vindo ao SysPet! </Text>
-                    <Text style={styles.label}>Usuario / Email </Text>
+                    <Text style={styles.label}>E-mail de acesso: </Text>
 
                     <Input
-                        onChangeText={(value) => setEmail(value)}
+                        onChangeText={
+                            value => {
+                                setEmail(value);
+                                setErrorEmail(null);
+                            }
+                        }
                         keyboardType="email-address"
+                        errorMessage={errorEmail}
                         autoCapitalize="none"
                         placeholder="         Digite seu email de acesso"
                         leftIcon={
@@ -71,13 +125,18 @@ export default function Login({ navigation }, props) {
                                 size={28}
                                 color='orange'
                             />
-                        } style={styles}></Input>
+                        } style={styles} />
 
 
                     <Text style={styles.label}>Senha</Text>
                     <Input
-                        onChangeText={(value) => setSenha(value)}
+                        onChangeText={
+                            value => {
+                                setSenha(value);
+                                setErrorSenha(null);
+                            }}
                         autoCapitalize="none"
+                        errorMessage={errorSenha}
                         secureTextEntry={true}
                         placeholder="        Digite sua senha de acesso"
                         style={styles}
@@ -88,20 +147,15 @@ export default function Login({ navigation }, props) {
                                 color='orange'
                             />
                         }
-                    >
-
-
-                    </Input>
-
+                    />
 
                     {/* Comentário: A função de login será acionada aqui, através do intermédio da Const entrar(estado) 
                      15/10/2021: Função de login não totalmente implementada, precisa ser revista até o final do projeto
                        onPress={() => { entrar(estado) }}
-          
-
+                                  onPress={() => { Actions.homeIndex() }}
                      */}
                     <Button style={styles}
-                        onPress={() => { Actions.homeIndex() }}
+                        onPress={() => { entrar(estado) }}
                         icon={<Icon
                             name="caret-forward-circle-outline"
                             size={24}
@@ -112,9 +166,8 @@ export default function Login({ navigation }, props) {
                             backgroundColor: '#ff5c5c',
                             width: 250,
                             marginBottom: 20
-                        }}   >
+                        }} />
 
-                    </Button>
                     <Button
                         style={styles}
                         title="  Cadastrar Novo Usuário"
