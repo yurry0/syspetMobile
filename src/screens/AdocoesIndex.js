@@ -58,8 +58,10 @@ export default class AdocoesIndex extends Component {
             <View style={{ flex: 1 }}>
 
                 <View style={styles.container}>
+                    <Text style={styles.textoCab}>Adoções</Text>
+                    <Text>---------------------------------------------</Text>
+                    <Text style={{ justifyContent: 'center', textAlign: 'center', fontSize: 15, marginBottom: 4, color: 'white' }}>Toque em um item da lista para obter mais detalhes de cada cliente</Text>
 
-                    <Text style={styles.textoCab}>Lista de Adoções</Text>
 
                     <TouchableOpacity onPress={() => { Actions.refresh({ key: 'AdocoesIndex' }) }}>
                         <Icon name="sync" size={35} style={{ paddingBottom: 25, color: 'white' }}> </Icon>
@@ -82,7 +84,7 @@ export default class AdocoesIndex extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ justifyContent: 'flex-end', flexDirection: 'column', }}>
-                               
+
                                 {/**                <View style={{ marginBottom: 20, marginLeft: 20 }}>
                                     <Button style={{ color: 'orange', margin: 20 }} title=' Alterar' onPress={() => {
                                         Alert.alert('Alterar:', 'Deseja alterar o registro da adoção selecionada?',

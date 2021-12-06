@@ -1,5 +1,6 @@
+import 'react-native-gesture-handler';
 import React, { Component } from 'react';
-import { Router, Scene, Stack } from 'react-native-router-flux';
+import { Router, Scene, Stack, ActionConst } from 'react-native-router-flux';
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 //Scenes que ficam junto a raiz da rota:
 import Login from './Login';
@@ -93,6 +94,8 @@ const App = () => {
                     <Scene
                         key="HomeTabBar"
                         tabs={true}
+                        duration={0}
+                        type={ActionConst.RESET}
                         hideNavBar={true}
                         tabBarStyle={{ backgroundColor: '#FFFFF' }}>
 
@@ -125,7 +128,7 @@ const App = () => {
                     <Scene key="AdocoesCadastrarPet" title={'Adoção - Pet'} component={AdocoesCadastrarPet} back={true} />
                     <Scene key="AdocoesCadastrarCliente" title={'Adoção - Cliente'} component={AdocoesCadastrarCliente} back={true} />
                     <Scene key="AdocoesConfirm" title={'Adoção - Confirmar Dados'} component={AdocoesConfirm} back={true} />
-                    
+
                 </Scene>
 
             </Router>

@@ -222,10 +222,7 @@ export default class Db {
                                 //console.log('Retornou verdade');
                                 // console.log(results);
                                 for (let i = 0; i <= results.rows.length; ++i) {
-                                    Actions.homeIndex( user_nome = results.rows.item(i).nome, logado = true );
-                                    console.log(results.rows.item(i).nome);
-
-
+                                    Actions.homeIndex();
                                 }
                                 return true;
                             } else {

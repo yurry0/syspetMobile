@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react'
-import { Text, TouchableOpacity, View, Image, Alert } from 'react-native'
+import { Text, TouchableOpacity, View, Image, Alert, BackHandler } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import styles from '../styles/home'
 import Db from '../../db';
@@ -16,8 +16,8 @@ function mostrarNome(nome) {
 }
 
 
-function logout() {
 
+function logout() {
     Actions.login();
 }
 
@@ -28,6 +28,9 @@ const HomeIndex = (props) => {
     const [logado, setLogado] = useState('');
 
     useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
+        return () => backHandler.remove();
+
         setNome(props.nome);
         setLogado(true);
     }, []);
@@ -52,7 +55,6 @@ const HomeIndex = (props) => {
                         ])
                 }}
                 centerComponent={{ text: 'Home - SyspetMob', style: { color: '#fff' } }}
-                rightComponent={{ icon: 'home', color: '#fff' }}
             />
             <View style={{ justifyContent: 'flex-start' }}>
 
