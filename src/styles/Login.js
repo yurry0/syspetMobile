@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
-
-
 const styles = StyleSheet.create({
-  body: {
+  corpo: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#ffffff'

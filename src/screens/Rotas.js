@@ -95,7 +95,6 @@ const App = () => {
                         key="HomeTabBar"
                         tabs={true}
                         duration={0}
-                        type={ActionConst.RESET}
                         hideNavBar={true}
                         tabBarStyle={{ backgroundColor: '#FFFFF' }}>
 

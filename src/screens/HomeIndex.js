@@ -98,7 +98,7 @@ const HomeIndex = (props) => {
 
             </View>
 
-            <Text style={{ fontSize: 15, textAlign: 'center', justifyContent: 'center', marginTop: 80 }}>
+            <Text style={{ fontSize: 15, textAlign: 'center', justifyContent: 'flex-end', marginTop: 80,  }}>
                 Creative Code - 2021
             </Text>
         </View>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView, Image, TouchableOpacity, Text, TextInput, KeyboardAvoidingView, Alert } from 'react-native';
+import { View, StyleSheet, Keyboard, ScrollView, Image, FlatList, TouchableOpacity, Text, KeyboardAvoidingView, Alert } from 'react-native';
 import Db from '../../db';
 import { Actions } from 'react-native-router-flux';
 import { Input, Button } from 'react-native-elements'
@@ -85,6 +85,7 @@ export default function Login(props) {
     }, []);
 
     const entrar = (estado) => {
+        Keyboard.dismiss();
         if (validar() == false) {
             console.log('Deu erro');
         } else {
@@ -95,13 +96,14 @@ export default function Login(props) {
         }
     }
     return (
+
         <KeyboardAvoidingView
             behavior="padding"
             style={{ flex: 1, justifyContent: 'space-between' }}>
-            <ScrollView keyboardShouldPersistTaps="handled">
+            <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag">
 
                 <View
-                    style={styles.body}>
+                    style={styles.corpo}>
                     <Image
                         style={styles.logo}
                         source={require('../assets/logo.png')} />
@@ -118,6 +120,7 @@ export default function Login(props) {
                         keyboardType="email-address"
                         errorMessage={errorEmail}
                         autoCapitalize="none"
+                        onEndEditing={() => { Keyboard.dismiss() }}
                         placeholder="         Digite seu email de acesso"
                         leftIcon={
                             <Icon
@@ -138,6 +141,7 @@ export default function Login(props) {
                         autoCapitalize="none"
                         errorMessage={errorSenha}
                         secureTextEntry={true}
+                        onEndEditing={() => { Keyboard.dismiss() }}
                         placeholder="        Digite sua senha de acesso"
                         style={styles}
                         leftIcon={

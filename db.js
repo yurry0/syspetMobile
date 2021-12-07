@@ -287,11 +287,8 @@ export default class Db {
                     tx.executeSql('INSERT INTO cliente (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_email ) VALUES (?,?,?,?,?,?,?,?)',
                         [cliente.cli_nome, cliente.cidade, cliente.cli_rg, cliente.cli_estado, cliente.cli_cep, cliente.cli_endereco, cliente.cli_bairro, cliente.cli_email], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
-                                Actions.ClientesIndex();
-                                Actions.refresh({ key: 'ClientesIndex' });
-
-
+                                Alert.alert('Cadastro', 'Registro inserido com sucesso');
+                                Actions.ClientesIndex();                                                                           
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
                             }
@@ -317,7 +314,7 @@ export default class Db {
                         if (results.rows.length > 0) {
                             console.log('RG JÁ EXITE')
                             Alert.alert('ERRO', 'Já existe um usuário com este RG cadastrado!');
-                            Actions.refresh('CadastrarUsuario');
+
                         }
 
                         else {
@@ -346,8 +343,7 @@ export default class Db {
                     tx.executeSql('SELECT * FROM cliente WHERE cli_email = ?', [cliente.cli_email], (tx, results) => {
                         if (results.rows.length > 0) {
                             console.log('EMAIL JÁ EXISTE!')
-                            Alert.alert('ERRO', 'Já existe um cliente com este email');
-                            Actions.refresh('CadastrarUsuario');
+                            Alert.alert('ERRO', 'Já existe um cliente com este email');          
                         }
 
                         else {
@@ -388,8 +384,9 @@ export default class Db {
                             if (results.rowsAffected > 0) {
 
                                 Alert.alert('Alteração', 'Dados alterados com Sucesso');
-                                Actions.refresh({ key: 'ClientesIndex' });
-                                Actions.ClientesIndex();
+                            //    Actions.refresh({ key: 'ClientesIndex' });
+                            Actions.ClientesIndex();
+                            Actions.refresh({ key: 'ClientesIndex' });
 
 
 
@@ -426,7 +423,7 @@ export default class Db {
                 db.transaction((tx) => {
                     tx.executeSql('SELECT * FROM cliente WHERE cli_rg = ?', [cliente.cli_rg], (tx, results) => {
                         if (results.rows.length > 1) {
-                            console.log('RG JÁ EXITE')
+                            console.log('RG JÁ EXISTE')
                             Alert.alert('ERRO', 'Já existe um usuário com este RG cadastrado!');
                             Actions.refresh('CadastrarUsuario');
                         }
@@ -518,6 +515,7 @@ export default class Db {
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Exclusão', 'Usuario excluído com Sucesso');
+                                Actions.refresh('ClientesIndex');
                             } else {
                                 Alert.alert('Exclusão', 'Erro na exclusão');
                             }
@@ -850,9 +848,7 @@ export default class Db {
                         [adocao.id_cliente, adocao.id_pet], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Adoção inserida com sucesso');
-                                Actions.PetsIndex();
                                 Actions.AdocoesIndex();
-                                Actions.refresh({ key: 'AdocoesIndex' });
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
                             }
