@@ -1,5 +1,5 @@
 import SQLite from 'react-native-sqlite-storage';
-import { Actions } from 'react-native-router-flux'
+import { Actions, ActionConst } from 'react-native-router-flux';
 import { Alert } from 'react-native';
 
 SQLite.DEBUG(true);
@@ -288,10 +288,14 @@ export default class Db {
                         [cliente.cli_nome, cliente.cidade, cliente.cli_rg, cliente.cli_estado, cliente.cli_cep, cliente.cli_endereco, cliente.cli_bairro, cliente.cli_email], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro inserido com sucesso');
-                                Actions.ClientesIndex();                                                                           
+                                //Actions.refresh({key: 'ClientesIndex'});  
+                                Actions.popTo('HomeTabBar', 'ClientesIndex');
+
+
+                                                                                                  
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
-                            }
+                            }   
                         });
                 })
             })
@@ -515,7 +519,8 @@ export default class Db {
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Exclusão', 'Usuario excluído com Sucesso');
-                                Actions.refresh('ClientesIndex');
+                                Actions.refresh({key: "ClientesIndex"});
+                                Actions.ClientesIndex();
                             } else {
                                 Alert.alert('Exclusão', 'Erro na exclusão');
                             }

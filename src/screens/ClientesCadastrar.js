@@ -31,10 +31,7 @@ const insereDado = (cli_nome, cidade, cli_rg, cli_estado, cli_cep, cli_endereco,
     cli_email: cli_email
   }
   db.confereClienteRg(cliente);
-  Actions.refresh('ClientesIndex');
 }
-
-
 
 const ClientesCadastrar = (props) => {
 
@@ -153,7 +150,7 @@ const ClientesCadastrar = (props) => {
         setErrorCidade("O campo 'cidade' contém somente caracteres especiais!")
         error = true
       }
-    
+
     }
     //---------------------=----------------------//
 

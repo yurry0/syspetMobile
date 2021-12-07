@@ -14,8 +14,6 @@ const base = new Db();
 const database_name = 'syspet_mob.db';
 
 
-
-
 export default class ClientesIndex extends Component {
     constructor(props) {
         super(props);
@@ -24,8 +22,7 @@ export default class ClientesIndex extends Component {
         };
     }
 
-
-
+  
     //
     componentDidMount() {
         let db;
@@ -51,7 +48,6 @@ export default class ClientesIndex extends Component {
 
     deletar = (id) => {
         base.deletarCliente(id);
-        Actions.refresh({ key: 'ClientesIndex' });
     }
 
     ListViewItemSeparator = () => {
@@ -59,9 +55,13 @@ export default class ClientesIndex extends Component {
             <View style={{ height: 0.2, width: '100%', backgroundColor: '#808080' }} />
         );
     };
+
+ 
     render() {
 
         return (
+
+            
 
             <View style={{ flex: 1 }}>
 
@@ -71,7 +71,7 @@ export default class ClientesIndex extends Component {
                     <Text>---------------------------------------------</Text>
                     <Text style={{ justifyContent: 'center', textAlign: 'center', fontSize: 15, marginBottom: 4, color: 'white' }}>Toque em um item da lista para obter mais detalhes de cada cliente</Text>
 
-                    <TouchableOpacity onPress={() => { Actions.refresh('ClientesIndex') }}>
+                    <TouchableOpacity onPress={() => {Actions.refresh({key: Math.random()});}}>
                         <Icon name="sync" size={35} style={{ paddingBottom: 25, color: 'white' }}> </Icon>
                     </TouchableOpacity>
 
