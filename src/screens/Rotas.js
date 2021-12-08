@@ -103,7 +103,7 @@ const App = () => {
                         {/* Tab - Clientes Index */}
                         <Scene key="ClientesIndex" title={'Clientes'} hideNavBar={true} component={ClientesIndex} icon={iconHome} />
                         <Scene key="PetsIndex" title={'Pets'} hideNavBar={true} component={PetsIndex} icon={iconHome} />
-                        <Scene key="Adocoes" title={'Adoções'} hideNavBar={true} component={AdocoesIndex} icon={iconHome} />
+                        <Scene key="AdocoesIndex" title={'Adoções'} hideNavBar={true} component={AdocoesIndex} icon={iconHome} />
                     </Scene>
                     {/* Fim da tabBar em react-flux */}
 

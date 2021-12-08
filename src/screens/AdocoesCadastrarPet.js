@@ -73,7 +73,7 @@ export default class CadastrarAdocaoPet extends Component {
       .then(DB => {
         db = DB;
         db.transaction(tx => {
-          tx.executeSql('SELECT * FROM pet', [], (tx, results) => {
+          tx.executeSql('SELECT * FROM pet WHERE adotado IS NULL', [], (tx, results) => {
             var temp = [];
             for (let i = 0; i < results.rows.length; ++i) {
               temp.push(results.rows.item(i));

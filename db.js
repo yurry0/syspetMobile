@@ -852,7 +852,8 @@ export default class Db {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Adoção inserida com sucesso');
                                 Actions.AdocoesIndex('');
-                                
+                                Actions.refresh({key: AdocoesIndex});
+
                             } else {
                                 Alert.alert('Cadastro', 'Erro no cadastro da adoção');
                             }
@@ -907,9 +908,8 @@ export default class Db {
                         [
                             id
                         ], (tx, results) => {
-                            if (results.rowsAffected > 0) {
+                            if (results.rowsAffected == 1) {
                                 console.log('Entrei no fluxo de sucesso');
-
                                 Alert.alert('Exclusão', 'Adoção excluída com sucesso');
                             } else {
                                 console.log('Entrei no fluxo de erro de deletarAdocao');
