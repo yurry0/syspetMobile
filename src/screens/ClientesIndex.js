@@ -112,9 +112,9 @@ export default class ClientesIndex extends Component {
                                         />
                                     } buttonStyle={{ backgroundColor: 'orange' }} title='Alterar' onPress={() => {
                                         Alert.alert('Alterar:', 'Deseja alterar o registro de ' + item.cli_nome + '?',
-                                            [
-                                                { text: 'Sim', onPress: () => { Actions.ClientesEditar({ id: item.pk_id_cliente, cli_nome: item.cli_nome, cli_cep: item.cli_cep, cli_endereco: item.cli_endereco, cli_bairro: item.cli_bairro, cidade: item.cidade, cli_estado: item.cli_estado, cli_rg: item.cli_rg, cli_email: item.cli_email, estado: 'editar' }) } },
-                                                { text: 'Não' }
+                                            [   { text: 'Não' },
+                                                { text: 'Sim', onPress: () => { Actions.ClientesEditar({ id: item.pk_id_cliente, cli_nome: item.cli_nome, cli_cep: item.cli_cep, cli_endereco: item.cli_endereco, cli_bairro: item.cli_bairro, cidade: item.cidade, cli_estado: item.cli_estado, cli_rg: item.cli_rg, cli_email: item.cli_email, estado: 'editar' }) } }
+                                             
 
                                             ])
 
@@ -129,9 +129,9 @@ export default class ClientesIndex extends Component {
                                         />
                                     } buttonStyle={{ backgroundColor: 'red' }} title='Excluir' onPress={() => {
                                         Alert.alert('Excluir:', 'Deseja excluir o registro de ' + item.cli_nome,
-                                            [
-                                                { text: 'Sim', onPress: () => { this.deletar(item.pk_id_cliente) } },
-                                                { text: 'Não', onPress: () => console.log('Não') }
+                                            [        { text: 'Não', onPress: () => console.log('Não') },
+                                                { text: 'Sim', onPress: () => { this.deletar(item.pk_id_cliente) } }
+                                           
                                             ]);
                                     }} />
                                 </View>

@@ -1,15 +1,9 @@
 import React, { useState, useEffect, Component } from 'react';
 import {
     View,
-    ScrollView,
-    KeyboardAvoidingView,
-    Alert,
-    SafeAreaView,
-    TouchableOpacity,
     Text,
     Image,
-    TextInput,
-    Button
+
 } from 'react-native';
 import styles from '../styles/pets/PetsView.js';
 import { Actions } from 'react-native-router-flux';
@@ -17,12 +11,7 @@ import Db from '../../db';
 
 var db = new Db();
 
-
 db.initDb();
-
-
-
-
 
 const PetsView = (props) => {
     const [id, setId] = useState('');
@@ -36,8 +25,9 @@ const PetsView = (props) => {
     const [especie, setEspecie] = useState('');
     const [pelagem, setPelagem] = useState('');
     const [porte, setPorte] = useState('');
-    const [flag, setFlag] = useState('Sim');
+    const [flag, setFlag] = useState('');
     const [adotado, setAdotado] = useState('');
+    const [teste, setTeste] = useState('');
     const [cod_interno, setCodInterno] = useState('0');
     const [estado, setEstado] = useState('cadastro');
 
@@ -46,6 +36,7 @@ const PetsView = (props) => {
 
 
     useEffect(() => {
+        console.log('Props Adotado:' + props.adotado);
         setId(props.id);
         setNome(props.nome);
         setRaca(props.raca);
@@ -58,15 +49,16 @@ const PetsView = (props) => {
         setPelagem(props.pelagem);
         setPorte(props.porte);
         setCodInterno(props.cod_interno);
+        setTeste(props.adotado);
 
-        if (adotado != null) {
-            setFlag('Não');
+
+        if(props.adotado == 1){
+            setAdotado('Sim');
         }
-
-        else {
-            setFlag('Sim');
+        else{
+            setAdotado('Não');
         }
-
+     
     }, []);
 
     function mostrarAdotado() {
@@ -94,8 +86,8 @@ const PetsView = (props) => {
                 <Text style={styles.text_title}> Pelagem: <Text style={styles.text_profile}>  {pelagem} </Text> </Text>
                 <Text style={styles.text_title}> Porte: <Text style={styles.text_profile}>  {porte} </Text> </Text>
                 <Text style={styles.text_title}> Vacinas: <Text style={styles.text_profile}>  {vacinas} </Text> </Text>
-                
-                <Text style={styles.text_title}> Adotado? <Text style={styles.text_profile}> {flag} </Text> </Text>
+
+                <Text style={styles.text_title}> Adotado? <Text style={styles.text_profile}> {adotado} </Text> </Text>
 
             </View>
         </View>

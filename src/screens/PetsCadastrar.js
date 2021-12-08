@@ -121,7 +121,7 @@ const PetsCadastrar = (props) => {
     const regex_br = /^[A-Za-z áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'-]+$/
 
     //Regex: permite espaço, virgulas e acentos usados no brasil:
-    const regex_vacina = /^[A-Za-z0-9 áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ,'-\,]+$/
+    const regex_vacina = /^[A-Za-z0-9 áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ,'-\-]+$/
 
 
 

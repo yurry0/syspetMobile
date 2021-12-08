@@ -79,10 +79,10 @@ export default class Db {
                     tx.executeSql('INSERT INTO usuario (nome, email, senha) VALUES (?,?,?)',
                         [usuario.nome, usuario.email, usuario.senha], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Cadastro', 'Registro Inserido com sucesso');
+                                Alert.alert('Cadastro', 'Registro inserido com sucesso');
                                 Actions.login()
                             } else {
-                                Alert.alert('Cadastro', 'Erro no Registro');
+                                Alert.alert('Cadastro', 'Erro no cadastro de usuário');
                             }
                         });
                 })
@@ -292,7 +292,7 @@ export default class Db {
                                 Actions.ClientesIndex('ClientesIndex');
                                 Actions.refresh({key: 'ClientesIndex'});                                                                                              
                             } else {
-                                Alert.alert('Cadastro', 'Erro no Registro');
+                                Alert.alert('Cadastro', 'Erro no cadastro do cliente');
                             }   
                         });
                 })
@@ -584,11 +584,11 @@ export default class Db {
                         [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado, pet.cod_interno], (tx, results) => {
 
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Cadastro', 'Registro Inserido com sucesso');
+                                Alert.alert('Cadastro', 'Registro inserido com sucesso');
                                 Actions.PetsIndex();
                                 Actions.refresh({ key: 'ClientesIndex' });
                             } else {
-                                Alert.alert('Cadastro', 'Erro no Registro');
+                                Alert.alert('Cadastro', 'Erro ao cadastrar pet');
                             }
                         });
                 })
@@ -851,9 +851,10 @@ export default class Db {
                         [adocao.id_cliente, adocao.id_pet], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Adoção inserida com sucesso');
-                                Actions.AdocoesIndex();
+                                Actions.AdocoesIndex('');
+                                
                             } else {
-                                Alert.alert('Cadastro', 'Erro no Registro');
+                                Alert.alert('Cadastro', 'Erro no cadastro da adoção');
                             }
                         });
                 })

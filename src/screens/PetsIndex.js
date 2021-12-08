@@ -113,9 +113,9 @@ export default class PetsIndex extends Component {
                                         />
                                     } buttonStyle={{ backgroundColor: 'orange' }} onPress={() => {
                                         Alert.alert('Alterar:', 'Deseja alterar o registro de ' + item.nome + '?',
-                                            [
-                                                { text: 'Sim', onPress: () => { Actions.PetsEditar({ id: item.pk_id_pet, nome: item.nome, raca: item.raca, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, altura: item.altura, peso: item.peso, especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado, cod_interno: item.cod_interno, estado: 'editar' }) } },
-                                                { text: 'Não' }
+                                            [   { text: 'Não' },
+                                                { text: 'Sim', onPress: () => { Actions.PetsEditar({ id: item.pk_id_pet, nome: item.nome, raca: item.raca, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, altura: item.altura, peso: item.peso, especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado, cod_interno: item.cod_interno, estado: 'editar' }) } }
+                                        
 
                                             ])
 
@@ -128,10 +128,10 @@ export default class PetsIndex extends Component {
                                             size={15}
                                             color="white"
                                         />} buttonStyle={{ backgroundColor: 'red' }} title='Excluir' onPress={() => {
-                                            Alert.alert('Excluir:', 'Deseja excluir o registro de ' + item.nome,
-                                                [
-                                                    { text: 'Sim', onPress: () => { this.deletar(item.pk_id_pet) } },
-                                                    { text: 'Não', onPress: () => console.log('Não') }
+                                            Alert.alert('Excluir:', 'Deseja excluir o registro do(a) pet ' + item.nome + '?',
+                                                [   { text: 'Não', onPress: () => console.log('Não') },
+                                                    { text: 'Sim', onPress: () => { this.deletar(item.pk_id_pet) } }
+                                               
                                                 ]);
                                         }} />
                                 </View>

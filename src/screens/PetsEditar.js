@@ -123,39 +123,39 @@ const PetsEditar = (props) => {
         //Regex: permite espaço e acentos usados no brasil:
         const regex_br = /^[A-Za-z áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'-]+$/
 
-        //Regex: permite espaço, virgulas e acentos usados no brasil:
-        const regex_vacina = /^[A-Za-z0-9 áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ,'-\,]+$/
+        //Regex para Vacina: permite espaço, virgulas e acentos usados no brasil:
+        const regex_vacina = /^[A-Za-z0-9 áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ,'-\-]+$/
 
 
 
         //------------------Nome----------------------//
-       
+
         if (nome == null) {
             setErrorNome("O campo 'nome' está em branco!")
             error = true
 
         }
-      
+
 
         else {
 
-             
-        if (!regex_br.test(String(nome).toLowerCase())) {
-            setErrorNome("O campo 'nome' contém caracteres especiais!")
-            error = true
-        }
-           
-                if (!noNumber.test(String(nome).toLowerCase())) {
-                    setErrorNome("O campo 'nome' contém números!")
-                    error = true
-                }
 
-                if (String(nome).startsWith("-")) {
-                    setErrorNome("O campo 'nome' contém -!")
-                    error = true
+            if (!regex_br.test(String(nome).toLowerCase())) {
+                setErrorNome("O campo 'nome' contém caracteres especiais!")
+                error = true
+            }
 
-                }
-            
+            if (!noNumber.test(String(nome).toLowerCase())) {
+                setErrorNome("O campo 'nome' contém números!")
+                error = true
+            }
+
+            if (String(nome).startsWith("-")) {
+                setErrorNome("O campo 'nome' contém -!")
+                error = true
+
+            }
+
         }
 
 

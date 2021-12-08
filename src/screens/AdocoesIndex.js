@@ -52,20 +52,25 @@ export default class AdocoesIndex extends Component {
         );
     };
     render() {
-
         return (
-
             <View style={{ flex: 1 }}>
-
                 <View style={styles.container}>
                     <Text style={styles.textoCab}>Adoções</Text>
                     <Text>---------------------------------------------</Text>
-                    <Text style={{ justifyContent: 'center', textAlign: 'center', fontSize: 15, marginBottom: 4, color: 'white' }}>Toque em um item da lista para obter mais detalhes de cada cliente</Text>
-
-
-                    <TouchableOpacity onPress={() => {Actions.refresh({key: Math.random()});}}>
-                        <Icon name="sync" size={35} style={{ paddingBottom: 25, color: 'white' }}> </Icon>
-                    </TouchableOpacity>
+                    <Text style={{ justifyContent: 'center', textAlign: 'center', fontSize: 15, marginBottom: 4, color: 'white' }}>Toque em um item da lista para obter mais detalhes de cada adoção</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <ActionButton
+                            style={{ marginTop: 20 }}
+                            offsetY={10}
+                            offsetX={0}
+                            position="center"
+                            buttonColor="rgba(0,0,255,1)"
+                            onPress={() => { Actions.AdocoesCadastrar() }}
+                        />
+                        <TouchableOpacity style={{ marginLeft: 250 }} onPress={() => { Actions.refresh({ key: Math.random() }); }}>
+                            <Icon name="sync" size={35} style={{ paddingBottom: 25, color: 'white' }}> </Icon>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <FlatList
                     data={this.state.FlatListItems}//data recebe as informações buscadas na tabela cliente
@@ -124,13 +129,7 @@ export default class AdocoesIndex extends Component {
 
                     )}
                 />
-                <ActionButton
-                    offsetY={25}
-                    offsetX={0}
-                    position="center"
-                    buttonColor="rgba(231,76,60,1)"
-                    onPress={() => { Actions.AdocoesCadastrar() }}
-                />
+
             </View>
 
 
