@@ -76,7 +76,7 @@ export default class ClientesIndex extends Component {
                         offsetY={10}
                         offsetX={0}
                         position="center"
-                        buttonColor="rgba(41,167,45,1)"
+                        buttonColor="rgba(0,0,255,1)"
                         onPress={() => { Actions.ClientesCadastrar() }}
                     />
                     <TouchableOpacity style={{marginLeft: 250}} onPress={() => { Actions.refresh({ key: Math.random() }); }}>

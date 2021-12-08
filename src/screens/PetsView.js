@@ -57,10 +57,9 @@ const PetsView = (props) => {
         setEspecie(props.especie);
         setPelagem(props.pelagem);
         setPorte(props.porte);
-        setAdotado(props.adotado);
         setCodInterno(props.cod_interno);
 
-        if (adotado == null) {
+        if (adotado != null) {
             setFlag('Não');
         }
 

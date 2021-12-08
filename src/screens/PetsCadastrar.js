@@ -79,10 +79,10 @@ const PetsCadastrar = (props) => {
   const [adotado, setAdotado] = useState('0');
   const [estado, setEstado] = useState('cadastro');
 
-
   // ----------------------------------------------------------------------- ----------------- ----------------------------------------------------------//
   //------------------------------------------------------------------------ V A L I D A Ç Ã O ----------------------------------------------------------//
   //------------------------------------------------------------------------ ----------------- ----------------------------------------------------------//
+
 
   const validar = () => {
     let error = false
@@ -97,8 +97,6 @@ const PetsCadastrar = (props) => {
     setErrorEspecie(null);
     setErrorPelagem(null);
     setErrorPorte(null);
-    setErrorCodInterno(null);
-
 
     //Regex: não permite números:
     const noNumber = /^([^0-9]*)$/
@@ -119,61 +117,79 @@ const PetsCadastrar = (props) => {
     //Regex: numerico:
     const soNumero = /^[0-9]+$/
 
+    //Regex: permite espaço e acentos usados no brasil:
+    const regex_br = /^[A-Za-z áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'-]+$/
+
+    //Regex: permite espaço, virgulas e acentos usados no brasil:
+    const regex_vacina = /^[A-Za-z0-9 áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ,'-\,]+$/
+
 
 
     //------------------Nome----------------------//
+
     if (nome == null) {
       setErrorNome("O campo 'nome' está em branco!")
       error = true
+
+    }
+
+
+    else {
+
+
+      if (!regex_br.test(String(nome).toLowerCase())) {
+        setErrorNome("O campo 'nome' contém caracteres especiais!")
+        error = true
+      }
+
+      if (!noNumber.test(String(nome).toLowerCase())) {
+        setErrorNome("O campo 'nome' contém números!")
+        error = true
+      }
+
+      if (String(nome).startsWith("-")) {
+        setErrorNome("O campo 'nome' contém -!")
+        error = true
+
+      }
+
     }
 
 
-    if (!regex.test(String(nome).toLowerCase())) {
-      setErrorNome("O campo 'nome' contém caracteres especiais!")
-      error = true
-    }
 
-    if (!noNumber.test(String(nome).toLowerCase())) {
-      setErrorNome("O campo 'nome' contém números!")
-      error = true
-    }
-
-    if (String(nome).startsWith("-")) {
-      setErrorNome("O campo 'nome' contém caracteres especiais!")
-      error = true
-
-    }
 
 
     //---------------------------------------------//
 
     //------------------Raça----------------------//
-
-    if (raca == null) {
-      setErrorRaca("O campo 'raça' está em branco!")
+    if (!regex_br.test(String(raca).toLowerCase())) {
+      setErrorRaca("O campo 'raça' contém caracteres especiais!")
       error = true
     }
-
     else {
-
-      if (!hifen.test(String(raca).toLowerCase())) {
-        setErrorRaca("O campo 'raça' contém caracteres especiais!")
+      if (raca == null) {
+        setErrorRaca("O campo 'raça' está em branco!")
         error = true
       }
 
+      else {
 
-      if (!noNumber.test(String(raca).toLowerCase())) {
-        setErrorRaca("O campo 'raça' contém números!")
-        error = true
+
+
+
+        if (!noNumber.test(String(raca).toLowerCase())) {
+          setErrorRaca("O campo 'raça' contém números!")
+          error = true
+        }
+
+
+        if (String(raca).startsWith("-")) {
+          setErrorRaca("O campo 'raça' contém caracteres especiais!")
+          error = true
+
+        }
+
       }
-
-
-      if (String(raca).startsWith("-")) {
-        setErrorNome("O campo 'nome' contém caracteres especiais!")
-        error = true
-
-      }
-
     }
     //---------------------=----------------------//
 
@@ -210,7 +226,7 @@ const PetsCadastrar = (props) => {
     }
 
     else {
-      if (!alfaspace.test(String(vacinas).toLowerCase())) {
+      if (!regex_vacina.test(String(vacinas).toLowerCase())) {
         setErrorVacinas("O campo 'Vacinas' contém caracteres especiais!")
         error = true
 
@@ -324,6 +340,7 @@ const PetsCadastrar = (props) => {
 
 
 
+
   useEffect(() => {
     setId(props.id);
     setNome(props.nome);
@@ -354,7 +371,7 @@ const PetsCadastrar = (props) => {
     }
     else {
       if (estado == 'cadastro') {
-        insereDado(nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte,adotado , cod_interno);
+        insereDado(nome, raca, sexo, idade, vacinas, altura, peso, especie, pelagem, porte, adotado, cod_interno);
       }
     }
     setEstado('cadastro');

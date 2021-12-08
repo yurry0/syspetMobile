@@ -65,14 +65,22 @@ export default class PetsIndex extends Component {
             <View style={{ flex: 1 }}>
 
                 <View style={styles.container}>
-
                     <Text style={styles.textoCab}>Pets</Text>
                     <Text>---------------------------------------------</Text>
                     <Text style={{ justifyContent: 'center', textAlign: 'center', fontSize: 15, marginBottom: 4, color: 'white' }}>Toque em um item da lista para obter mais detalhes de cada pet</Text>
-
-                    <TouchableOpacity onPress={() => {Actions.refresh({key: Math.random()});}}>
-                        <Icon name="sync" size={35} style={{ paddingBottom: 25, color: 'white' }}> </Icon>
-                    </TouchableOpacity>
+                    <View style={{ flexDirection: 'row' }}>
+                        <ActionButton
+                            style={{ marginTop: 20 }}
+                            offsetY={10}
+                            offsetX={0}
+                            position="center"
+                            buttonColor="rgba(0,0,255,1)"
+                            onPress={() => { Actions.PetsCadastrar() }}
+                        />
+                        <TouchableOpacity style={{ marginLeft: 250 }} onPress={() => { Actions.refresh({ key: Math.random() }); }}>
+                            <Icon name="sync" size={35} style={{ paddingBottom: 25, color: 'white' }}> </Icon>
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
                 <FlatList
@@ -103,7 +111,7 @@ export default class PetsIndex extends Component {
                                             size={15}
                                             color="white"
                                         />
-                                    } buttonStyle={{ backgroundColor: 'orange' }}   onPress={() => {
+                                    } buttonStyle={{ backgroundColor: 'orange' }} onPress={() => {
                                         Alert.alert('Alterar:', 'Deseja alterar o registro de ' + item.nome + '?',
                                             [
                                                 { text: 'Sim', onPress: () => { Actions.PetsEditar({ id: item.pk_id_pet, nome: item.nome, raca: item.raca, sexo: item.sexo, idade: item.idade, vacinas: item.vacinas, altura: item.altura, peso: item.peso, especie: item.especie, pelagem: item.pelagem, porte: item.porte, adotado: item.adotado, cod_interno: item.cod_interno, estado: 'editar' }) } },
@@ -115,39 +123,24 @@ export default class PetsIndex extends Component {
                                 </View>
                                 <View>
                                     <Button style={styles.botao} icon={
-                                            <Icon
-                                                name="trash-outline"
-                                                size={15}
-                                                color="white"
-                                            /> } buttonStyle={{ backgroundColor: 'red' }}  title='Excluir' onPress={() => {
-                                        Alert.alert('Excluir:', 'Deseja excluir o registro de ' + item.nome,
-                                            [
-                                                { text: 'Sim', onPress: () => { this.deletar(item.pk_id_pet) } },
-                                                { text: 'Não', onPress: () => console.log('Não') }
-                                            ]);
-                                    }} />
+                                        <Icon
+                                            name="trash-outline"
+                                            size={15}
+                                            color="white"
+                                        />} buttonStyle={{ backgroundColor: 'red' }} title='Excluir' onPress={() => {
+                                            Alert.alert('Excluir:', 'Deseja excluir o registro de ' + item.nome,
+                                                [
+                                                    { text: 'Sim', onPress: () => { this.deletar(item.pk_id_pet) } },
+                                                    { text: 'Não', onPress: () => console.log('Não') }
+                                                ]);
+                                        }} />
                                 </View>
-
-
-
                             </View>
                         </View>
 
                     )}
                 />
-
-                <ActionButton
-                    offsetY={25}
-                    offsetX={0}
-                    position="center"
-                    buttonColor="rgba(231,76,60,1)"
-                    onPress={() => { Actions.PetsCadastrar() }}
-                />
-
-
             </View>
-
-
         );
     }
 }

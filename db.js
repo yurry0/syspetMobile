@@ -79,7 +79,7 @@ export default class Db {
                     tx.executeSql('INSERT INTO usuario (nome, email, senha) VALUES (?,?,?)',
                         [usuario.nome, usuario.email, usuario.senha], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
+                                Alert.alert('Cadastro', 'Registro Inserido com sucesso');
                                 Actions.login()
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
@@ -136,7 +136,7 @@ export default class Db {
                             usuario.usuario_id
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Alteração', 'Dados alterado com Sucesso');
+                                Alert.alert('Alteração', 'Dados alterados com sucesso');
                             } else {
                                 Alert.alert('Alteração', 'Erro na alteração');
                             }
@@ -188,7 +188,7 @@ export default class Db {
                             id
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Exclusão', 'Usuario excluído com Sucesso');
+                                Alert.alert('Exclusão', 'Usuario excluído com sucesso');
                             } else {
                                 Alert.alert('Exclusão', 'Erro na exclusão');
                             }
@@ -289,10 +289,8 @@ export default class Db {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Cadastro', 'Registro inserido com sucesso');
                                 //Actions.refresh({key: 'ClientesIndex'});  
-                                Actions.popTo('HomeTabBar', 'ClientesIndex');
-
-
-                                                                                                  
+                                Actions.ClientesIndex('ClientesIndex');
+                                Actions.refresh({key: 'ClientesIndex'});                                                                                              
                             } else {
                                 Alert.alert('Cadastro', 'Erro no Registro');
                             }   
@@ -387,7 +385,7 @@ export default class Db {
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
 
-                                Alert.alert('Alteração', 'Dados alterados com Sucesso');
+                                Alert.alert('Alteração', 'Dados alterados com sucesso');
                             //    Actions.refresh({ key: 'ClientesIndex' });
                             Actions.ClientesIndex();
                             Actions.refresh({ key: 'ClientesIndex' });
@@ -518,7 +516,7 @@ export default class Db {
                             id
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Exclusão', 'Usuario excluído com Sucesso');
+                                Alert.alert('Exclusão', 'Usuario excluído com sucesso');
                                 Actions.refresh({key: "ClientesIndex"});
                                 Actions.ClientesIndex();
                             } else {
@@ -586,7 +584,7 @@ export default class Db {
                         [pet.nome, pet.raca, pet.sexo, pet.idade, pet.vacinas, pet.altura, pet.peso, pet.especie, pet.pelagem, pet.porte, pet.adotado, pet.cod_interno], (tx, results) => {
 
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
+                                Alert.alert('Cadastro', 'Registro Inserido com sucesso');
                                 Actions.PetsIndex();
                                 Actions.refresh({ key: 'ClientesIndex' });
                             } else {
@@ -613,7 +611,7 @@ export default class Db {
                         if (results.rows.length > 0) {
                             console.log('PET JÁ EXISTE!');
                             console.log('PORQUE');
-                            Alert.alert('ERRO', 'Já existe um pet com este cadastro');
+                            Alert.alert('ERRO', 'Já existe um pet com este código interno');
                             Actions.refresh('PetsCadastrar');
                         }
 
@@ -655,7 +653,7 @@ export default class Db {
 
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Alteração', 'Dados alterado com Sucesso');
+                                Alert.alert('Alteração', 'Dados alterados com sucesso');
                                 Actions.PetsIndex();
                                 Actions.refresh({ key: 'ClientesIndex' });
                             } else {
@@ -739,7 +737,7 @@ export default class Db {
                             id
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Exclusão', 'Pet excluído com Sucesso');
+                                Alert.alert('Exclusão', 'Pet excluído com sucesso');
                             } else {
                                 Alert.alert('Exclusão', 'Erro na exclusão');
                             }

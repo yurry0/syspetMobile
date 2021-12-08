@@ -102,31 +102,26 @@ const ClientesEditar = (props) => {
     const hifen = /^[0-9A-Za-z_@'-]+$/
     //Regex: alfanumerico + Espaço:
     const alpha = /^[\w\-\s]+$/
+    //Regex: permite espaço e acentos usados no brasil:
+    const regex_br = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/
 
     //------------------cli_nome----------------------//
     if (cli_nome == null) {
       setErrorCliNome("O campo 'nome' está em branco!")
       error = true
     }
-
-
-    if (!regex.test(String(cli_nome).toLowerCase())) {
+    if (!regex_br.test(String(cli_nome).toLowerCase())) {
       setErrorCliNome("O campo 'nome' contém caracteres especiais!")
       error = true
     }
-
     if (!noNumber.test(String(cli_nome).toLowerCase())) {
       setErrorCliNome("O campo 'nome' contém números!")
       error = true
     }
-
-    if (String(cli_nome).startsWith("-")) {
+    if (String(cli_nome).startsWith("-" || "?" || "!" || "@" || "#" || "%")) {
       setErrorCliNome("O campo 'nome' contém caracteres especiais!")
       error = true
-
     }
-
-
     //---------------------------------------------//
 
     //------------------Cidade----------------------//
@@ -138,28 +133,22 @@ const ClientesEditar = (props) => {
 
     else {
 
-      if (!alpha.test(String(cidade).toLowerCase())) {
-        setErrorCidade("O campo 'raça' contém caracteres não permitidos!")
+      if (!regex_br.test(String(cidade).toLowerCase())) {
+        setErrorCidade("O campo 'cidade' contém caracteres não permitidos!")
         error = true
       }
 
+      else {
 
+
+      }
       if (!noNumber.test(String(cidade).toLowerCase())) {
-        setErrorCidade("O campo 'raça' contém números!")
+        setErrorCidade("O campo 'cidade' contém números!")
         error = true
       }
-
-
       if (String(cidade).startsWith("-")) {
-        setErrorCidade("O campo 'nome' contém somente caracteres especiais!")
+        setErrorCidade("O campo 'cidade' contém somente caracteres especiais!")
         error = true
-
-      }
-
-      if (String(cidade).startsWith(" ")) {
-        setErrorCidade("O campo 'nome' contém somente caracteres especiais!")
-        error = true
-
       }
 
     }
@@ -172,7 +161,7 @@ const ClientesEditar = (props) => {
       error = true
     }
 
-    if (cli_rg.length < 9) {
+    if (String(cli_rg).length < 9) {
       setErrorCliRg("O campo 'RG' não está preenchida completamente.");
       error = true;
     }
@@ -181,16 +170,10 @@ const ClientesEditar = (props) => {
       setErrorCliRg("O campo 'RG' contém caracteres especiais!")
       error = true
     }
-
-
-
     if (String(cli_rg).startsWith("-")) {
       setErrorCliRg("O campo 'RG' contém caracteres especiais!")
       error = true
-
     }
-
-
     //---------------------------------------------//
     //------------------Estado----------------------//
     if (cli_estado == null) {
@@ -199,7 +182,7 @@ const ClientesEditar = (props) => {
     }
 
 
-    if (!alpha.test(String(cli_estado).toLowerCase())) {
+    if (!regex_br.test(String(cli_estado).toLowerCase())) {
       setErrorCliEstado("O campo 'estado' contém caracteres especiais!")
       error = true
     }
@@ -227,17 +210,19 @@ const ClientesEditar = (props) => {
       error = true
     }
 
-    if (cli_cep.length < 8) {
-      setErrorCliCep("O campo 'CEP' não está preenchido completamente!")
-      error = true
+    else {
+
+      if (String(cli_cep).length < 8) {
+        setErrorCliCep("O campo 'CEP' não está preenchido completamente!")
+        error = true
+      }
+
+      if (!onlyNumber.test(String(cli_cep).toLowerCase())) {
+        setErrorCliCep("O campo 'CEP' contém caracteres não permitidos!")
+        error = true
+      }
+
     }
-
-    if (!onlyNumber.test(String(cli_cep).toLowerCase())) {
-      setErrorCliCep("O campo 'CEP' contém caracteres não permitidos!")
-      error = true
-    }
-
-
 
 
     //--------------------------------------------//
@@ -245,11 +230,11 @@ const ClientesEditar = (props) => {
     //---------------------Endereço-----------------------//
 
     if (cli_endereco == null) {
-      setErrorCliCep("O campo 'endereço' está em branco!")
+      setErrorCliEndereco("O campo 'endereço' está em branco!")
       error = true
     }
     else {
-      if (!alpha.test(String(cli_endereco).toLowerCase())) {
+      if (!regex_br.test(String(cli_endereco).toLowerCase())) {
         setErrorCliEndereco("O campo 'endereço' contém caracteres não permitidos!")
         error = true
       }
@@ -281,7 +266,7 @@ const ClientesEditar = (props) => {
 
 
     else {
-      if (!alpha.test(String(cli_bairro).toLowerCase())) {
+      if (!regex_br.test(String(cli_bairro).toLowerCase())) {
         setErrorCliBairro("O campo 'bairro' contém caracteres especiais!")
         error = true
       }
@@ -322,8 +307,6 @@ const ClientesEditar = (props) => {
   // ----------------------------------------------------------------------- ----------------- ----------------------------------------------------------//
   //------------------------------------------------------------------------ V A L I D A Ç Ã O ----------------------------------------------------------//
   //------------------------------------------------------------------------ ----------------- ----------------------------------------------------------//
-
-
   useEffect(() => {
     setId(props.id);
     setCliNome(props.cli_nome);
@@ -349,7 +332,7 @@ const ClientesEditar = (props) => {
     //Checa a flag de estado para iniciar edição
     else {
       if (estado == 'editar') {
-        editaDado(cli_nome, cidade, cli_estado, cli_cep, cli_endereco, cli_bairro,  cli_rg, cli_email,  id);
+        editaDado(cli_nome, cidade, cli_estado, cli_cep, cli_endereco, cli_bairro, cli_rg, cli_email, id);
       }
       setEstado('editar');
 
